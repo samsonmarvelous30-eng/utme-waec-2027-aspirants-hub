@@ -1,0 +1,4640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UTME & WAEC 2027 Aspirants Hub</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f6fb;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#123b70,#1d5da8);
+  color:white;
+  padding:30px 15px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+header h1{
+  margin:0;
+  font-size:27px;
+  line-height:1.25;
+  letter-spacing:.2px;
+}
+
+header p{
+  margin:10px 0 0;
+  font-size:15px;
+  opacity:.92;
+}
+
+.container{
+  width:94%;
+  max-width:850px;
+  margin:20px auto;
+}
+
+
+.card{
+  background:white;
+  padding:22px;
+  border-radius:16px;
+  margin-bottom:18px;
+  box-shadow:0 4px 16px rgba(0,0,0,.08);
+  border:1px solid #e5eaf1;
+}
+
+h2{
+  margin-top:0;
+}
+
+/* SUBJECTS */
+.subject-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+  .home-card{
+  padding:20px;
+}
+
+.welcome-box{
+  background:linear-gradient(135deg,#123b70,#1d5da8);
+  color:white;
+  border-radius:16px;
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.welcome-text{
+  flex:1;
+}
+
+.welcome-label{
+  display:inline-block;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1.5px;
+  opacity:.85;
+  margin-bottom:8px;
+}
+
+.welcome-text h2{
+  margin:0 0 8px;
+  font-size:23px;
+  line-height:1.3;
+}
+
+.welcome-text p{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  opacity:.92;
+}
+
+.question-badge{
+  min-width:92px;
+  min-height:92px;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.question-badge strong{
+  font-size:25px;
+  line-height:1;
+}
+
+.question-badge span{
+  font-size:11px;
+  margin-top:5px;
+  opacity:.9;
+}
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:24px;
+}
+
+.stat-box{
+  background:#f5f8fc;
+  border:1px solid #e1e7ef;
+  border-radius:12px;
+  padding:14px 8px;
+  text-align:center;
+}
+
+.stat-box strong{
+  display:block;
+  color:#123b70;
+  font-size:21px;
+  margin-bottom:4px;
+}
+
+.stat-box span{
+  display:block;
+  color:#667085;
+  font-size:11px;
+}
+.practice-heading{
+  margin-top:4px;
+  margin-bottom:12px;
+}
+
+.practice-heading h2{
+  margin:0 0 5px;
+  font-size:21px;
+}
+
+.practice-heading p{
+  margin:0;
+  color:#667085;
+  font-size:14px;
+}
+
+.practice-modes{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:24px;
+}
+
+.practice-mode{
+  border:1px solid #d7e0ec;
+  border-radius:12px;
+  padding:15px 10px;
+  background:white;
+  color:#123b70;
+  cursor:pointer;
+  text-align:left;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.practice-mode strong{
+  display:block;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.practice-mode span{
+  display:block;
+  font-size:11px;
+  color:#667085;
+}
+
+.practice-mode:hover{
+  background:#f4f8fd;
+  transform:translateY(-2px);
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.practice-mode.active{
+  background:#eaf2ff;
+  border-color:#123b70;
+  box-shadow:0 3px 9px rgba(18,59,112,.12);
+}
+
+.practice-mode.active span{
+  color:#123b70;
+}
+
+@media(max-width:500px){
+
+  .practice-modes{
+    grid-template-columns:1fr;
+  }
+
+  .practice-mode{
+    padding:14px;
+  }
+
+  }
+.subject-heading{
+  margin-bottom:12px;
+}
+
+.subject-heading h2{
+  margin:0 0 5px;
+  font-size:21px;
+}
+
+.subject-heading p{
+  margin:0;
+  color:#667085;
+  font-size:14px;
+}
+
+.subject-btn{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:5px;
+}
+
+.subject-btn span{
+  font-size:11px;
+  font-weight:normal;
+  color:#667085;
+}
+
+.subject-btn:hover span{
+  color:#123b70;
+}
+
+@media(max-width:500px){
+
+  .welcome-box{
+    padding:18px;
+    align-items:flex-start;
+  }
+
+  .welcome-text h2{
+    font-size:19px;
+  }
+
+  .welcome-text p{
+    font-size:13px;
+  }
+
+  .question-badge{
+    min-width:72px;
+    min-height:72px;
+  }
+
+  .question-badge strong{
+    font-size:20px;
+  }
+
+  .question-badge span{
+    font-size:9px;
+  }
+
+  .stats-row{
+    gap:7px;
+  }
+
+  .stat-box{
+    padding:12px 5px;
+  }
+
+  .stat-box strong{
+    font-size:18px;
+  }
+
+  .stat-box span{
+    font-size:10px;
+  }
+}
+.subject-btn{
+  border:1px solid #d7e0ec;
+  border-radius:12px;
+  padding:16px 10px;
+  background:white;
+  color:#123b70;
+  font-weight:bold;
+  cursor:pointer;
+  min-height:72px;
+  font-size:14px;
+  box-shadow:0 2px 7px rgba(0,0,0,.06);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.subject-btn:hover{
+  background:#f4f8fd;
+  transform:translateY(-2px);
+  box-shadow:0 5px 12px rgba(0,0,0,.10);
+}
+
+.subject-btn:active{
+  transform:scale(.98);
+}
+
+
+
+/* QUIZ */
+
+#quiz{
+  display:none;
+  color:#172033;
+}
+
+    
+.quiz-top{
+  margin-bottom:18px;
+}
+
+#subjectTitle{
+  margin-bottom:12px;
+}
+
+.question-number{
+  font-size:14px;
+  color:#666;
+  margin-bottom:8px;
+}
+
+/* PROGRESS */
+
+.progress-container{
+  width:100%;
+  height:10px;
+  background:#e1e6ed;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:6px;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:#123b70;
+  border-radius:20px;
+  transition:width .3s ease;
+}
+
+.progress-text{
+  text-align:right;
+  font-size:13px;
+  color:#666;
+  margin-bottom:18px;
+}
+
+.question{
+  font-size:19px;
+  font-weight:bold;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
+.option{
+  display:block;
+  width:100%;
+  padding:13px;
+  margin:9px 0;
+  border:1px solid #ccd4df;
+  border-radius:9px;
+  background:white;
+  text-align:left;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.option:hover{
+  background:#f0f5fc;
+}
+
+.option.selected{
+  background:#dceaff;
+  border-color:#123b70;
+  font-weight:bold;
+}
+
+/* CONTROLS */
+
+.controls{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+.quiz-home-btn{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:1px solid #ccd4df;
+  border-radius:9px;
+  background:#f5f7fa;
+  color:#123b70;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.quiz-home-btn:hover{
+  background:#e8eef8;
+  }
+.controls button{
+  flex:1;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+#backBtn{
+  background:#ddd;
+  color:#172033;
+}
+
+#nextBtn{
+  background:#123b70;
+  color:white;
+}
+
+/* RESULT */
+
+#result{
+  display:none;
+  text-align:center;
+}
+.result-card{
+  padding:24px;
+}
+
+.result-card h2{
+  color:#123b70;
+  margin-bottom:8px;
+}
+
+.result-card .score{
+  margin:18px 0;
+}
+
+.result-card #resultMessage{
+  color:#667085;
+  font-size:15px;
+  margin-bottom:20px;
+  }
+.score{
+  font-size:42px;
+  font-weight:bold;
+  color:#123b70;
+  margin:15px 0;
+}
+
+#resultMessage{
+  font-size:17px;
+  margin-bottom:20px;
+}
+
+#reviewBox{
+  margin-top:25px;
+}
+
+#wrongBtn,
+#retryBtn,
+#restartBtn{
+  margin:6px 4px;
+  }
+  .review-correct{
+  border-left:5px solid #198754;
+  background:#eefaf2 !important;
+}
+
+.review-wrong{
+  border-left:5px solid #dc3545;
+  background:#fff1f1 !important;
+}
+
+.review-correct p,
+.review-wrong p{
+  line-height:1.5;
+}
+
+.review-correct p:last-child{
+  color:#198754;
+  font-weight:bold;
+}
+
+.review-wrong p:last-child{
+  color:#dc3545;
+  font-weight:bold;
+  }
+
+.restart{
+  border:0;
+  background:#123b70;
+  color:white;
+  padding:13px 25px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+  .subject-grid{
+    grid-template-columns:1fr;
+  }
+
+  header h1{
+    font-size:21px;
+  }
+
+  .question{
+    font-size:17px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+}
+    .question-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:18px;
+}
+
+.question-nav button{
+  width:38px;
+  height:38px;
+  border:1px solid #ccd4df;
+  border-radius:7px;
+  background:white;
+  color:#172033;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.question-nav button:hover{
+  background:#e8eef8;
+}
+
+.question-nav button.current{
+  background:#123b70;
+  color:white;
+  border-color:#123b70;
+}
+.question-nav button.answered{
+  background:#dff5e5;
+  border-color:#198754;
+  color:#146c43;
+  font-weight:bold;
+}
+
+.question-nav button.current{
+  background:#123b70;
+  color:white;
+  border-color:#123b70;
+}
+
+.question-nav button.current.answered{
+  background:#123b70;
+  color:white;
+  border-color:#123b70;
+  }
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h1>UTME & WAEC 2027 Aspirants Hub</h1>
+  <p>UTME & WAEC Practice</p>
+</header>
+
+<div class="container">
+
+  <!-- HOME -->
+<div id="home" class="card home-card">
+
+  <div class="welcome-box">
+    <div class="welcome-text">
+      <span class="welcome-label">WELCOME</span>
+
+      <h2>UTME & WAEC 2027 Aspirants Hub</h2>
+
+      <p>
+        Practise, test yourself, review your mistakes and prepare
+        confidently for your examinations.
+      </p>
+    </div>
+
+    <div class="question-badge">
+      <strong>780</strong>
+      <span>Questions</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+
+    <div class="stat-box">
+      <strong>13</strong>
+      <span>Subjects</span>
+    </div>
+
+    <div class="stat-box">
+      <strong>60</strong>
+      <span>Questions / Subject</span>
+    </div>
+
+    <div class="stat-box">
+      <strong>30</strong>
+      <span>Minutes</span>
+    </div>
+
+  </div>
+
+  <div class="practice-heading">
+  <h2>Choose Practice Mode</h2>
+  <p>Select how you want to practise.</p>
+</div>
+
+<div class="practice-modes">
+
+  <button class="practice-mode active" data-mode="full">
+    <strong>Full Practice</strong>
+    <span>60 Questions</span>
+  </button>
+
+  <button class="practice-mode" data-mode="quick">
+    <strong>Quick Practice</strong>
+    <span>20 Questions</span>
+  </button>
+
+  <button class="practice-mode" data-mode="random">
+    <strong>Random Practice</strong>
+    <span>20 Random Questions</span>
+  </button>
+
+</div>
+
+<div class="subject-heading">
+  <h2>Choose a Subject</h2>
+  <p>Select a subject to begin your practice.</p>
+</div>
+
+  <div class="subject-grid">
+
+    <button class="subject-btn" data-subject="Mathematics">
+      Mathematics
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="English Language">
+      English Language
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Biology">
+      Biology
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Chemistry">
+      Chemistry
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Physics">
+      Physics
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Government">
+      Government
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Economics">
+      Economics
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Agricultural Science">
+      Agricultural Science
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Literature in English">
+      Literature in English
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Geography">
+      Geography
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Civic Education">
+      Civic Education
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="Computer Studies">
+      Computer Studies
+      <span>60 Questions</span>
+    </button>
+
+    <button class="subject-btn" data-subject="CRS">
+      CRS
+      <span>60 Questions</span>
+    </button>
+
+  </div>
+
+</div>
+
+
+  <!-- QUIZ -->
+
+  <div id="quiz" class="card">
+
+    <div class="quiz-top">
+
+      <h2 id="subjectTitle">Mathematics</h2>
+
+      <div id="questionNumber" class="question-number">
+        Question 1 of 60
+      </div>
+      <div id="timer" style="font-size:18px;font-weight:bold;color:#123b70;margin-bottom:12px;">
+Time: 30:00
+      </div>
+
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="progressText" class="progress-text">
+        0%
+      </div>
+
+    </div>
+
+    <div id="questionText" class="question"></div>
+    <div id="answeredCount" class="progress-text">
+  Answered: 0 / 60
+    </div>
+<div id="questionNav" class="question-nav"></div>
+    <div id="options"></div>
+
+<div class="controls">
+  <button id="backBtn">Back</button>
+  <button id="nextBtn">Next</button>
+</div>
+
+<button id="quizHomeBtn" class="quiz-home-btn">
+  Back to Subjects
+</button>
+
+  </div>
+
+
+  <!-- RESULT -->
+
+  <div id="result" class="card result-card">
+
+    <h2>Practice Complete</h2>
+    <p style="color:#666;margin-top:0;">
+  Review your performance and practise again.
+    </p>
+
+    <div class="score" id="scoreText"></div>
+
+    <p id="resultMessage"></p>
+  <div id="reviewBox"></div>  
+    <button class="restart" id="wrongBtn">Show Wrong Answers</button>
+<button class="restart" id="retryBtn">Restart Practice</button>
+<button class="restart" id="restartBtn">Back to Subjects</button>
+
+  </div>
+
+</div>
+
+
+<script>
+// @ts-nocheck
+
+var mathematics = [
+
+{
+q:"Simplify: 3² × 3³.",
+o:["3⁵","3⁶","6⁵","9⁵"],
+a:0
+},
+
+{
+q:"Simplify: (2³)².",
+o:["2⁵","2⁶","4⁶","2⁹"],
+a:1
+},
+
+{
+q:"Evaluate: √49 + √81.",
+o:["14","16","18","20"],
+a:2
+},
+
+{
+q:"Simplify: √50.",
+o:["5√2","2√5","10√2","25√2"],
+a:0
+},
+
+{
+q:"Factorise: x² - 9.",
+o:["(x-9)(x+1)","(x-3)(x+3)","(x-1)(x+9)","(x+3)²"],
+a:1
+},
+
+{
+q:"Factorise: x² + 5x + 6.",
+o:["(x+1)(x+6)","(x+2)(x+3)","(x-2)(x-3)","(x+5)(x+1)"],
+a:1
+},
+
+{
+q:"Solve: x + 7 = 15.",
+o:["6","7","8","9"],
+a:2
+},
+
+{
+q:"Solve: 3x - 5 = 16.",
+o:["5","6","7","8"],
+a:2
+},
+
+{
+q:"Solve: x² - 5x + 6 = 0.",
+o:["1 and 6","2 and 3","-2 and -3","3 and 5"],
+a:1
+},
+
+{
+q:"If 2x + 4 = 18, find x.",
+o:["5","6","7","8"],
+a:2
+},
+
+{
+q:"Evaluate log₁₀ 1000.",
+o:["2","3","4","10"],
+a:1
+},
+
+{
+q:"If 2ˣ = 32, find x.",
+o:["4","5","6","8"],
+a:1
+},
+
+{
+q:"Simplify: 5⁰.",
+o:["0","1","5","10"],
+a:1
+},
+
+{
+q:"Evaluate: 4⁻¹.",
+o:["4","-4","1/4","-1/4"],
+a:2
+},
+
+{
+q:"A number increased by 20% is 72. Find the original number.",
+o:["50","55","60","65"],
+a:2
+},
+
+{
+q:"Find 15% of 240.",
+o:["24","30","36","40"],
+a:2
+},
+
+{
+q:"A shirt costs ₦8,000. If it is discounted by 10%, what is the new price?",
+o:["₦7,000","₦7,200","₦7,500","₦7,800"],
+a:1
+},
+
+{
+q:"Find the simple interest on ₦20,000 at 5% per annum for 2 years.",
+o:["₦1,000","₦1,500","₦2,000","₦2,500"],
+a:2
+},
+
+{
+q:"Find the perimeter of a rectangle of length 12 cm and width 5 cm.",
+o:["17 cm","24 cm","34 cm","60 cm"],
+a:2
+},
+
+{
+q:"Find the area of a rectangle measuring 15 cm by 8 cm.",
+o:["23 cm²","46 cm²","100 cm²","120 cm²"],
+a:3
+},
+
+{
+q:"Find the area of a triangle with base 12 cm and height 7 cm.",
+o:["42 cm²","48 cm²","84 cm²","96 cm²"],
+a:0
+},
+
+{
+q:"The angles of a triangle are 50°, 60° and x°. Find x.",
+o:["60°","70°","80°","90°"],
+a:1
+},
+
+{
+q:"A straight angle is equal to:",
+o:["90°","180°","270°","360°"],
+a:1
+},
+
+{
+q:"Find the circumference of a circle of radius 7 cm. Use π = 22/7.",
+o:["22 cm","44 cm","49 cm","154 cm"],
+a:1
+},
+
+{
+q:"Find the area of a circle of radius 7 cm. Use π = 22/7.",
+o:["44 cm²","77 cm²","154 cm²","308 cm²"],
+a:2
+},
+
+{
+q:"Find the mean of 4, 6, 8, 10 and 12.",
+o:["6","7","8","9"],
+a:2
+},
+
+{
+q:"Find the median of 3, 7, 9, 12 and 15.",
+o:["7","9","12","15"],
+a:1
+},
+
+{
+q:"Find the mode of 2, 3, 3, 4, 5, 3, 6.",
+o:["2","3","4","6"],
+a:1
+},
+
+{
+q:"A fair die is thrown once. What is the probability of getting a 6?",
+o:["1/2","1/3","1/6","1/12"],
+a:2
+},
+
+{
+q:"A bag contains 3 red balls and 2 blue balls. What is the probability of picking a blue ball?",
+o:["2/3","2/5","3/5","1/5"],
+a:1
+},
+
+{
+q:"Find the next term: 2, 5, 8, 11, ...",
+o:["12","13","14","15"],
+a:2
+},
+
+{
+q:"Find the 10th term of the sequence 3, 6, 9, 12, ...",
+o:["27","30","33","36"],
+a:1
+},
+
+{
+q:"Find the common difference of 7, 12, 17, 22.",
+o:["3","4","5","6"],
+a:2
+},
+
+{
+q:"If y = 2x + 3, find y when x = 5.",
+o:["10","11","12","13"],
+a:3
+},
+
+{
+q:"Solve simultaneously: x + y = 10 and x - y = 2.",
+o:["x=4,y=6","x=5,y=5","x=6,y=4","x=8,y=2"],
+a:2
+},
+
+{
+q:"Simplify: 2x + 3x - x.",
+o:["3x","4x","5x","6x"],
+a:1
+},
+
+{
+q:"Expand: 3(x + 4).",
+o:["3x+4","3x+7","3x+12","x+12"],
+a:2
+},
+
+{
+q:"Expand: (x + 2)(x + 3).",
+o:["x²+5x+6","x²+6x+5","x²+2x+3","x²+5"],
+a:0
+},
+
+{
+q:"If x/4 = 6, find x.",
+o:["10","20","24","30"],
+a:2
+},
+
+{
+q:"Convert 0.75 to a fraction.",
+o:["1/2","2/3","3/4","4/5"],
+a:2
+},
+
+{
+q:"Convert 3/5 to a decimal.",
+o:["0.3","0.5","0.6","0.75"],
+a:2
+},
+
+{
+q:"Convert 0.125 to a percentage.",
+o:["1.25%","12.5%","25%","125%"],
+a:1
+},
+
+{
+q:"Simplify the ratio 12:18.",
+o:["2:3","3:4","4:5","6:9"],
+a:0
+},
+
+{
+q:"Divide ₦600 in the ratio 2:3. What is the larger share?",
+o:["₦200","₦240","₦300","₦360"],
+a:3
+},
+
+{
+q:"If 5 pens cost ₦500, how much will 8 pens cost at the same rate?",
+o:["₦700","₦800","₦900","₦1,000"],
+a:1
+},
+
+{
+q:"Solve: 5x = 45.",
+o:["7","8","9","10"],
+a:2
+},
+
+{
+q:"Solve: 2(x + 3) = 14.",
+o:["3","4","5","6"],
+a:1
+},
+
+{
+q:"Solve: x/3 + 2 = 7.",
+o:["12","15","18","21"],
+a:1
+},
+
+{
+q:"If a = 3 and b = 4, find a² + b².",
+o:["7","12","25","49"],
+a:2
+},
+
+{
+q:"Find the square root of 144.",
+o:["10","11","12","14"],
+a:2
+},
+
+{
+q:"Find the cube root of 125.",
+o:["4","5","6","25"],
+a:1
+},
+
+{
+q:"Simplify: √18.",
+o:["3√2","2√3","6√2","9√2"],
+a:0
+},
+
+{
+q:"If sin θ = 1/2 and θ is acute, find θ.",
+o:["30°","45°","60°","90°"],
+a:0
+},
+
+{
+q:"What is cos 60°?",
+o:["0","1/2","√2/2","1"],
+a:1
+},
+
+{
+q:"What is tan 45°?",
+o:["0","1/2","1","√3"],
+a:2
+},
+
+{
+q:"The gradient of a horizontal line is:",
+o:["-1","0","1","Undefined"],
+a:1
+},
+
+{
+q:"Find the gradient of the line joining (1,2) and (3,6).",
+o:["1","2","3","4"],
+a:1
+},
+
+{
+q:"What is the determinant of the matrix [[2,1],[3,4]]?",
+o:["3","5","8","11"],
+a:0
+},
+
+{
+q:"If 2x + 3 = 11, find x.",
+o:["3","4","5","6"],
+a:1
+},
+
+{
+q:"Solve: x² = 81.",
+o:["x=9 only","x=-9 only","x=±9","x=81"],
+a:2
+},
+
+{
+q:"A right-angled triangle has sides 6 cm and 8 cm as its shorter sides. Find the hypotenuse.",
+o:["9 cm","10 cm","12 cm","14 cm"],
+a:1
+}
+
+];
+  var english = [
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The chairman's speech was **laconic**.",
+o:["Very emotional","Extremely brief","Highly confusing","Deliberately insulting"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The witness gave an **equivocal** answer.",
+o:["A clear answer","A doubtful or ambiguous answer","A very loud answer","A truthful answer"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The minister's statement was **incontrovertible**.",
+o:["Difficult to understand","Impossible to dispute","Open to criticism","Politically motivated"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The student's explanation was **plausible**.",
+o:["Believable","Uncertain","Ridiculous","Complicated"],
+a:0
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The manager was **magnanimous** after the disagreement.",
+o:["Vindictive","Generous and forgiving","Indifferent","Arrogant"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The politician's remarks were **perfunctory**.",
+o:["Carefully prepared","Done without enthusiasm or interest","Extremely controversial","Very persuasive"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The new policy is **onerous**.",
+o:["Beneficial","Burdening or difficult","Temporary","Unnecessary"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: His argument was **fallacious**.",
+o:["Logical","Based on faulty reasoning","Very convincing","Historically accurate"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The teacher was **circumspect** in her comments.",
+o:["Careless","Cautious","Aggressive","Confident"],
+a:1
+},
+
+{
+q:"Choose the option nearest in meaning to the word in bold: The man's **penchant** for gambling worried his family.",
+o:["Strong dislike","Strong tendency or liking","Fear","Occasional habit"],
+a:1
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The evidence was **conclusive**.",
+o:["Convincing","Decisive","Inconclusive","Relevant"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The old man's condition is **precarious**.",
+o:["Dangerous","Stable","Uncertain","Serious"],
+a:1
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The instructions were **explicit**.",
+o:["Clear","Detailed","Implicit","Accurate"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: His response was **candid**.",
+o:["Frank","Sincere","Evasive","Honest"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The witness was **reluctant** to testify.",
+o:["Unwilling","Hesitant","Eager","Afraid"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The policy is **beneficial** to students.",
+o:["Advantageous","Harmful","Useful","Helpful"],
+a:1
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: His explanation was **coherent**.",
+o:["Logical","Clear","Incoherent","Convincing"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The man's behaviour was **commendable**.",
+o:["Admirable","Blameworthy","Excellent","Responsible"],
+a:1
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The witness was **credible**.",
+o:["Believable","Trustworthy","Unreliable","Convincing"],
+a:2
+},
+
+{
+q:"Choose the option opposite in meaning to the word in bold: The instructions were **mandatory**.",
+o:["Compulsory","Optional","Necessary","Binding"],
+a:1
+},
+
+{
+q:"Neither the principal nor the teachers ___ aware of the proposed changes.",
+o:["was","were","has been","is"],
+a:1
+},
+
+{
+q:"Hardly had the examination begun ___ the electricity supply was interrupted.",
+o:["than","when","that","while"],
+a:1
+},
+
+{
+q:"No sooner had the students entered the hall ___ the invigilator arrived.",
+o:["when","than","that","while"],
+a:1
+},
+
+{
+q:"If the driver had obeyed the traffic light, the accident ___.",
+o:["will not occur","would not occur","would not have occurred","did not occur"],
+a:2
+},
+
+{
+q:"Had I known about the meeting, I ___ attended it.",
+o:["will have","would have","would","shall"],
+a:1
+},
+
+{
+q:"Were she to apply for the scholarship, she ___ stand a good chance.",
+o:["would","will","has","had"],
+a:0
+},
+
+{
+q:"The committee recommended that the proposal ___ reconsidered.",
+o:["is","was","be","being"],
+a:2
+},
+
+{
+q:"It is high time the government ___ decisive action.",
+o:["takes","took","has taken","will take"],
+a:1
+},
+
+{
+q:"By the time the police arrived, the thieves ___.",
+o:["escape","have escaped","had escaped","were escaping"],
+a:2
+},
+
+{
+q:"She would rather ___ at home than attend the ceremony.",
+o:["stays","stayed","stay","staying"],
+a:2
+},
+
+{
+q:"The principal, as well as the vice-principals, ___ attending the ceremony.",
+o:["are","were","is","have"],
+a:2
+},
+
+{
+q:"A number of students ___ absent yesterday.",
+o:["was","were","has been","is"],
+a:1
+},
+
+{
+q:"The number of students absent yesterday ___ surprisingly high.",
+o:["were","are","was","have"],
+a:2
+},
+
+{
+q:"Each of the candidates ___ required to bring a calculator.",
+o:["are","were","have","is"],
+a:3
+},
+
+{
+q:"The news about the accident ___ disturbing.",
+o:["were","are","have been","was"],
+a:3
+},
+
+{
+q:"He succeeded ___ persuading the committee to reconsider its decision.",
+o:["in","at","on","with"],
+a:0
+},
+
+{
+q:"The chairman is opposed ___ the proposed amendment.",
+o:["with","for","to","against"],
+a:2
+},
+
+{
+q:"She has great confidence ___ her ability to succeed.",
+o:["on","at","in","for"],
+a:2
+},
+
+{
+q:"The suspect was charged ___ stealing the vehicle.",
+o:["for","of","with","by"],
+a:2
+},
+
+{
+q:"The students were warned ___ making noise during the examination.",
+o:["against","for","with","about"],
+a:0
+},
+
+{
+q:"The expression 'to throw in the towel' means to:",
+o:["Begin a difficult task","Admit defeat","Cause confusion","Celebrate victory"],
+a:1
+},
+
+{
+q:"If someone 'cuts corners', the person:",
+o:["Takes a shorter route","Does something cheaply or carelessly","Avoids travelling","Changes direction"],
+a:1
+},
+
+{
+q:"If a statement is described as 'a red herring', it is:",
+o:["A useful clue","A misleading distraction","A serious accusation","An established fact"],
+a:1
+},
+
+{
+q:"To 'read between the lines' means to:",
+o:["Read very quickly","Look for hidden meaning","Skip difficult words","Read aloud"],
+a:1
+},
+
+{
+q:"If two people are 'at loggerheads', they are:",
+o:["Working together","In serious disagreement","Very close friends","Competing peacefully"],
+a:1
+},
+
+{
+q:"Choose the option that best completes the sentence: The new evidence ___ the earlier account.",
+o:["contradicts","contradict","contradicting","have contradicted"],
+a:0
+},
+
+{
+q:"Choose the option that best completes the sentence: The accused denied ___ the documents.",
+o:["to forge","forging","forge","forged"],
+a:1
+},
+
+{
+q:"Choose the option that best completes the sentence: The lecturer objected to the students ___ late.",
+o:["arrive","arrived","arriving","to arrive"],
+a:2
+},
+
+{
+q:"Choose the option that best completes the sentence: He is one of those students who always ___ their assignments.",
+o:["submits","submit","submitting","has submitted"],
+a:1
+},
+
+{
+q:"Choose the option that best completes the sentence: I would have helped you if you ___ me earlier.",
+o:["tell","told","had told","have told"],
+a:2
+},
+
+{
+q:"Choose the correctly spelt word.",
+o:["Conscientious","Consciencious","Conscientous","Consciencious"],
+a:0
+},
+
+{
+q:"Choose the correctly spelt word.",
+o:["Questionnaire","Questionaire","Questionnair","Questionairee"],
+a:0
+},
+
+{
+q:"Choose the correctly spelt word.",
+o:["Maintenance","Maintainance","Maintenence","Maintanance"],
+a:0
+},
+
+{
+q:"Choose the correctly spelt word.",
+o:["Entrepreneur","Entreprenuer","Enterpreneur","Entreproneur"],
+a:0
+},
+
+{
+q:"Choose the word that has the same vowel sound as the vowel sound in 'food'.",
+o:["Good","Blood","Mood","Flood"],
+a:2
+},
+
+{
+q:"Choose the word that has the same vowel sound as the vowel sound in 'seat'.",
+o:["Set","Beat","Bait","Sit"],
+a:1
+},
+
+{
+q:"Which word has a different stress pattern from the others?",
+o:["PHOtograph","CINema","DElicate","phoTOGraphy"],
+a:3
+},
+
+{
+q:"Which word is stressed on the second syllable?",
+o:["PREsent","TAble","beGIN","MOnkey"],
+a:2
+},
+
+{
+q:"Choose the option that best explains: 'The manager's decision was not without merit.'",
+o:["The decision was completely useless","The decision had some justification","The manager made no decision","The decision was obviously wrong"],
+a:1
+},
+
+{
+q:"Choose the option that best explains: 'The witness's account left much to be desired.'",
+o:["The account was excellent","The account was incomplete or unsatisfactory","The witness refused to speak","The account was extremely long"],
+a:1
+},
+
+{
+q:"Choose the option that best explains: 'The chairman's remarks were beside the point.'",
+o:["They were highly relevant","They were irrelevant to the issue","They were extremely brief","They were made privately"],
+a:1
+},
+
+{
+q:"Choose the option that best explains: 'The candidate passed the examination with flying colours.'",
+o:["The candidate barely passed","The candidate passed with excellent results","The candidate cheated","The candidate arrived late"],
+a:1
+},
+
+{
+q:"Choose the option that best completes the sentence: Much as I ___ to help, I cannot do so at present.",
+o:["would like","will like","am liking","have liked"],
+a:0
+},
+
+{
+q:"Choose the option that best completes the sentence: Scarcely had he finished speaking ___ the audience began to applaud.",
+o:["than","when","while","that"],
+a:1
+}
+
+];
+  var biology = [
+
+{
+q:"Which organelle is known as the powerhouse of the cell?",
+o:["Ribosome","Mitochondrion","Nucleus","Golgi apparatus"],
+a:1,
+t:"Cell Biology",
+e:"Mitochondria are the main sites of aerobic respiration and ATP production."
+},
+
+{
+q:"Which structure controls most activities of a cell?",
+o:["Cell wall","Nucleus","Vacuole","Cytoplasm"],
+a:1,
+t:"Cell Biology",
+e:"The nucleus contains genetic material and controls cellular activities."
+},
+
+{
+q:"The movement of particles from a region of higher concentration to a region of lower concentration is:",
+o:["Osmosis","Diffusion","Active transport","Plasmolysis"],
+a:1,
+t:"Transport",
+e:"Diffusion is movement down a concentration gradient."
+},
+
+{
+q:"Osmosis involves the movement of:",
+o:["Solute molecules","Water molecules","Proteins","Starch molecules"],
+a:1,
+t:"Transport",
+e:"Osmosis is the movement of water through a selectively permeable membrane."
+},
+
+{
+q:"Which structure is present in a typical plant cell but absent in an animal cell?",
+o:["Cell membrane","Nucleus","Cellulose cell wall","Cytoplasm"],
+a:2,
+t:"Cell Structure",
+e:"Plant cells have a cellulose cell wall."
+},
+
+{
+q:"Which pigment traps light energy during photosynthesis?",
+o:["Haemoglobin","Chlorophyll","Melanin","Insulin"],
+a:1,
+t:"Photosynthesis",
+e:"Chlorophyll absorbs light energy needed for photosynthesis."
+},
+
+{
+q:"Which gas is released during photosynthesis?",
+o:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],
+a:2,
+t:"Photosynthesis",
+e:"Oxygen is released during the light-dependent reactions of photosynthesis."
+},
+
+{
+q:"The raw materials for photosynthesis are:",
+o:["Oxygen and glucose","Carbon dioxide and water","Protein and oxygen","Nitrogen and water"],
+a:1,
+t:"Photosynthesis",
+e:"Plants use carbon dioxide and water to manufacture glucose."
+},
+
+{
+q:"Which tissue transports manufactured food in plants?",
+o:["Xylem","Phloem","Cambium","Epidermis"],
+a:1,
+t:"Plant Transport",
+e:"Phloem transports manufactured food around the plant."
+},
+
+{
+q:"Which tissue transports water and mineral salts from the roots?",
+o:["Phloem","Xylem","Cortex","Epidermis"],
+a:1,
+t:"Plant Transport",
+e:"Xylem conducts water and mineral salts."
+},
+
+{
+q:"The loss of water vapour from the aerial parts of a plant is called:",
+o:["Respiration","Transpiration","Guttation","Excretion"],
+a:1,
+t:"Transpiration",
+e:"Transpiration is the loss of water vapour, mainly through stomata."
+},
+
+{
+q:"The opening and closing of stomata are controlled by:",
+o:["Root hairs","Guard cells","Xylem vessels","Phloem cells"],
+a:1,
+t:"Plant Physiology",
+e:"Guard cells control the opening and closing of stomata."
+},
+
+{
+q:"Which factor can limit the rate of photosynthesis?",
+o:["Light intensity","Blood pressure","Heart rate","Body mass"],
+a:0,
+t:"Photosynthesis",
+e:"Light intensity is one of the limiting factors of photosynthesis."
+},
+
+{
+q:"Excess glucose produced by a plant is commonly stored as:",
+o:["Protein","Starch","Fatty acid","Cellulose only"],
+a:1,
+t:"Photosynthesis",
+e:"Plants convert excess glucose into starch for storage."
+},
+
+{
+q:"Which part of a flower receives pollen grains?",
+o:["Anther","Filament","Stigma","Ovary"],
+a:2,
+t:"Reproduction",
+e:"The stigma receives pollen during pollination."
+},
+
+{
+q:"The male reproductive part of a flower is the:",
+o:["Carpel","Stamen","Ovary","Stigma"],
+a:1,
+t:"Reproduction",
+e:"The stamen is the male reproductive structure."
+},
+
+{
+q:"The female reproductive structure of a flower is the:",
+o:["Stamen","Anther","Carpel","Filament"],
+a:2,
+t:"Reproduction",
+e:"The carpel is the female reproductive structure."
+},
+
+{
+q:"Fertilization is the fusion of:",
+o:["Two pollen grains","Male and female gametes","Two zygotes","Two ovules"],
+a:1,
+t:"Reproduction",
+e:"Fertilization occurs when male and female gametes fuse."
+},
+
+{
+q:"After fertilization, the ovule develops into the:",
+o:["Fruit","Seed","Petal","Anther"],
+a:1,
+t:"Reproduction",
+e:"A fertilized ovule develops into a seed."
+},
+
+{
+q:"After fertilization, the ovary usually develops into the:",
+o:["Seed","Fruit","Root","Stigma"],
+a:1,
+t:"Reproduction",
+e:"The ovary develops into the fruit."
+},
+
+{
+q:"Which plant hormone is strongly associated with phototropism?",
+o:["Auxin","Insulin","Adrenaline","Thyroxine"],
+a:0,
+t:"Plant Hormones",
+e:"Auxin promotes cell elongation and is involved in phototropic responses."
+},
+
+{
+q:"The growth of a plant shoot towards light is called:",
+o:["Geotropism","Hydrotropism","Phototropism","Chemotropism"],
+a:2,
+t:"Tropisms",
+e:"Phototropism is growth in response to light."
+},
+
+{
+q:"The growth of roots towards gravity is called:",
+o:["Negative geotropism","Positive geotropism","Phototropism","Hydrotropism"],
+a:1,
+t:"Tropisms",
+e:"Roots generally grow towards gravity."
+},
+
+{
+q:"Which organ removes urea from the blood?",
+o:["Heart","Kidney","Lung","Pancreas"],
+a:1,
+t:"Excretion",
+e:"The kidneys remove urea and other wastes from the blood."
+},
+
+{
+q:"The functional unit of the kidney is the:",
+o:["Neuron","Nephron","Alveolus","Villus"],
+a:1,
+t:"Excretion",
+e:"The nephron is the functional unit of the kidney."
+},
+
+{
+q:"Ultrafiltration of blood occurs in the:",
+o:["Collecting duct","Glomerulus","Ureter","Urinary bladder"],
+a:1,
+t:"Excretion",
+e:"Blood is filtered through the glomerulus into Bowman's capsule."
+},
+
+{
+q:"Which hormone helps regulate blood glucose concentration?",
+o:["Insulin","Oestrogen","Adrenaline only","Growth hormone"],
+a:0,
+t:"Hormones",
+e:"Insulin helps lower blood glucose concentration."
+},
+
+{
+q:"Insufficient insulin production may result in:",
+o:["Diabetes mellitus","Malaria","Tuberculosis","Scurvy"],
+a:0,
+t:"Hormones",
+e:"Insufficient insulin can lead to diabetes mellitus."
+},
+
+{
+q:"Insulin is produced by the:",
+o:["Liver","Pancreas","Kidney","Thyroid gland"],
+a:1,
+t:"Hormones",
+e:"Insulin is produced by beta cells in the pancreas."
+},
+
+{
+q:"Which blood cells are mainly involved in body defence?",
+o:["Red blood cells","White blood cells","Platelets","Plasma"],
+a:1,
+t:"Blood",
+e:"White blood cells help defend the body against pathogens."
+},
+
+{
+q:"The main function of red blood cells is to transport:",
+o:["Oxygen","Urea","Digestive enzymes","Antibodies only"],
+a:0,
+t:"Blood",
+e:"Haemoglobin in red blood cells carries oxygen."
+},
+
+{
+q:"Which component of blood is mainly responsible for clotting?",
+o:["Plasma","Platelets","Red blood cells","White blood cells"],
+a:1,
+t:"Blood",
+e:"Platelets are important in blood clotting."
+},
+
+{
+q:"The pigment that gives red blood cells their colour is:",
+o:["Chlorophyll","Haemoglobin","Melanin","Carotene"],
+a:1,
+t:"Blood",
+e:"Haemoglobin gives red blood cells their characteristic colour."
+},
+
+{
+q:"Which blood vessel carries blood away from the heart?",
+o:["Vein","Artery","Capillary","Venule"],
+a:1,
+t:"Circulation",
+e:"Arteries carry blood away from the heart."
+},
+
+{
+q:"Which blood vessels contain valves that help prevent backflow?",
+o:["Arteries","Veins","Capillaries","Arterioles"],
+a:1,
+t:"Circulation",
+e:"Valves in veins help prevent the backward flow of blood."
+},
+
+{
+q:"Which chamber pumps oxygenated blood to the rest of the body?",
+o:["Right atrium","Right ventricle","Left atrium","Left ventricle"],
+a:3,
+t:"Circulation",
+e:"The left ventricle pumps oxygenated blood through the aorta."
+},
+
+{
+q:"The pulmonary vein carries blood from the:",
+o:["Heart to lungs","Lungs to heart","Kidney to heart","Heart to kidney"],
+a:1,
+t:"Circulation",
+e:"Pulmonary veins carry oxygenated blood from the lungs to the left atrium."
+},
+
+{
+q:"Gas exchange in the lungs occurs mainly in the:",
+o:["Bronchi","Trachea","Alveoli","Larynx"],
+a:2,
+t:"Respiration",
+e:"Alveoli provide a large surface area for gas exchange."
+},
+
+{
+q:"During inhalation, the diaphragm:",
+o:["Relaxes and becomes dome-shaped","Contracts and flattens","Moves upward and contracts","Stops moving"],
+a:1,
+t:"Respiration",
+e:"The diaphragm contracts and flattens during inhalation."
+},
+
+{
+q:"Aerobic respiration requires:",
+o:["Nitrogen","Oxygen","Carbon dioxide","Methane"],
+a:1,
+t:"Respiration",
+e:"Aerobic respiration uses oxygen to release energy from glucose."
+},
+
+{
+q:"The immediate energy currency of the cell is:",
+o:["DNA","ATP","RNA","Glucose only"],
+a:1,
+t:"Respiration",
+e:"ATP supplies usable energy for cellular processes."
+},
+
+{
+q:"Which enzyme begins starch digestion in the mouth?",
+o:["Pepsin","Amylase","Lipase","Trypsin"],
+a:1,
+t:"Digestion",
+e:"Salivary amylase begins the digestion of starch."
+},
+
+{
+q:"Pepsin mainly digests:",
+o:["Fats","Proteins","Starch","Minerals"],
+a:1,
+t:"Digestion",
+e:"Pepsin is a protease that digests proteins in the stomach."
+},
+
+{
+q:"Most absorption of digested nutrients occurs in the:",
+o:["Stomach","Small intestine","Large intestine","Oesophagus"],
+a:1,
+t:"Digestion",
+e:"The small intestine is specialized for nutrient absorption."
+},
+
+{
+q:"The finger-like structures that increase the surface area of the small intestine are:",
+o:["Alveoli","Villi","Nephrons","Cilia"],
+a:1,
+t:"Digestion",
+e:"Villi increase the surface area available for absorption."
+},
+
+{
+q:"Bile aids fat digestion mainly by:",
+o:["Breaking proteins into amino acids","Emulsifying fats","Converting starch to glucose","Digesting vitamins"],
+a:1,
+t:"Digestion",
+e:"Bile breaks large fat globules into smaller droplets."
+},
+
+{
+q:"Which enzyme digests fats?",
+o:["Lipase","Amylase","Pepsin","Maltase"],
+a:0,
+t:"Digestion",
+e:"Lipase breaks fats into fatty acids and glycerol."
+},
+
+{
+q:"The genetic material found in most organisms is:",
+o:["DNA","ATP","Glucose","Starch"],
+a:0,
+t:"Genetics",
+e:"DNA stores hereditary information."
+},
+
+{
+q:"A segment of DNA responsible for a particular inherited characteristic is called a:",
+o:["Gene","Tissue","Gamete","Enzyme"],
+a:0,
+t:"Genetics",
+e:"A gene is a unit of hereditary information."
+},
+
+{
+q:"Alternative forms of the same gene are called:",
+o:["Alleles","Gametes","Chromatids","Enzymes"],
+a:0,
+t:"Genetics",
+e:"Alleles are alternative forms of a gene."
+},
+
+{
+q:"An organism with two identical alleles for a characteristic is:",
+o:["Heterozygous","Homozygous","Hybrid","Mutant"],
+a:1,
+t:"Genetics",
+e:"Homozygous individuals have identical alleles."
+},
+
+{
+q:"An organism with two different alleles is:",
+o:["Homozygous","Heterozygous","Pure-breeding","Recessive"],
+a:1,
+t:"Genetics",
+e:"Heterozygous individuals have different alleles."
+},
+
+{
+q:"If T is dominant over t, what is the phenotype of Tt?",
+o:["Recessive","Dominant","Neither","Both equally"],
+a:1,
+t:"Genetics",
+e:"The dominant allele T is expressed in Tt."
+},
+
+{
+q:"The observable characteristics of an organism are its:",
+o:["Genotype","Phenotype","Alleles","Chromosomes"],
+a:1,
+t:"Genetics",
+e:"Phenotype refers to observable characteristics."
+},
+
+{
+q:"The genetic constitution of an organism is its:",
+o:["Phenotype","Genotype","Habitat","Niche"],
+a:1,
+t:"Genetics",
+e:"Genotype refers to an organism's genetic makeup."
+},
+
+{
+q:"Which type of cell division produces genetically identical cells for growth?",
+o:["Meiosis","Mitosis","Fertilization","Mutation"],
+a:1,
+t:"Cell Division",
+e:"Mitosis produces genetically similar daughter cells."
+},
+
+{
+q:"Meiosis normally produces:",
+o:["Two identical diploid cells","Four haploid cells","One diploid cell","Four identical diploid cells"],
+a:1,
+t:"Cell Division",
+e:"Meiosis produces haploid cells and contributes to genetic variation."
+},
+
+{
+q:"How many chromosomes are normally found in a human body cell?",
+o:["23","46","44","92"],
+a:1,
+t:"Genetics",
+e:"Normal human somatic cells contain 46 chromosomes."
+},
+
+{
+q:"How many chromosomes are normally found in a human gamete?",
+o:["46","44","23","92"],
+a:2,
+t:"Genetics",
+e:"Human gametes are haploid and contain 23 chromosomes."
+},
+
+{
+q:"Which organism causes malaria?",
+o:["Plasmodium","Salmonella","HIV","Trypanosoma"],
+a:0,
+t:"Disease",
+e:"Malaria is caused by Plasmodium parasites."
+},
+
+{
+q:"Malaria is commonly transmitted by the bite of an infected:",
+o:["Male Anopheles mosquito","Female Anopheles mosquito","Housefly","Tsetse fly"],
+a:1,
+t:"Disease",
+e:"The female Anopheles mosquito transmits malaria parasites."
+},
+
+{
+q:"Which organism causes tuberculosis?",
+o:["Virus","Bacterium","Protozoan","Fungus"],
+a:1,
+t:"Disease",
+e:"Tuberculosis is caused by bacteria, mainly Mycobacterium tuberculosis."
+},
+
+{
+q:"Which ecological relationship benefits both organisms?",
+o:["Parasitism","Mutualism","Predation","Competition"],
+a:1,
+t:"Ecology",
+e:"In mutualism, both participating organisms benefit."
+},
+
+{
+q:"Green plants occupy the producer level of a food chain because they:",
+o:["Feed on animals","Manufacture their own food","Decompose dead organisms","Obtain food from fungi"],
+a:1,
+t:"Ecology",
+e:"Green plants manufacture organic food through photosynthesis."
+},
+
+{
+q:"Organisms that break down dead organic matter are called:",
+o:["Producers","Decomposers","Primary consumers","Predators"],
+a:1,
+t:"Ecology",
+e:"Decomposers break down dead matter and recycle nutrients."
+}
+
+];
+  var chemistry = [
+
+{
+q:"Which subatomic particle has a negative charge?",
+o:["Proton","Neutron","Electron","Nucleus"],
+a:2,
+t:"Atomic Structure",
+e:"Electrons carry a negative charge."
+},
+
+{
+q:"The atomic number of an element is equal to the number of:",
+o:["Neutrons","Protons","Nucleons","Protons and neutrons"],
+a:1,
+t:"Atomic Structure",
+e:"The atomic number is the number of protons in the nucleus."
+},
+
+{
+q:"Atoms of the same element having different numbers of neutrons are called:",
+o:["Ions","Isotopes","Isobars","Allotropes"],
+a:1,
+t:"Atomic Structure",
+e:"Isotopes have the same proton number but different neutron numbers."
+},
+
+{
+q:"Which of the following is a noble gas?",
+o:["Chlorine","Sodium","Argon","Sulphur"],
+a:2,
+t:"Periodic Table",
+e:"Argon belongs to Group 18, the noble gases."
+},
+
+{
+q:"Which element has the electronic configuration 2,8,1?",
+o:["Magnesium","Sodium","Aluminium","Neon"],
+a:1,
+t:"Electronic Configuration",
+e:"A configuration of 2,8,1 corresponds to sodium."
+},
+
+{
+q:"Elements in the same group of the periodic table generally have the same number of:",
+o:["Neutron shells","Valence electrons","Protons","Nuclei"],
+a:1,
+t:"Periodic Table",
+e:"Elements in the same group have similar valence-electron arrangements."
+},
+
+{
+q:"Which type of bond is formed by transfer of electrons?",
+o:["Covalent bond","Ionic bond","Metallic bond","Hydrogen bond"],
+a:1,
+t:"Chemical Bonding",
+e:"Ionic bonding involves transfer of electrons between atoms."
+},
+
+{
+q:"A covalent bond is formed when atoms:",
+o:["Transfer protons","Share electrons","Lose neutrons","Exchange nuclei"],
+a:1,
+t:"Chemical Bonding",
+e:"Covalent bonding involves sharing electron pairs."
+},
+
+{
+q:"Which compound contains an ionic bond?",
+o:["CH4","H2O","NaCl","CO2"],
+a:2,
+t:"Chemical Bonding",
+e:"Sodium chloride contains Na+ and Cl− ions held by electrostatic attraction."
+},
+
+{
+q:"What is the valency of oxygen in most of its compounds?",
+o:["1","2","3","4"],
+a:1,
+t:"Chemical Bonding",
+e:"Oxygen commonly forms two bonds."
+},
+
+{
+q:"What is the chemical formula of calcium chloride?",
+o:["CaCl","CaCl2","Ca2Cl","Ca2Cl2"],
+a:1,
+t:"Chemical Formulae",
+e:"Calcium forms Ca2+ while chlorine forms Cl−, giving CaCl2."
+},
+
+{
+q:"What is the relative molecular mass of H2O? (H=1, O=16)",
+o:["16","17","18","20"],
+a:2,
+t:"Mole Concept",
+e:"2(1) + 16 = 18."
+},
+
+{
+q:"What is the relative molecular mass of CO2? (C=12, O=16)",
+o:["28","32","40","44"],
+a:3,
+t:"Mole Concept",
+e:"12 + 2(16) = 44."
+},
+
+{
+q:"One mole of any substance contains approximately:",
+o:["6.02 × 10^23 particles","3.01 × 10^8 particles","9.81 × 10^2 particles","1.60 × 10^-19 particles"],
+a:0,
+t:"Mole Concept",
+e:"One mole contains Avogadro's number, approximately 6.02 × 10^23 particles."
+},
+
+{
+q:"The number of moles in 18 g of water is: (H=1, O=16)",
+o:["0.5 mol","1 mol","2 mol","18 mol"],
+a:1,
+t:"Mole Concept",
+e:"18 g is the molar mass of water, so it represents 1 mole."
+},
+
+{
+q:"What is the concentration of a solution containing 0.5 mol of solute in 2 dm3 of solution?",
+o:["0.10 mol/dm3","0.25 mol/dm3","1.0 mol/dm3","2.5 mol/dm3"],
+a:1,
+t:"Solutions",
+e:"Concentration = moles/volume = 0.5/2 = 0.25 mol/dm3."
+},
+
+{
+q:"Which apparatus is most suitable for accurately measuring a fixed volume of solution?",
+o:["Beaker","Measuring cylinder","Volumetric flask","Evaporating dish"],
+a:2,
+t:"Laboratory Techniques",
+e:"A volumetric flask is designed to contain a precise fixed volume."
+},
+
+{
+q:"Which apparatus is used to deliver measured variable volumes during titration?",
+o:["Burette","Tripod","Crucible","Watch glass"],
+a:0,
+t:"Titration",
+e:"A burette delivers accurately measured variable volumes."
+},
+
+{
+q:"A substance that changes colour at the endpoint of an acid-base titration is called a:",
+o:["Catalyst","Solvent","Indicator","Reactant"],
+a:2,
+t:"Acids and Bases",
+e:"Indicators change colour over specific pH ranges."
+},
+
+{
+q:"Which of the following is a strong acid?",
+o:["Ethanoic acid","Hydrochloric acid","Carbonic acid","Citric acid"],
+a:1,
+t:"Acids and Bases",
+e:"Hydrochloric acid is a strong acid in aqueous solution."
+},
+
+{
+q:"Which ion is responsible for the acidic properties of aqueous solutions?",
+o:["OH−","H+","Na+","Cl−"],
+a:1,
+t:"Acids and Bases",
+e:"Acids increase the concentration of hydrogen ions in aqueous solution."
+},
+
+{
+q:"Which ion is responsible for alkaline properties?",
+o:["H+","Cl−","OH−","Na+"],
+a:2,
+t:"Acids and Bases",
+e:"Alkaline solutions contain hydroxide ions."
+},
+
+{
+q:"A solution with a pH of 2 is:",
+o:["Strongly acidic","Neutral","Weakly alkaline","Strongly alkaline"],
+a:0,
+t:"Acids and Bases",
+e:"A pH well below 7 indicates acidity."
+},
+
+{
+q:"When an acid reacts with a base, the products are generally:",
+o:["Salt and water","Gas and metal","Alcohol and oxygen","Hydrogen and carbon"],
+a:0,
+t:"Neutralization",
+e:"Acid-base neutralization produces salt and water."
+},
+
+{
+q:"Which gas is produced when dilute hydrochloric acid reacts with zinc?",
+o:["Oxygen","Hydrogen","Chlorine","Carbon dioxide"],
+a:1,
+t:"Chemical Reactions",
+e:"Zinc reacts with dilute hydrochloric acid to produce hydrogen gas."
+},
+
+{
+q:"Which test is commonly used to identify hydrogen gas?",
+o:["Relights a glowing splint","Burns with a pop","Turns limewater milky","Turns blue litmus red"],
+a:1,
+t:"Gas Tests",
+e:"Hydrogen burns with a characteristic pop."
+},
+
+{
+q:"Carbon dioxide turns limewater:",
+o:["Blue","Milky","Red","Black"],
+a:1,
+t:"Gas Tests",
+e:"Carbon dioxide reacts with limewater to form insoluble calcium carbonate."
+},
+
+{
+q:"Which gas relights a glowing splint?",
+o:["Hydrogen","Oxygen","Carbon dioxide","Ammonia"],
+a:1,
+t:"Gas Tests",
+e:"Oxygen supports combustion and relights a glowing splint."
+},
+
+{
+q:"Ammonia gas turns damp red litmus paper:",
+o:["Blue","Green","Yellow","Black"],
+a:0,
+t:"Gas Tests",
+e:"Ammonia is alkaline and turns damp red litmus paper blue."
+},
+
+{
+q:"Oxidation can be defined as:",
+o:["Gain of electrons","Loss of electrons","Gain of hydrogen only","Loss of oxygen only"],
+a:1,
+t:"Redox",
+e:"Oxidation is commonly defined as loss of electrons."
+},
+
+{
+q:"Reduction can be defined as:",
+o:["Loss of electrons","Gain of electrons","Gain of oxygen","Loss of hydrogen"],
+a:1,
+t:"Redox",
+e:"Reduction is commonly defined as gain of electrons."
+},
+
+{
+q:"In the reaction Zn + CuSO4 → ZnSO4 + Cu, which substance is oxidized?",
+o:["Cu","CuSO4","Zn","ZnSO4"],
+a:2,
+t:"Redox",
+e:"Zinc loses electrons and is oxidized to Zn2+."
+},
+
+{
+q:"A substance that speeds up a chemical reaction without being permanently consumed is a:",
+o:["Reactant","Catalyst","Solvent","Product"],
+a:1,
+t:"Rates of Reaction",
+e:"A catalyst increases reaction rate without being permanently consumed."
+},
+
+{
+q:"Increasing temperature generally increases the rate of a reaction because:",
+o:["Particles become larger","More particles have sufficient activation energy","The reaction stops","Atoms disappear"],
+a:1,
+t:"Rates of Reaction",
+e:"Higher temperature increases particle kinetic energy and collision frequency."
+},
+
+{
+q:"Increasing the surface area of a solid reactant generally:",
+o:["Decreases reaction rate","Increases reaction rate","Stops the reaction","Has no effect"],
+a:1,
+t:"Rates of Reaction",
+e:"A larger surface area provides more sites for collisions."
+},
+
+{
+q:"Increasing pressure generally increases the rate of reaction between gases because:",
+o:["Particles become heavier","Particles collide more frequently","Particles stop moving","Temperature becomes zero"],
+a:1,
+t:"Rates of Reaction",
+e:"Higher pressure brings gas particles closer together."
+},
+
+{
+q:"A reversible reaction is one that:",
+o:["Can proceed in both forward and backward directions","Occurs only once","Produces no products","Cannot reach equilibrium"],
+a:0,
+t:"Equilibrium",
+e:"Reversible reactions can proceed in both directions."
+},
+
+{
+q:"At dynamic equilibrium:",
+o:["The reaction has stopped completely","Forward and reverse reaction rates are equal","Only products are present","Only reactants are present"],
+a:1,
+t:"Equilibrium",
+e:"At dynamic equilibrium, forward and reverse rates are equal."
+},
+
+{
+q:"A catalyst affects the position of equilibrium by:",
+o:["Moving it to the right","Moving it to the left","Not changing its position","Stopping the reverse reaction"],
+a:2,
+t:"Equilibrium",
+e:"A catalyst speeds up both directions equally and does not change equilibrium position."
+},
+
+{
+q:"Which process is used to separate crude oil into useful fractions?",
+o:["Simple distillation","Fractional distillation","Filtration","Sublimation"],
+a:1,
+t:"Organic Chemistry",
+e:"Crude oil is separated by fractional distillation according to boiling points."
+},
+
+{
+q:"The main component of natural gas is:",
+o:["Ethene","Methane","Ethanol","Benzene"],
+a:1,
+t:"Organic Chemistry",
+e:"Methane is the major component of natural gas."
+},
+
+{
+q:"The general formula of alkanes is:",
+o:["CnH2n","CnH2n+2","CnH2n-2","CnHn"],
+a:1,
+t:"Organic Chemistry",
+e:"Alkanes have the general formula CnH2n+2."
+},
+
+{
+q:"The general formula of alkenes is:",
+o:["CnH2n+2","CnH2n","CnH2n-2","CnHn+2"],
+a:1,
+t:"Organic Chemistry",
+e:"Acyclic alkenes with one double bond have the formula CnH2n."
+},
+
+{
+q:"Which hydrocarbon contains a carbon-carbon double bond?",
+o:["Alkane","Alkene","Alkyne only","Cycloalkane only"],
+a:1,
+t:"Organic Chemistry",
+e:"Alkenes contain at least one carbon-carbon double bond."
+},
+
+{
+q:"What is the molecular formula of ethene?",
+o:["C2H2","C2H4","C2H6","C3H6"],
+a:1,
+t:"Organic Chemistry",
+e:"Ethene has two carbon atoms and four hydrogen atoms."
+},
+
+{
+q:"What is the molecular formula of ethyne?",
+o:["C2H2","C2H4","C2H6","C3H8"],
+a:0,
+t:"Organic Chemistry",
+e:"Ethyne contains a carbon-carbon triple bond and has formula C2H2."
+},
+
+{
+q:"Which functional group is present in alcohols?",
+o:["−COOH","−OH","−CHO","−COO−"],
+a:1,
+t:"Organic Chemistry",
+e:"Alcohols contain the hydroxyl functional group, −OH."
+},
+
+{
+q:"Which functional group is characteristic of carboxylic acids?",
+o:["−OH only","−COOH","−NH2","−CHO"],
+a:1,
+t:"Organic Chemistry",
+e:"Carboxylic acids contain the −COOH group."
+},
+
+{
+q:"The reaction between an alcohol and a carboxylic acid produces:",
+o:["Ester and water","Alkane and oxygen","Salt and hydrogen","Ketone and oxygen"],
+a:0,
+t:"Organic Chemistry",
+e:"Esterification produces an ester and water."
+},
+
+{
+q:"The process by which vegetable oils are converted into harder fats using hydrogen is:",
+o:["Hydrolysis","Hydrogenation","Oxidation","Fermentation"],
+a:1,
+t:"Organic Chemistry",
+e:"Hydrogenation adds hydrogen to unsaturated bonds."
+},
+
+{
+q:"Which compound is commonly used as an antiseptic and solvent?",
+o:["Ethanol","Methane","Ethene","Ethanoic acid"],
+a:0,
+t:"Organic Chemistry",
+e:"Ethanol is widely used as a solvent and antiseptic."
+},
+
+{
+q:"The fermentation of glucose by yeast produces:",
+o:["Ethanol and carbon dioxide","Methane and oxygen","Ethene and water","Hydrogen and nitrogen"],
+a:0,
+t:"Organic Chemistry",
+e:"Yeast converts glucose anaerobically to ethanol and carbon dioxide."
+},
+
+{
+q:"Which method is most suitable for separating an insoluble solid from a liquid?",
+o:["Filtration","Fractional distillation","Chromatography","Sublimation"],
+a:0,
+t:"Separation Techniques",
+e:"Filtration separates an insoluble solid from a liquid."
+},
+
+{
+q:"Chromatography can be used to separate substances based mainly on differences in:",
+o:["Colour only","Solubility and movement through a medium","Mass only","Melting point only"],
+a:1,
+t:"Separation Techniques",
+e:"Chromatography separates components according to their different affinities and movement."
+},
+
+{
+q:"Which method is suitable for obtaining pure water from a salt solution?",
+o:["Filtration","Distillation","Decantation","Magnetic separation"],
+a:1,
+t:"Separation Techniques",
+e:"Distillation separates water from dissolved salts."
+},
+
+{
+q:"Which metal is extracted from its ore mainly by electrolysis because it is very reactive?",
+o:["Copper","Sodium","Iron","Silver"],
+a:1,
+t:"Metals",
+e:"Sodium is too reactive to be extracted by ordinary chemical reduction."
+},
+
+{
+q:"During electrolysis, positive ions move towards the:",
+o:["Anode","Cathode","Electrolyte surface","Salt bridge"],
+a:1,
+t:"Electrolysis",
+e:"Positive ions, or cations, migrate towards the negative cathode."
+},
+
+{
+q:"During electrolysis, oxidation occurs at the:",
+o:["Cathode","Anode","Electrolyte only","Salt bridge"],
+a:1,
+t:"Electrolysis",
+e:"Oxidation occurs at the anode."
+},
+
+{
+q:"During electrolysis, reduction occurs at the:",
+o:["Anode","Cathode","Electrolyte surface","Switch"],
+a:1,
+t:"Electrolysis",
+e:"Reduction occurs at the cathode."
+},
+
+{
+q:"Which of the following is an allotrope of carbon?",
+o:["Graphite","Sodium chloride","Sulphuric acid","Calcium oxide"],
+a:0,
+t:"Carbon Chemistry",
+e:"Graphite is one of the allotropes of carbon."
+},
+
+{
+q:"Diamond is very hard because:",
+o:["It contains weak intermolecular forces","Each carbon atom is strongly bonded to four others in a giant structure","It contains sodium ions","It is a liquid"],
+a:1,
+t:"Carbon Chemistry",
+e:"Diamond has a strong three-dimensional covalent network."
+},
+
+{
+q:"Graphite conducts electricity because:",
+o:["It contains mobile delocalized electrons","It contains sodium ions","It is metallic","It dissolves in water"],
+a:0,
+t:"Carbon Chemistry",
+e:"Graphite has delocalized electrons that can move through its layers."
+},
+
+{
+q:"Which oxide is amphoteric?",
+o:["Na2O","CO2","Al2O3","SO2"],
+a:2,
+t:"Inorganic Chemistry",
+e:"Aluminium oxide reacts with both acids and bases."
+},
+
+{
+q:"Which of the following is an acidic oxide?",
+o:["Na2O","CaO","CO2","MgO"],
+a:2,
+t:"Inorganic Chemistry",
+e:"Carbon dioxide is an acidic oxide."
+},
+
+{
+q:"Which of the following is a basic oxide?",
+o:["SO2","CO2","Na2O","NO2"],
+a:2,
+t:"Inorganic Chemistry",
+e:"Sodium oxide reacts with water to form an alkaline solution."
+},
+
+{
+q:"What is the oxidation number of oxygen in H2O?",
+o:["−2","+2","−1","+1"],
+a:0,
+t:"Oxidation Numbers",
+e:"Oxygen normally has oxidation number −2 in water."
+},
+
+{
+q:"What is the oxidation number of sodium in NaCl?",
+o:["−1","+1","+2","0"],
+a:1,
+t:"Oxidation Numbers",
+e:"Sodium forms Na+ and therefore has oxidation number +1."
+},
+
+{
+q:"Which statement about exothermic reactions is correct?",
+o:["They absorb heat from the surroundings","They release heat to the surroundings","They cannot occur spontaneously","They always require electricity"],
+a:1,
+t:"Energetics",
+e:"Exothermic reactions release heat energy to the surroundings."
+},
+
+{
+q:"An endothermic reaction:",
+o:["Releases heat","Absorbs heat","Always produces light","Cannot occur in water"],
+a:1,
+t:"Energetics",
+e:"Endothermic reactions absorb energy from their surroundings."
+}
+
+];
+var physics = [
+
+{
+q:"Which of the following is a derived SI quantity?",
+o:["Length","Mass","Time","Velocity"],
+a:3,
+t:"Measurements",
+e:"Velocity is derived from length divided by time."
+},
+
+{
+q:"The SI unit of force is:",
+o:["Joule","Newton","Watt","Pascal"],
+a:1,
+t:"Measurements",
+e:"Force is measured in newtons (N)."
+},
+
+{
+q:"Which instrument is most suitable for measuring the internal diameter of a small pipe?",
+o:["Metre rule","Vernier caliper","Spring balance","Stopwatch"],
+a:1,
+t:"Measurements",
+e:"A vernier caliper can accurately measure internal diameters."
+},
+
+{
+q:"The slope of a displacement-time graph represents:",
+o:["Acceleration","Velocity","Force","Momentum"],
+a:1,
+t:"Motion",
+e:"The gradient of a displacement-time graph gives velocity."
+},
+
+{
+q:"The area under a velocity-time graph represents:",
+o:["Acceleration","Displacement","Force","Power"],
+a:1,
+t:"Motion",
+e:"The area under a velocity-time graph gives displacement."
+},
+
+{
+q:"A body moving with constant velocity has:",
+o:["Constant acceleration","Zero acceleration","Increasing acceleration","Negative mass"],
+a:1,
+t:"Motion",
+e:"Constant velocity means there is no change in velocity, so acceleration is zero."
+},
+
+{
+q:"A car accelerates from 10 m/s to 30 m/s in 5 s. What is its acceleration?",
+o:["2 m/s²","4 m/s²","6 m/s²","8 m/s²"],
+a:1,
+t:"Motion",
+e:"Acceleration = (30 − 10)/5 = 4 m/s²."
+},
+
+{
+q:"A body starts from rest and accelerates at 2 m/s² for 5 s. Its final velocity is:",
+o:["5 m/s","7 m/s","10 m/s","15 m/s"],
+a:2,
+t:"Motion",
+e:"v = u + at = 0 + (2 × 5) = 10 m/s."
+},
+
+{
+q:"Newton's first law of motion is also called the law of:",
+o:["Acceleration","Inertia","Conservation of energy","Gravitation"],
+a:1,
+t:"Mechanics",
+e:"Newton's first law describes the tendency of a body to resist changes in motion."
+},
+
+{
+q:"According to Newton's second law, force is equal to:",
+o:["mv","ma","m/a","a/m"],
+a:1,
+t:"Mechanics",
+e:"Force is the product of mass and acceleration."
+},
+
+{
+q:"A force of 20 N acts on a 5 kg body. What is its acceleration?",
+o:["2 m/s²","4 m/s²","10 m/s²","100 m/s²"],
+a:1,
+t:"Mechanics",
+e:"a = F/m = 20/5 = 4 m/s²."
+},
+
+{
+q:"The momentum of a body is the product of its:",
+o:["Mass and velocity","Mass and acceleration","Force and time","Weight and distance"],
+a:0,
+t:"Momentum",
+e:"Momentum p = mv."
+},
+
+{
+q:"A 4 kg object moves at 5 m/s. Its momentum is:",
+o:["9 kg m/s","20 kg m/s","25 kg m/s","40 kg m/s"],
+a:1,
+t:"Momentum",
+e:"p = mv = 4 × 5 = 20 kg m/s."
+},
+
+{
+q:"The force that opposes relative motion between two surfaces is:",
+o:["Tension","Friction","Upthrust","Weight"],
+a:1,
+t:"Forces",
+e:"Friction acts against relative motion between surfaces."
+},
+
+{
+q:"The turning effect of a force about a point is called:",
+o:["Pressure","Moment","Impulse","Power"],
+a:1,
+t:"Moments",
+e:"Moment = force × perpendicular distance from the pivot."
+},
+
+{
+q:"A force of 10 N acts 2 m from a pivot at right angles. What is the moment?",
+o:["5 Nm","12 Nm","20 Nm","40 Nm"],
+a:2,
+t:"Moments",
+e:"Moment = 10 × 2 = 20 Nm."
+},
+
+{
+q:"For a body to be in equilibrium, the resultant force must be:",
+o:["Maximum","Zero","Increasing","Negative"],
+a:1,
+t:"Equilibrium",
+e:"A body in translational equilibrium has zero resultant force."
+},
+
+{
+q:"Work is done when a force:",
+o:["Acts without movement","Causes displacement in its direction","Has no effect","Changes mass"],
+a:1,
+t:"Work, Energy and Power",
+e:"Work is done when a force causes displacement."
+},
+
+{
+q:"A force of 50 N moves an object through 4 m in its direction. The work done is:",
+o:["12.5 J","54 J","200 J","250 J"],
+a:2,
+t:"Work, Energy and Power",
+e:"Work = force × distance = 50 × 4 = 200 J."
+},
+
+{
+q:"The SI unit of power is:",
+o:["Joule","Newton","Watt","Volt"],
+a:2,
+t:"Power",
+e:"Power is measured in watts."
+},
+
+{
+q:"A machine does 600 J of work in 20 s. Its power is:",
+o:["20 W","30 W","60 W","120 W"],
+a:1,
+t:"Power",
+e:"Power = work/time = 600/20 = 30 W."
+},
+
+{
+q:"The energy possessed by a body due to its position is:",
+o:["Kinetic energy","Potential energy","Chemical energy","Sound energy"],
+a:1,
+t:"Energy",
+e:"Potential energy is energy associated with position or configuration."
+},
+
+{
+q:"The kinetic energy of a moving body depends on its:",
+o:["Mass and velocity","Mass only","Height only","Temperature only"],
+a:0,
+t:"Energy",
+e:"Kinetic energy is KE = 1/2 mv²."
+},
+
+{
+q:"A 2 kg body moves at 3 m/s. Its kinetic energy is:",
+o:["3 J","6 J","9 J","18 J"],
+a:2,
+t:"Energy",
+e:"KE = 1/2 × 2 × 3² = 9 J."
+},
+
+{
+q:"The gravitational potential energy of a body is given by:",
+o:["mgh","mv","ma","Fd"],
+a:0,
+t:"Energy",
+e:"Gravitational potential energy = mgh."
+},
+
+{
+q:"The efficiency of a machine is:",
+o:["Input energy/output energy × 100","Useful output energy/input energy × 100","Output energy + input energy","Input energy − output energy"],
+a:1,
+t:"Machines",
+e:"Efficiency = useful output/input × 100%."
+},
+
+{
+q:"A machine has an input of 500 J and a useful output of 400 J. Its efficiency is:",
+o:["20%","50%","80%","125%"],
+a:2,
+t:"Machines",
+e:"Efficiency = 400/500 × 100 = 80%."
+},
+
+{
+q:"Pressure is defined as:",
+o:["Force × area","Force/area","Area/force","Mass × volume"],
+a:1,
+t:"Pressure",
+e:"Pressure = force per unit area."
+},
+
+{
+q:"The SI unit of pressure is:",
+o:["Newton","Joule","Pascal","Watt"],
+a:2,
+t:"Pressure",
+e:"Pressure is measured in pascals."
+},
+
+{
+q:"Why does a sharp knife cut more easily than a blunt knife?",
+o:["It has greater mass","It produces greater pressure for the same force","It produces less force","It has greater volume"],
+a:1,
+t:"Pressure",
+e:"A smaller contact area produces greater pressure for the same force."
+},
+
+{
+q:"The pressure in a liquid increases with:",
+o:["Depth","Colour","Surface area only","Temperature only"],
+a:0,
+t:"Fluids",
+e:"Liquid pressure increases with depth."
+},
+
+{
+q:"Upthrust on an immersed body is equal to the:",
+o:["Weight of the body","Weight of displaced liquid","Mass of the body","Volume of the body"],
+a:1,
+t:"Fluids",
+e:"Archimedes' principle states that upthrust equals the weight of displaced fluid."
+},
+
+{
+q:"A body floats in a liquid when its average density is:",
+o:["Greater than the liquid","Less than the liquid","Always equal to zero","Infinite"],
+a:1,
+t:"Fluids",
+e:"An object floats when its average density is less than that of the liquid."
+},
+
+{
+q:"Heat is transferred through solids mainly by:",
+o:["Conduction","Convection","Radiation only","Evaporation"],
+a:0,
+t:"Heat",
+e:"Conduction is the main mode of heat transfer through solids."
+},
+
+{
+q:"Heat transfer through fluids mainly occurs by:",
+o:["Conduction only","Convection","Radiation only","Reflection"],
+a:1,
+t:"Heat",
+e:"Convection involves the bulk movement of fluids."
+},
+
+{
+q:"Heat from the Sun reaches the Earth mainly through:",
+o:["Conduction","Convection","Radiation","Evaporation"],
+a:2,
+t:"Heat",
+e:"Radiation can travel through the vacuum of space."
+},
+
+{
+q:"The quantity of heat required to raise the temperature of 1 kg of a substance by 1 K is its:",
+o:["Specific latent heat","Specific heat capacity","Thermal conductivity","Heat capacity of air"],
+a:1,
+t:"Thermal Physics",
+e:"Specific heat capacity is heat required to raise 1 kg by 1 K."
+},
+
+{
+q:"During melting, the temperature of a pure substance normally:",
+o:["Increases continuously","Remains constant","Falls rapidly","Becomes zero"],
+a:1,
+t:"Change of State",
+e:"Heat supplied during melting is used as latent heat while temperature remains constant."
+},
+
+{
+q:"The heat required to change a substance from liquid to gas without temperature change is called:",
+o:["Specific latent heat of vaporization","Specific heat capacity","Specific latent heat of fusion","Thermal energy"],
+a:0,
+t:"Change of State",
+e:"Specific latent heat of vaporization concerns liquid-to-gas change."
+},
+
+{
+q:"The number of complete vibrations made per second is called:",
+o:["Amplitude","Frequency","Wavelength","Period"],
+a:1,
+t:"Waves",
+e:"Frequency is the number of complete cycles per second."
+},
+
+{
+q:"The SI unit of frequency is:",
+o:["Metre","Hertz","Second","Newton"],
+a:1,
+t:"Waves",
+e:"Frequency is measured in hertz."
+},
+
+{
+q:"The distance between two successive crests of a wave is its:",
+o:["Amplitude","Frequency","Wavelength","Period"],
+a:2,
+t:"Waves",
+e:"Wavelength is the distance between corresponding points on successive waves."
+},
+
+{
+q:"The maximum displacement of a vibrating particle from its equilibrium position is:",
+o:["Frequency","Amplitude","Wavelength","Period"],
+a:1,
+t:"Waves",
+e:"Amplitude is the maximum displacement from equilibrium."
+},
+
+{
+q:"Which type of wave can travel through a vacuum?",
+o:["Sound wave","Water wave","Light wave","Seismic mechanical wave"],
+a:2,
+t:"Waves",
+e:"Electromagnetic waves such as light do not require a material medium."
+},
+
+{
+q:"Sound cannot travel through:",
+o:["Air","Water","Steel","Vacuum"],
+a:3,
+t:"Sound",
+e:"Sound is a mechanical wave and requires a material medium."
+},
+
+{
+q:"The apparent change in frequency of a wave due to relative motion between source and observer is called:",
+o:["Diffraction","Doppler effect","Interference","Polarization"],
+a:1,
+t:"Waves",
+e:"The Doppler effect is the apparent change in frequency due to relative motion."
+},
+
+{
+q:"The bending of light as it passes from one medium to another is called:",
+o:["Reflection","Refraction","Diffraction","Dispersion"],
+a:1,
+t:"Light",
+e:"Refraction occurs because light changes speed when entering another medium."
+},
+
+{
+q:"The splitting of white light into its component colours is called:",
+o:["Reflection","Dispersion","Diffraction","Polarization"],
+a:1,
+t:"Light",
+e:"Dispersion separates white light into its component colours."
+},
+
+{
+q:"Which colour of visible light has the longest wavelength?",
+o:["Violet","Blue","Green","Red"],
+a:3,
+t:"Light",
+e:"Red light has the longest wavelength in the visible spectrum."
+},
+
+{
+q:"A convex lens is commonly used as a:",
+o:["Magnifying glass","Rear-view mirror","Plane mirror","Periscope only"],
+a:0,
+t:"Optics",
+e:"A convex lens can produce an enlarged upright image when the object is within its focal length."
+},
+
+{
+q:"The ability of a lens to converge or diverge light is related to its:",
+o:["Power","Mass","Density only","Temperature"],
+a:0,
+t:"Optics",
+e:"Lens power is related to its focal length."
+},
+
+{
+q:"The SI unit of lens power is:",
+o:["Metre","Dioptre","Watt","Pascal"],
+a:1,
+t:"Optics",
+e:"Lens power is measured in dioptres."
+},
+
+{
+q:"A plane mirror forms an image that is:",
+o:["Real and inverted","Virtual and upright","Real and enlarged","Always diminished"],
+a:1,
+t:"Optics",
+e:"A plane mirror forms a virtual, upright image of the same size."
+},
+
+{
+q:"Electric current is the rate of flow of:",
+o:["Mass","Charge","Energy only","Resistance"],
+a:1,
+t:"Electricity",
+e:"Current is the rate at which electric charge flows."
+},
+
+{
+q:"The SI unit of electric current is:",
+o:["Volt","Ohm","Ampere","Coulomb"],
+a:2,
+t:"Electricity",
+e:"Current is measured in amperes."
+},
+
+{
+q:"Potential difference is measured in:",
+o:["Amperes","Volts","Ohms","Watts"],
+a:1,
+t:"Electricity",
+e:"Potential difference is measured in volts."
+},
+
+{
+q:"Ohm's law states that, at constant temperature:",
+o:["V = IR","V = I/R","R = VI","I = VR"],
+a:0,
+t:"Electricity",
+e:"Ohm's law is V = IR."
+},
+
+{
+q:"A resistor of 6 Ω carries a current of 2 A. What is the potential difference?",
+o:["3 V","8 V","12 V","18 V"],
+a:2,
+t:"Electricity",
+e:"V = IR = 2 × 6 = 12 V."
+},
+
+{
+q:"The electrical power consumed by a device can be calculated using:",
+o:["P = VI","P = V/I","P = I/V","P = R/V"],
+a:0,
+t:"Electrical Power",
+e:"Electrical power P = VI."
+},
+
+{
+q:"A 12 V appliance draws 3 A. Its electrical power is:",
+o:["4 W","15 W","36 W","48 W"],
+a:2,
+t:"Electrical Power",
+e:"P = VI = 12 × 3 = 36 W."
+},
+
+{
+q:"In a series circuit, the current through each component is:",
+o:["Different everywhere","The same","Always zero","Maximum at the battery only"],
+a:1,
+t:"Electric Circuits",
+e:"The same current flows through all components in a series circuit."
+},
+
+{
+q:"In a parallel circuit, the potential difference across each parallel branch is:",
+o:["Always different","The same","Zero","Always double"],
+a:1,
+t:"Electric Circuits",
+e:"Each parallel branch is connected across the same two points."
+},
+
+{
+q:"A fuse is used in an electrical circuit mainly to:",
+o:["Increase voltage","Protect against excessive current","Store charge","Increase resistance permanently"],
+a:1,
+t:"Electrical Safety",
+e:"A fuse melts when excessive current flows, protecting the circuit."
+},
+
+{
+q:"Which material is generally a good electrical conductor?",
+o:["Rubber","Glass","Copper","Plastic"],
+a:2,
+t:"Electricity",
+e:"Copper has many mobile charge carriers and is an excellent conductor."
+},
+
+{
+q:"The region around a magnet where magnetic force can be experienced is called:",
+o:["Electric field","Magnetic field","Gravitational field","Neutral zone"],
+a:1,
+t:"Magnetism",
+e:"A magnetic field is the region where magnetic forces act."
+},
+
+{
+q:"Like magnetic poles:",
+o:["Attract","Repel","Disappear","Become neutral"],
+a:1,
+t:"Magnetism",
+e:"Like poles repel while unlike poles attract."
+},
+
+{
+q:"An electromagnet can be made stronger by:",
+o:["Reducing the number of coil turns","Increasing current through the coil","Removing the iron core","Using a plastic core"],
+a:1,
+t:"Electromagnetism",
+e:"Increasing current or coil turns generally strengthens an electromagnet."
+},
+
+{
+q:"Electromagnetic induction is the production of an emf due to:",
+o:["A change in magnetic flux","A constant temperature","A decrease in mass","A chemical reaction only"],
+a:0,
+t:"Electromagnetic Induction",
+e:"Changing magnetic flux through a conductor induces an emf."
+},
+
+{
+q:"A transformer operates using:",
+o:["Direct current only","Alternating current","Static charge only","Chemical energy"],
+a:1,
+t:"Transformers",
+e:"Transformers require changing magnetic flux, normally supplied by AC."
+},
+
+{
+q:"A transformer that increases voltage is called a:",
+o:["Step-down transformer","Step-up transformer","Rectifier","Generator"],
+a:1,
+t:"Transformers",
+e:"A step-up transformer increases the output voltage."
+},
+
+{
+q:"Which radiation has the highest penetrating power among alpha, beta and gamma?",
+o:["Alpha","Beta","Gamma","All have equal penetration"],
+a:2,
+t:"Nuclear Physics",
+e:"Gamma radiation has the greatest penetrating power of the three."
+},
+
+{
+q:"An alpha particle is essentially a:",
+o:["Electron","Helium nucleus","Photon","Neutron"],
+a:1,
+t:"Nuclear Physics",
+e:"An alpha particle consists of two protons and two neutrons."
+},
+
+{
+q:"The spontaneous disintegration of an unstable atomic nucleus is called:",
+o:["Reflection","Radioactivity","Ionization only","Diffraction"],
+a:1,
+t:"Nuclear Physics",
+e:"Radioactivity is the spontaneous decay of unstable nuclei."
+}
+
+];
+  var government = [
+{q:"The main purpose of a constitution is to:",o:["Control businesses","Define government powers","Increase population","Create parties"],a:1,t:"Constitution",e:"A constitution defines the structure and powers of government."},
+{q:"A constitution that can be easily changed is called:",o:["Rigid","Flexible","Federal","Written"],a:1,t:"Constitution",e:"A flexible constitution can be changed relatively easily."},
+{q:"The principle of separation of powers is associated with:",o:["Karl Marx","Montesquieu","Adam Smith","Rousseau"],a:1,t:"Political Theory",e:"Montesquieu is strongly associated with separation of powers."},
+{q:"The legislature is responsible mainly for:",o:["Making laws","Enforcing laws","Interpreting laws","Conducting elections"],a:0,t:"Organs of Government",e:"The legislature makes laws."},
+{q:"The executive is mainly responsible for:",o:["Making laws","Implementing laws","Interpreting laws","Judging cases"],a:1,t:"Organs of Government",e:"The executive implements laws and policies."},
+{q:"The judiciary is mainly responsible for:",o:["Making laws","Collecting taxes","Interpreting laws","Conducting elections"],a:2,t:"Organs of Government",e:"The judiciary interprets laws and settles disputes."},
+{q:"Checks and balances help to:",o:["Concentrate power","Prevent abuse of power","Abolish elections","Control citizens"],a:1,t:"Government Principles",e:"Checks and balances limit excessive governmental power."},
+{q:"Rule of law means:",o:["Leaders are above law","Everyone is subject to law","Only judges obey laws","Only citizens obey laws"],a:1,t:"Rule of Law",e:"Everyone is subject to the law."},
+{q:"A major feature of democracy is:",o:["Military rule","Free elections","Dictatorship","Hereditary rule"],a:1,t:"Democracy",e:"Free and competitive elections are central to democracy."},
+{q:"A system where citizens participate directly in decision-making is:",o:["Direct democracy","Monarchy","Oligarchy","Military rule"],a:0,t:"Democracy",e:"Direct democracy involves citizens directly in decisions."},
+{q:"Representative democracy means citizens:",o:["Avoid elections","Elect representatives","Rule through the army","Have no rights"],a:1,t:"Democracy",e:"Citizens elect people to represent them."},
+{q:"Universal adult suffrage means:",o:["Only rich people vote","Qualified adults can vote","Only workers vote","Only rulers vote"],a:1,t:"Elections",e:"Qualified adult citizens have the right to vote."},
+{q:"The secret ballot protects voters from:",o:["Voting","Intimidation","Registration","Counting"],a:1,t:"Elections",e:"Secret voting protects voters from pressure and intimidation."},
+{q:"A referendum allows citizens to:",o:["Vote on a specific issue","Appoint judges","Write laws alone","Choose civil servants"],a:0,t:"Elections",e:"A referendum is a direct vote on a particular issue."},
+{q:"An electoral constituency is:",o:["A court","An electoral area","A ministry","A political party"],a:1,t:"Elections",e:"A constituency is an area represented by an elected official."},
+{q:"The process of developing political attitudes is called:",o:["Political socialization","Federalism","Judicial review","Corruption"],a:0,t:"Political Socialization",e:"Political socialization develops political beliefs and attitudes."},
+{q:"The body responsible for conducting elections in Nigeria is:",o:["EFCC","INEC","NJC","NNPC"],a:1,t:"Nigerian Government",e:"INEC conducts elections in Nigeria."},
+{q:"A major function of political parties is to:",o:["Conduct trials","Contest elections","Control courts","Issue passports"],a:1,t:"Political Parties",e:"Political parties contest elections and seek political power."},
+{q:"A party manifesto contains its:",o:["Court judgments","Policies and programmes","Voter passwords","Military rules"],a:1,t:"Political Parties",e:"A manifesto outlines a party's policies and programmes."},
+{q:"Pressure groups mainly seek to:",o:["Form government","Influence government","Conduct elections","Control courts"],a:1,t:"Pressure Groups",e:"Pressure groups seek to influence public policy."},
+{q:"Public opinion refers to:",o:["A judge's opinion","Views of people on public issues","A government budget","A court order"],a:1,t:"Public Opinion",e:"Public opinion represents people's views on public matters."},
+{q:"Mass media contributes to democracy by:",o:["Stopping debate","Providing information","Making laws","Replacing elections"],a:1,t:"Mass Media",e:"The media informs citizens and encourages public discussion."},
+{q:"Federalism involves:",o:["Centralized power","Division of powers between levels","Military control","No local government"],a:1,t:"Federalism",e:"Federalism divides powers between different levels of government."},
+{q:"In a federation, the constitution mainly:",o:["Abolishes states","Defines powers","Stops elections","Controls businesses"],a:1,t:"Federalism",e:"The constitution defines the powers of each level of government."},
+{q:"One advantage of federalism is that it can:",o:["Accommodate diversity","End elections","Centralize power","Remove local government"],a:0,t:"Federalism",e:"Federalism can accommodate regional differences."},
+{q:"One disadvantage of federalism is:",o:["Local participation","Duplication of functions","Regional representation","Decentralization"],a:1,t:"Federalism",e:"Different levels may duplicate government functions."},
+{q:"A unitary system concentrates ultimate authority at the:",o:["Local level","Centre","Village","Courts"],a:1,t:"Systems of Government",e:"Ultimate authority is concentrated in the central government."},
+{q:"A confederation usually has:",o:["Strong central authority","Weak central authority","No states","Military authority"],a:1,t:"Systems of Government",e:"Member units retain considerable autonomy in a confederation."},
+{q:"A monarchy normally has a head of state who is:",o:["Hereditary","Always elected","A judge","A civil servant"],a:0,t:"Systems of Government",e:"Traditional monarchies normally have hereditary rulers."},
+{q:"A presidential system is characterized by:",o:["Fusion of powers","Separation of powers","Hereditary president","No elections"],a:1,t:"Presidential System",e:"Presidential government separates the executive from the legislature."},
+    {q:"In a parliamentary system, the executive is usually drawn from:",o:["Judiciary","Legislature","Military","Civil service"],a:1,t:"Parliamentary System",e:"The executive is usually drawn from the legislature."},
+{q:"Collective responsibility is mainly associated with:",o:["Cabinet government","Military rule","Judiciary","Local government"],a:0,t:"Cabinet Government",e:"Cabinet ministers share collective responsibility for government decisions."},
+{q:"A vote of no confidence may force a government to:",o:["Resign","Increase taxes","Abolish courts","Cancel elections"],a:0,t:"Parliamentary System",e:"A government that loses parliamentary confidence may resign."},
+{q:"The civil service is expected to be:",o:["Political","Neutral","Temporary","Judicial"],a:1,t:"Civil Service",e:"The civil service is expected to remain politically neutral."},
+{q:"A major function of the civil service is to:",o:["Implement policies","Conduct elections","Make court judgments","Form parties"],a:0,t:"Civil Service",e:"Civil servants help implement government policies."},
+{q:"Red tape refers to:",o:["Efficient administration","Excessive procedures","Free elections","Political campaigns"],a:1,t:"Bureaucracy",e:"Red tape means excessive official procedures and delays."},
+{q:"Local government is established mainly to:",o:["Bring government closer to people","Control foreign affairs","Command the army","Replace federal government"],a:0,t:"Local Government",e:"Local government brings administration closer to the grassroots."},
+{q:"Decentralization involves:",o:["Concentrating power","Transferring authority to lower levels","Ending elections","Abolishing states"],a:1,t:"Local Government",e:"Decentralization transfers some authority to lower levels."},
+{q:"Naturalization means:",o:["Acquiring citizenship legally","Losing citizenship","Voting","Joining a party"],a:0,t:"Citizenship",e:"Naturalization is a legal process for acquiring citizenship."},
+{q:"A fundamental right is a right that is:",o:["Legally protected","Only for politicians","Only during elections","Controlled by parties"],a:0,t:"Human Rights",e:"Fundamental rights receive legal protection."},
+{q:"Freedom of expression allows citizens to:",o:["Express lawful opinions","Break every law","Stop others speaking","Ignore courts"],a:0,t:"Human Rights",e:"Citizens have the right to express opinions subject to lawful limits."},
+{q:"Judicial review involves courts examining:",o:["Government actions","Election campaigns","Party manifestos","Population figures"],a:0,t:"Judiciary",e:"Judicial review examines the legality or constitutionality of government actions."},
+{q:"Judicial independence means judges should:",o:["Follow political parties","Act without improper interference","Make laws","Control elections"],a:1,t:"Judiciary",e:"Judges should decide cases independently."},
+{q:"Impeachment is a process for:",o:["Removing certain public officials","Conducting elections","Creating parties","Granting citizenship"],a:0,t:"Accountability",e:"Impeachment is a constitutional process for removing certain officials."},
+{q:"Political accountability means leaders should:",o:["Be answerable for their actions","Have unlimited power","Avoid scrutiny","Ignore laws"],a:0,t:"Accountability",e:"Public officials should be answerable for their actions."},
+{q:"Government transparency involves:",o:["Hiding information","Making relevant information accessible","Stopping audits","Avoiding records"],a:1,t:"Good Governance",e:"Transparency promotes openness in government."},
+{q:"Corruption can be controlled through:",o:["Weak institutions","Accountability and enforcement","Secret budgets","No audits"],a:1,t:"Good Governance",e:"Strong accountability and enforcement can help reduce corruption."},
+{q:"A military coup is:",o:["An election","Unconstitutional seizure of power","A referendum","A court ruling"],a:1,t:"Military Rule",e:"A coup is an unconstitutional seizure of political power."},
+{q:"A common feature of military rule is:",o:["Regular elections","Suspension of some constitutional provisions","Free party competition","Parliamentary government"],a:1,t:"Military Rule",e:"Military regimes have historically suspended or restricted constitutional institutions."},
+{q:"Nationalism means:",o:["Commitment to one's nation","Opposition to citizenship","Military control","Tax collection"],a:0,t:"Nationalism",e:"Nationalism emphasizes loyalty and commitment to a nation."},
+{q:"A major aim of African nationalism was:",o:["Colonial expansion","Self-government and independence","Foreign control","Ending education"],a:1,t:"Nationalism",e:"Nationalist movements sought self-government and independence."},
+{q:"Nigeria gained independence on:",o:["1 October 1957","1 October 1960","1 January 1963","29 May 1979"],a:1,t:"Nigerian Political Development",e:"Nigeria became independent on 1 October 1960."},
+{q:"Nigeria became a republic in:",o:["1960","1963","1966","1979"],a:1,t:"Nigerian Political Development",e:"Nigeria became a republic in 1963."},
+{q:"Nigeria's federal legislature is called the:",o:["National Assembly","Federal Council","State Assembly","Executive Council"],a:0,t:"Nigerian Legislature",e:"The National Assembly is Nigeria's federal legislature."},
+{q:"The two chambers of Nigeria's National Assembly are:",o:["Senate and House of Representatives","Senate and Supreme Court","House and Cabinet","Council and Senate"],a:0,t:"Nigerian Legislature",e:"The National Assembly consists of the Senate and House of Representatives."},
+{q:"The highest court in Nigeria is the:",o:["High Court","Court of Appeal","Supreme Court","Magistrate Court"],a:2,t:"Nigerian Judiciary",e:"The Supreme Court is Nigeria's highest court."},
+{q:"Nigeria operates a:",o:["Unitary system","Federal system","Confederal system","Monarchical system"],a:1,t:"Nigerian Government",e:"Nigeria operates a federal system of government."},
+{q:"A bicameral legislature has:",o:["One chamber","Two chambers","Three chambers","No chamber"],a:1,t:"Legislature",e:"Bicameral means having two legislative chambers."},
+{q:"Delegated legislation is made by:",o:["A body given legislative authority","Voters directly","Political parties","Foreign governments"],a:0,t:"Legislation",e:"Delegated legislation is made under authority granted by the legislature."},
+{q:"Opposition parties mainly:",o:["Scrutinize government","Control the courts","Cancel elections","Command the army"],a:0,t:"Political Parties",e:"Opposition parties scrutinize government and provide alternative policies."}
+];
+  var economics = [
+{q:"Economics is primarily concerned with the study of:",o:["Unlimited resources","Scarce resources and unlimited wants","Money alone","Government alone"],a:1,t:"Basic Economic Concepts",e:"Economics studies how scarce resources are allocated to satisfy unlimited wants."},
+{q:"The basic economic problem arises because:",o:["Resources are unlimited","Human wants are limited","Resources are scarce relative to wants","Money has no value"],a:2,t:"Scarcity",e:"The basic economic problem exists because resources are scarce while human wants are unlimited."},
+{q:"Opportunity cost is the:",o:["Money spent on a product","Next best alternative forgone","Total cost of production","Price of a commodity"],a:1,t:"Opportunity Cost",e:"Opportunity cost is the value of the next best alternative forgone."},
+{q:"A production possibility curve shows:",o:["Consumer income","Alternative production combinations","Government expenditure","Population growth"],a:1,t:"Production Possibility Curve",e:"A production possibility curve shows different combinations of goods that can be produced with available resources."},
+{q:"Which of the following is a factor of production?",o:["Wants","Land","Price","Demand"],a:1,t:"Factors of Production",e:"Land is one of the four major factors of production."},
+{q:"The reward for the use of land is:",o:["Wage","Interest","Rent","Profit"],a:2,t:"Factors of Production",e:"Rent is the reward for the use of land."},
+{q:"The reward for labour is:",o:["Rent","Wage","Interest","Profit"],a:1,t:"Factors of Production",e:"Wages are the reward for labour."},
+{q:"The reward for capital is:",o:["Rent","Wage","Interest","Profit"],a:2,t:"Factors of Production",e:"Interest is the reward for capital."},
+{q:"The reward for entrepreneurship is:",o:["Profit","Rent","Wage","Interest"],a:0,t:"Factors of Production",e:"Profit is the reward for entrepreneurship."},
+{q:"A normal good is one whose demand generally:",o:["Falls when income rises","Rises when income rises","Never changes","Depends only on population"],a:1,t:"Demand",e:"Demand for a normal good generally increases as consumer income increases."},
+{q:"The law of demand states that, other things being equal:",o:["Price and quantity demanded move in the same direction","Price and quantity demanded move in opposite directions","Supply always exceeds demand","Demand never changes"],a:1,t:"Law of Demand",e:"The law of demand states that quantity demanded generally falls as price rises, ceteris paribus."},
+{q:"A movement along a demand curve is caused by a change in:",o:["Income","Taste","Price of the commodity","Population"],a:2,t:"Demand",e:"A change in the commodity's own price causes movement along the demand curve."},
+{q:"An increase in demand is represented by a:",o:["Movement along the same curve","Rightward shift of the demand curve","Leftward shift of the demand curve","Vertical movement only"],a:1,t:"Demand",e:"An increase in demand shifts the demand curve to the right."},
+{q:"The law of supply states that, other things being equal:",o:["Quantity supplied falls as price rises","Quantity supplied rises as price rises","Supply is independent of price","Price never affects supply"],a:1,t:"Law of Supply",e:"The law of supply states that quantity supplied generally increases as price rises."},
+{q:"An increase in supply causes the supply curve to shift:",o:["Left","Right","Upward only","Downward only"],a:1,t:"Supply",e:"An increase in supply shifts the supply curve to the right."},
+{q:"Market equilibrium occurs when:",o:["Demand exceeds supply","Supply exceeds demand","Quantity demanded equals quantity supplied","Price is zero"],a:2,t:"Market Equilibrium",e:"Equilibrium occurs where quantity demanded equals quantity supplied."},
+{q:"A shortage occurs when:",o:["Supply exceeds demand","Demand exceeds supply","Price equals zero","Production stops"],a:1,t:"Market Equilibrium",e:"A shortage occurs when quantity demanded is greater than quantity supplied."},
+{q:"A surplus occurs when:",o:["Demand exceeds supply","Supply exceeds demand","Demand equals supply","Consumers disappear"],a:1,t:"Market Equilibrium",e:"A surplus occurs when quantity supplied exceeds quantity demanded."},
+{q:"Price elasticity of demand measures the responsiveness of quantity demanded to a change in:",o:["Income only","Price","Population","Technology"],a:1,t:"Elasticity",e:"Price elasticity of demand measures how quantity demanded responds to changes in price."},
+{q:"When demand is perfectly inelastic, the demand curve is:",o:["Horizontal","Vertical","Downward sloping","Upward sloping"],a:1,t:"Elasticity",e:"Perfectly inelastic demand is represented by a vertical demand curve."},
+{q:"A commodity with many close substitutes is likely to have:",o:["Inelastic demand","Elastic demand","Perfectly inelastic demand","Zero demand"],a:1,t:"Elasticity",e:"Availability of close substitutes generally makes demand more elastic."},
+{q:"Income elasticity of demand measures the response of demand to changes in:",o:["Price","Income","Supply","Production cost"],a:1,t:"Income Elasticity",e:"Income elasticity measures how demand responds to changes in consumer income."},
+{q:"Cross elasticity of demand measures the relationship between the demand for one good and the:",o:["Income of the producer","Price of another good","Population of a country","Cost of labour"],a:1,t:"Cross Elasticity",e:"Cross elasticity measures how demand for one good responds to the price of another good."},
+{q:"Goods that can be used together are called:",o:["Substitute goods","Complementary goods","Inferior goods","Public goods"],a:1,t:"Types of Goods",e:"Complementary goods are goods consumed or used together."},
+{q:"Tea and coffee are commonly regarded as:",o:["Complementary goods","Substitute goods","Public goods","Capital goods"],a:1,t:"Types of Goods",e:"Tea and coffee can serve as substitutes because either can satisfy a similar want."},
+{q:"A market with only one seller is called:",o:["Perfect competition","Monopoly","Oligopoly","Duopoly"],a:1,t:"Market Structure",e:"A monopoly is a market structure with a single dominant seller."},
+{q:"A market with only two major sellers is called:",o:["Monopoly","Duopoly","Oligopoly","Perfect competition"],a:1,t:"Market Structure",e:"A duopoly is a market dominated by two sellers."},
+{q:"A market dominated by a few large firms is called:",o:["Monopoly","Oligopoly","Perfect competition","Monopsony"],a:1,t:"Market Structure",e:"An oligopoly is a market structure dominated by a few large firms."},
+{q:"Perfect competition is characterized by:",o:["One seller","Many buyers and sellers","Government ownership only","Complete absence of buyers"],a:1,t:"Market Structure",e:"Perfect competition assumes many buyers and sellers selling a homogeneous product."},
+{q:"One major characteristic of monopoly is:",o:["Many competing sellers","A single seller","Free entry by all firms","Identical firms with no market power"],a:1,t:"Market Structure",e:"A monopoly has a single seller with significant control over the market."},
+    {q:"Which of the following is a fixed cost?",o:["Cost of raw materials","Rent of factory","Wages paid per unit","Cost of fuel"],a:1,t:"Cost of Production",e:"Factory rent usually remains fixed in the short run."},
+{q:"A variable cost changes with:",o:["Level of production","Size of the country","Population only","Government type"],a:0,t:"Cost of Production",e:"Variable costs change as the level of output changes."},
+{q:"Total cost is equal to:",o:["Fixed cost minus variable cost","Fixed cost plus variable cost","Average cost plus profit","Revenue minus tax"],a:1,t:"Cost of Production",e:"Total cost is the sum of fixed and variable costs."},
+{q:"Average cost is calculated by dividing total cost by:",o:["Price","Total revenue","Quantity of output","Profit"],a:2,t:"Cost of Production",e:"Average cost equals total cost divided by quantity produced."},
+{q:"Marginal cost is the additional cost of producing:",o:["All units","One additional unit","No units","The first unit only"],a:1,t:"Cost of Production",e:"Marginal cost is the extra cost of producing one additional unit."},
+{q:"A firm's revenue is the:",o:["Cost of production","Income from sales","Amount of tax paid","Value of machinery"],a:1,t:"Revenue",e:"Revenue is the income a firm receives from selling its products."},
+{q:"Total revenue is calculated as:",o:["Price × quantity sold","Cost × profit","Wage × labour","Tax × population"],a:0,t:"Revenue",e:"Total revenue equals price multiplied by quantity sold."},
+{q:"Profit is calculated as:",o:["Total cost minus total revenue","Total revenue minus total cost","Price minus tax","Wages minus rent"],a:1,t:"Profit",e:"Profit is the excess of total revenue over total cost."},
+{q:"Division of labour means:",o:["Workers performing different specialized tasks","Workers owning all factories","Government controlling all labour","Consumers producing goods"],a:0,t:"Division of Labour",e:"Division of labour involves dividing production into specialized tasks."},
+{q:"One major advantage of division of labour is:",o:["Increased productivity","Reduced specialization","Lower skill development","Complete unemployment"],a:0,t:"Division of Labour",e:"Specialization can increase workers' productivity."},
+{q:"A major disadvantage of excessive specialization is:",o:["Monotony of work","Higher productivity","Skill improvement","Time saving"],a:0,t:"Division of Labour",e:"Repetitive specialized work can become monotonous."},
+{q:"Capital formation refers to:",o:["Increase in productive capital","Increase in population only","Reduction in savings","Fall in investment"],a:0,t:"Capital Formation",e:"Capital formation involves increasing the stock of productive assets."},
+{q:"Savings are important for economic development because they can provide funds for:",o:["Investment","Consumption only","Imports only","Tax evasion"],a:0,t:"Savings and Investment",e:"Savings can provide funds that are used for investment."},
+{q:"Inflation is a sustained increase in the:",o:["General price level","Value of money","Quantity of exports","Level of employment only"],a:0,t:"Inflation",e:"Inflation is a sustained rise in the general price level."},
+{q:"One major effect of inflation is:",o:["Reduced purchasing power of money","Permanent fall in prices","Increase in money value","Elimination of scarcity"],a:0,t:"Inflation",e:"Inflation reduces the purchasing power of money when incomes do not rise proportionately."},
+{q:"Deflation refers to a sustained:",o:["Rise in general prices","Fall in general prices","Rise in population","Increase in exports"],a:1,t:"Deflation",e:"Deflation is a sustained decline in the general price level."},
+{q:"Unemployment occurs when people who are willing and able to work:",o:["Cannot find jobs","Choose to retire","Are students only","Own businesses"],a:0,t:"Unemployment",e:"Unemployment occurs when willing and able workers cannot find suitable employment."},
+{q:"Seasonal unemployment is mainly caused by:",o:["Seasonal changes in demand for labour","Permanent technological progress","Changes in currency","Population decline"],a:0,t:"Unemployment",e:"Seasonal unemployment results from changes in employment opportunities during different seasons."},
+{q:"Structural unemployment may result from:",o:["Changes in technology and production methods","Holiday periods only","Temporary illness","Retirement"],a:0,t:"Unemployment",e:"Structural unemployment can occur when workers' skills no longer match available jobs."},
+{q:"Fiscal policy involves the use of:",o:["Government taxation and expenditure","Interest rates only","Private savings","Foreign exchange alone"],a:0,t:"Fiscal Policy",e:"Fiscal policy uses government spending and taxation to influence economic activity."},
+{q:"Monetary policy is mainly concerned with controlling:",o:["Money supply and credit","Population growth","Agricultural land","Government elections"],a:0,t:"Monetary Policy",e:"Monetary policy regulates money supply, credit and interest rates."},
+{q:"The institution responsible for monetary policy in Nigeria is the:",o:["Central Bank of Nigeria","Federal Inland Revenue Service","National Assembly","Ministry of Education"],a:0,t:"Central Banking",e:"The Central Bank of Nigeria is responsible for monetary policy."},
+{q:"One major function of a central bank is to:",o:["Issue currency","Produce farm crops","Build private houses","Sell consumer goods"],a:0,t:"Central Bank",e:"A central bank has the authority to issue currency in the monetary system."},
+{q:"Commercial banks mainly accept:",o:["Deposits from customers","Taxes from governments","Votes from citizens","Court judgments"],a:0,t:"Commercial Banking",e:"Accepting deposits is a major function of commercial banks."},
+{q:"A loan is best described as:",o:["Money given with an obligation to repay","A free government grant","A tax refund","A compulsory saving"],a:0,t:"Banking",e:"A loan is money provided with an obligation to repay, usually with interest."},
+{q:"National income refers to the:",o:["Total income earned by factors of production in an economy","Income of the government alone","Money held by banks","Income of one company"],a:0,t:"National Income",e:"National income measures the income generated by an economy's factors of production."},
+{q:"Gross Domestic Product measures the value of:",o:["Final goods and services produced within a country","Only imported goods","Only government salaries","Foreign assets owned by citizens"],a:0,t:"National Income",e:"GDP measures the value of final goods and services produced within a country's borders."},
+{q:"Economic growth generally refers to:",o:["Increase in real output over time","Fall in production","Increase in unemployment only","Reduction in national income"],a:0,t:"Economic Growth",e:"Economic growth involves an increase in real output over time."},
+{q:"Economic development is broader than economic growth because it includes:",o:["Improvement in living standards","Only higher prices","Only population growth","Only increased imports"],a:0,t:"Economic Development",e:"Economic development includes improvements in living standards and other social and economic conditions."}
+];
+  var agricultural = [
+{q:"Agriculture can best be defined as the:",o:["Study of weather","Cultivation of crops and rearing of animals","Production of machines","Buying and selling of goods"],a:1,t:"Introduction to Agriculture",e:"Agriculture involves crop production, animal production and related activities."},
+{q:"Which of the following is a major importance of agriculture?",o:["Food production","Reduction of employment","Destruction of forests","Reduction of raw materials"],a:0,t:"Importance of Agriculture",e:"Agriculture provides food for humans and animals."},
+{q:"The practice of growing crops and keeping animals on the same farm is called:",o:["Mixed farming","Monocropping","Shifting cultivation","Plantation farming"],a:0,t:"Farming Systems",e:"Mixed farming combines crop production with animal production."},
+{q:"A system in which crops are grown mainly for sale is called:",o:["Subsistence farming","Commercial farming","Nomadic farming","Peasant farming"],a:1,t:"Farming Systems",e:"Commercial farming is mainly carried out for the market."},
+{q:"Subsistence farming is mainly practiced to:",o:["Produce food for the farmer and family","Export all farm products","Supply industries only","Produce cash crops only"],a:0,t:"Farming Systems",e:"Subsistence farming mainly provides food for the farmer and family."},
+{q:"Which of the following is a cash crop?",o:["Cocoa","Maize","Cassava","Yam"],a:0,t:"Crop Production",e:"Cocoa is an important cash crop produced for commercial purposes."},
+{q:"Which crop is commonly propagated vegetatively using stem cuttings?",o:["Cassava","Maize","Rice","Millet"],a:0,t:"Crop Propagation",e:"Cassava is commonly propagated using stem cuttings."},
+{q:"The removal of unwanted plants from a farm is known as:",o:["Weeding","Harvesting","Mulching","Thinning"],a:0,t:"Crop Production",e:"Weeding involves removing unwanted plants competing with crops."},
+{q:"Mulching helps to:",o:["Conserve soil moisture","Increase soil erosion","Destroy all soil organisms","Remove nutrients"],a:0,t:"Crop Production",e:"Mulching reduces evaporation and helps conserve soil moisture."},
+{q:"The process of loosening the soil before planting is called:",o:["Tillage","Harvesting","Storage","Pollination"],a:0,t:"Soil Management",e:"Tillage involves preparing and loosening the soil for crop production."},
+{q:"Which soil particle has the largest size?",o:["Clay","Silt","Sand","Humus"],a:2,t:"Soil Science",e:"Sand particles are larger than silt and clay particles."},
+{q:"Clay soil generally has:",o:["High water-holding capacity","Very low water-holding capacity","No nutrients","Very large particles"],a:0,t:"Soil Science",e:"Clay has very small particles and can retain a large amount of water."},
+{q:"The organic component of soil formed from decomposed materials is called:",o:["Humus","Sand","Gravel","Silt"],a:0,t:"Soil Science",e:"Humus is formed from decomposed plant and animal materials."},
+{q:"Soil erosion is the:",o:["Removal of topsoil by agents such as water and wind","Addition of fertilizer","Formation of humus","Growth of crops"],a:0,t:"Soil Erosion",e:"Soil erosion involves the removal of soil particles by agents such as water and wind."},
+{q:"Which practice helps control soil erosion?",o:["Terracing","Overgrazing","Bush burning","Deforestation"],a:0,t:"Soil Conservation",e:"Terracing reduces the speed of water flowing down slopes."},
+{q:"The nutrient mainly associated with vegetative growth in plants is:",o:["Nitrogen","Phosphorus","Potassium","Calcium"],a:0,t:"Plant Nutrition",e:"Nitrogen promotes leafy and vegetative growth."},
+{q:"Phosphorus is particularly important for:",o:["Root development and reproduction","Leaf burning","Soil erosion","Pest destruction"],a:0,t:"Plant Nutrition",e:"Phosphorus supports root development and reproductive processes."},
+{q:"Potassium helps plants mainly by improving:",o:["Disease resistance and general plant strength","Soil erosion","Weed growth","Water pollution"],a:0,t:"Plant Nutrition",e:"Potassium contributes to plant strength and resistance to stresses."},
+{q:"A fertilizer containing nitrogen, phosphorus and potassium is commonly called:",o:["NPK fertilizer","Lime","Compost","Manure"],a:0,t:"Fertilizers",e:"NPK fertilizers supply nitrogen, phosphorus and potassium."},
+{q:"Organic manure can be obtained from:",o:["Animal dung and plant residues","Plastic materials","Metal scraps","Petroleum"],a:0,t:"Manure",e:"Organic manure is produced from decomposed plant and animal materials."},
+{q:"The process by which green plants manufacture food is called:",o:["Photosynthesis","Respiration","Transpiration","Germination"],a:0,t:"Plant Physiology",e:"Photosynthesis uses light energy to manufacture food in green plants."},
+{q:"The green pigment responsible for trapping light energy is:",o:["Chlorophyll","Haemoglobin","Melanin","Keratin"],a:0,t:"Photosynthesis",e:"Chlorophyll absorbs light energy needed for photosynthesis."},
+{q:"Pollination is the transfer of pollen grains from the:",o:["Anther to stigma","Stigma to ovary","Root to leaf","Ovary to anther"],a:0,t:"Plant Reproduction",e:"Pollination is the transfer of pollen from the anther to the stigma."},
+{q:"Self-pollination occurs when pollen is transferred:",o:["Within the same flower or plant","Between unrelated animal species","From soil to root","From leaf to stem"],a:0,t:"Plant Reproduction",e:"Self-pollination occurs within the same flower or between flowers on the same plant."},
+{q:"The germination of a seed requires adequate water, oxygen and:",o:["Suitable temperature","Fertilizer only","Darkness only","Insecticides"],a:0,t:"Seed Germination",e:"Water, oxygen and suitable temperature are essential for germination."},
+{q:"Which of the following is a farm tool used for cutting weeds?",o:["Cutlass","Watering can","Rake","Wheelbarrow"],a:0,t:"Farm Tools",e:"A cutlass is commonly used for clearing vegetation and cutting weeds."},
+{q:"A knapsack sprayer is mainly used to apply:",o:["Chemicals to crops","Seeds to soil","Harvested grains","Animal feed"],a:0,t:"Farm Tools",e:"Knapsack sprayers are used to apply pesticides, herbicides and other chemicals."},
+{q:"A group of animals of the same species kept on a farm is called a:",o:["Herd","Crop","Plot","Flock only"],a:0,t:"Animal Production",e:"A herd commonly refers to a group of animals such as cattle kept together."},
+{q:"Which of the following is a ruminant animal?",o:["Cattle","Pig","Chicken","Rabbit"],a:0,t:"Animal Production",e:"Cattle are ruminants and have a specialized digestive system."},
+{q:"The first compartment of the stomach of a ruminant is the:",o:["Rumen","Omasum","Abomasum","Reticulum"],a:0,t:"Animal Nutrition",e:"The rumen is the first and largest compartment of a ruminant stomach."},
+    {q:"The second compartment of a ruminant stomach is the:",o:["Reticulum","Rumen","Omasum","Abomasum"],a:0,t:"Animal Nutrition",e:"The reticulum is the second compartment of a ruminant stomach."},
+{q:"The true stomach of a ruminant is the:",o:["Abomasum","Rumen","Reticulum","Omasum"],a:0,t:"Animal Nutrition",e:"The abomasum is the true glandular stomach of a ruminant."},
+{q:"Which of the following is a monogastric animal?",o:["Pig","Cattle","Sheep","Goat"],a:0,t:"Animal Production",e:"A pig has a simple single-compartment stomach."},
+{q:"Broilers are poultry birds mainly raised for:",o:["Meat","Eggs","Feathers","Breeding only"],a:0,t:"Poultry Production",e:"Broilers are bred and raised primarily for meat production."},
+{q:"Layers are poultry birds mainly raised for:",o:["Egg production","Meat production","Ploughing","Milk production"],a:0,t:"Poultry Production",e:"Layers are poultry birds selected mainly for egg production."},
+{q:"The incubation period of a chicken egg is approximately:",o:["21 days","7 days","14 days","35 days"],a:0,t:"Poultry Production",e:"Chicken eggs normally hatch after about 21 days of incubation."},
+{q:"A young female chicken before laying eggs is called a:",o:["Pullet","Hen","Cock","Cockerel"],a:0,t:"Poultry Production",e:"A pullet is a young female chicken that has not yet reached full laying maturity."},
+{q:"A mature male chicken is called a:",o:["Cock","Pullet","Hen","Chick"],a:0,t:"Poultry Production",e:"An adult male chicken is called a cock."},
+{q:"Which of the following is commonly used to identify cattle?",o:["Ear tagging","Wing clipping","Debeaking","Toe punching"],a:0,t:"Livestock Management",e:"Ear tags can be used to identify individual cattle."},
+{q:"Debeaking is commonly practiced in:",o:["Poultry","Cattle","Sheep","Fish"],a:0,t:"Poultry Management",e:"Debeaking involves trimming the beak of poultry under controlled conditions."},
+{q:"Castration involves the removal or disabling of the:",o:["Testes","Udder","Horn","Hoof"],a:0,t:"Livestock Management",e:"Castration prevents males from reproducing and may improve management."},
+{q:"Artificial insemination involves:",o:["Introducing semen into the female reproductive tract artificially","Removing the uterus","Feeding animals hormones","Crossing crops"],a:0,t:"Animal Reproduction",e:"Artificial insemination introduces semen into the female reproductive tract without natural mating."},
+{q:"One major advantage of artificial insemination is that it:",o:["Allows rapid use of superior males","Prevents all diseases","Eliminates feeding costs","Stops reproduction"],a:0,t:"Animal Reproduction",e:"Artificial insemination allows desirable genetic traits from superior males to be widely used."},
+{q:"The female reproductive cell is called the:",o:["Ovum","Sperm","Zygote","Embryo"],a:0,t:"Animal Reproduction",e:"The ovum is the female reproductive cell."},
+{q:"The male reproductive cell is called the:",o:["Sperm","Ovum","Embryo","Foetus"],a:0,t:"Animal Reproduction",e:"The sperm is the male reproductive cell."},
+{q:"The fusion of male and female gametes is called:",o:["Fertilization","Pollination","Germination","Incubation"],a:0,t:"Animal Reproduction",e:"Fertilization occurs when male and female gametes fuse to form a zygote."},
+{q:"A disease caused by a deficiency of vitamin A in livestock may result in:",o:["Poor growth and impaired vision","Broken horns only","Excessive milk production","Rapid weight gain"],a:0,t:"Animal Nutrition",e:"Vitamin A deficiency can affect growth and vision."},
+{q:"A balanced ration contains:",o:["All essential nutrients in suitable proportions","Only carbohydrates","Only proteins","Only minerals"],a:0,t:"Animal Nutrition",e:"A balanced ration supplies the nutrients required by an animal in appropriate proportions."},
+{q:"Protein is especially important for:",o:["Growth and tissue repair","Producing soil","Increasing erosion","Destroying vitamins"],a:0,t:"Animal Nutrition",e:"Protein is required for growth, maintenance and repair of body tissues."},
+{q:"Carbohydrates mainly provide animals with:",o:["Energy","Antibodies only","Calcium only","Water only"],a:0,t:"Animal Nutrition",e:"Carbohydrates are an important source of energy."},
+{q:"A disease-causing organism is known as a:",o:["Pathogen","Nutrient","Producer","Decomposer"],a:0,t:"Farm Diseases",e:"A pathogen is an organism capable of causing disease."},
+{q:"Vaccination is mainly used to:",o:["Prevent specific diseases","Increase soil erosion","Replace animal feed","Destroy all insects"],a:0,t:"Animal Health",e:"Vaccination stimulates immunity against specific infectious diseases."},
+{q:"Quarantine involves:",o:["Separating animals to prevent disease spread","Increasing animal population","Mixing sick and healthy animals","Reducing farm size"],a:0,t:"Animal Health",e:"Quarantine separates animals to reduce the risk of introducing or spreading disease."},
+{q:"Which organism commonly causes malaria in humans?",o:["Plasmodium","Bacterium","Fungus","Tapeworm"],a:0,t:"Health and Agriculture",e:"Malaria is caused by Plasmodium parasites transmitted by infected mosquitoes."},
+{q:"A farm record showing money received and spent is called a:",o:["Cash book","Breeding record","Stock record","Weather record"],a:0,t:"Farm Records",e:"A cash book records cash receipts and payments."},
+{q:"A farm inventory records:",o:["Farm assets and items owned","Only rainfall","Only crop diseases","Only labour hours"],a:0,t:"Farm Records",e:"An inventory lists farm assets, equipment, livestock and other items owned."},
+{q:"Depreciation refers to the:",o:["Fall in value of an asset over time","Increase in crop yield","Rise in land value only","Increase in animal population"],a:0,t:"Farm Management",e:"Depreciation is the gradual reduction in the value of an asset due to use, age or obsolescence."},
+{q:"Farm budgeting is mainly used to:",o:["Plan expected income and expenditure","Identify plant species only","Measure rainfall","Treat animal diseases"],a:0,t:"Farm Management",e:"A farm budget helps the farmer plan expected costs, revenue and resource use."},
+{q:"The practice of keeping different crops on the same land in successive seasons is called:",o:["Crop rotation","Monocropping","Bush fallowing","Plantation farming"],a:0,t:"Crop Management",e:"Crop rotation involves growing different crops on the same land in a planned sequence."},
+{q:"One major advantage of crop rotation is:",o:["Improved soil fertility and pest management","Permanent soil exhaustion","Increased erosion","Elimination of all weeds"],a:0,t:"Crop Rotation",e:"Proper crop rotation can improve soil fertility and help break pest and disease cycles."}
+];
+  var literature = [
+{q:"Literature is best described as:",o:["Creative use of language to express ideas and experiences","A record of mathematical formulas","A list of historical dates","A scientific experiment"],a:0,t:"Introduction to Literature",e:"Literature uses language creatively to express human experiences, ideas and emotions."},
+{q:"The three major genres of literature are:",o:["Drama, prose and poetry","Comedy, tragedy and satire","Novel, essay and letter","Myth, legend and folktale"],a:0,t:"Literary Genres",e:"The major genres are drama, prose and poetry."},
+{q:"A literary work written mainly in paragraphs is generally classified as:",o:["Prose","Poetry","Drama","Epic"],a:0,t:"Prose",e:"Prose is normally written in sentences and paragraphs."},
+{q:"A literary work intended mainly for performance by actors is:",o:["Drama","Prose","Lyric","Elegy"],a:0,t:"Drama",e:"Drama is written primarily for performance before an audience."},
+{q:"A poem mourning the death of a person is called an:",o:["Elegy","Ode","Epic","Sonnet"],a:0,t:"Poetry",e:"An elegy is a poem expressing sorrow, especially for the dead."},
+{q:"A poem of fourteen lines is traditionally called a:",o:["Sonnet","Ballad","Ode","Limerick"],a:0,t:"Poetry",e:"A sonnet traditionally consists of fourteen lines."},
+{q:"A poem that praises or celebrates a person, thing or idea is an:",o:["Ode","Elegy","Epic","Satire"],a:0,t:"Poetry",e:"An ode is a poem that expresses praise or celebration."},
+{q:"A long narrative poem about heroic deeds is an:",o:["Epic","Elegy","Sonnet","Lyric"],a:0,t:"Poetry",e:"An epic is a long narrative poem dealing with heroic events."},
+{q:"The central idea of a literary work is its:",o:["Theme","Setting","Plot","Tone"],a:0,t:"Literary Elements",e:"Theme is the central idea or underlying message of a literary work."},
+{q:"The sequence of events in a story is called the:",o:["Plot","Setting","Mood","Style"],a:0,t:"Literary Elements",e:"Plot refers to the arrangement and development of events in a narrative."},
+{q:"The time and place in which a story occurs constitute its:",o:["Setting","Conflict","Theme","Climax"],a:0,t:"Literary Elements",e:"Setting refers to the time and place of a literary work."},
+{q:"The person who tells a story is the:",o:["Narrator","Protagonist","Antagonist","Playwright"],a:0,t:"Narrative Technique",e:"The narrator is the voice that tells a story."},
+{q:"The main character in a literary work is the:",o:["Protagonist","Antagonist","Narrator","Foil"],a:0,t:"Characterization",e:"The protagonist is the central character in a story."},
+{q:"The character who opposes the protagonist is the:",o:["Antagonist","Narrator","Speaker","Protagonist"],a:0,t:"Characterization",e:"The antagonist is the character or force opposing the protagonist."},
+{q:"A character who undergoes significant change during a story is called:",o:["Dynamic character","Static character","Minor character","Flat character"],a:0,t:"Characterization",e:"A dynamic character changes significantly during the course of a story."},
+{q:"A character who remains largely unchanged is:",o:["Static character","Dynamic character","Round character","Protagonist"],a:0,t:"Characterization",e:"A static character remains essentially unchanged throughout the work."},
+{q:"The struggle between opposing forces is called:",o:["Conflict","Resolution","Exposition","Suspense"],a:0,t:"Plot",e:"Conflict is the struggle between opposing forces in a literary work."},
+{q:"The highest point of tension in a plot is the:",o:["Climax","Exposition","Resolution","Prologue"],a:0,t:"Plot Structure",e:"The climax is the point of greatest tension or turning point."},
+{q:"The final part in which the conflict is resolved is the:",o:["Resolution","Exposition","Climax","Rising action"],a:0,t:"Plot Structure",e:"Resolution is the stage where the main conflict is settled."},
+{q:"A comparison using 'like' or 'as' is called:",o:["Simile","Metaphor","Irony","Hyperbole"],a:0,t:"Figures of Speech",e:"A simile compares two things using words such as 'like' or 'as'."},
+{q:"A direct comparison without using 'like' or 'as' is:",o:["Metaphor","Simile","Personification","Pun"],a:0,t:"Figures of Speech",e:"A metaphor directly identifies one thing with another for comparison."},
+{q:"Giving human qualities to non-human things is:",o:["Personification","Alliteration","Oxymoron","Paradox"],a:0,t:"Figures of Speech",e:"Personification gives human characteristics to non-human objects or ideas."},
+{q:"Exaggeration for emphasis is known as:",o:["Hyperbole","Irony","Euphemism","Metonymy"],a:0,t:"Figures of Speech",e:"Hyperbole is deliberate exaggeration used for emphasis."},
+{q:"The repetition of initial consonant sounds is:",o:["Alliteration","Assonance","Onomatopoeia","Irony"],a:0,t:"Sound Devices",e:"Alliteration is the repetition of initial consonant sounds in nearby words."},
+{q:"The repetition of vowel sounds in nearby words is:",o:["Assonance","Alliteration","Pun","Satire"],a:0,t:"Sound Devices",e:"Assonance is the repetition of similar vowel sounds."},
+{q:"A word that imitates a natural sound is an example of:",o:["Onomatopoeia","Metaphor","Irony","Symbolism"],a:0,t:"Sound Devices",e:"Onomatopoeia uses words that imitate sounds, such as 'buzz' or 'hiss'."},
+{q:"When the intended meaning is different from the literal meaning, it may involve:",o:["Irony","Simile","Rhyme","Alliteration"],a:0,t:"Literary Devices",e:"Irony involves a contrast between appearance, expectation or literal meaning and the actual meaning."},
+{q:"A statement that appears contradictory but contains truth is a:",o:["Paradox","Pun","Simile","Narrative"],a:0,t:"Literary Devices",e:"A paradox appears contradictory but may reveal a deeper truth."},
+{q:"A deliberate use of words with double meanings for humorous effect is a:",o:["Pun","Elegy","Epic","Foreshadowing"],a:0,t:"Literary Devices",e:"A pun exploits different meanings or sounds of words."},
+{q:"A hint about an event that will happen later is called:",o:["Foreshadowing","Flashback","Climax","Resolution"],a:0,t:"Narrative Technique",e:"Foreshadowing gives clues about future events in a literary work."},
+    {q:"A reference to a well-known person, event, place or work is called:",o:["Allusion","Allegory","Satire","Euphemism"],a:0,t:"Literary Devices",e:"An allusion is an indirect reference to something well known."},
+
+{q:"A story in which characters and events represent deeper moral or political ideas is an:",o:["Allegory","Elegy","Epic","Ode"],a:0,t:"Literary Devices",e:"An allegory uses characters and events to represent abstract ideas."},
+
+{q:"A literary work that uses humour to criticize human weaknesses or society is:",o:["Satire","Romance","Elegy","Tragedy"],a:0,t:"Literary Forms",e:"Satire uses humour, irony or ridicule to criticize faults and social problems."},
+
+{q:"A mild expression used instead of a harsh or unpleasant one is:",o:["Euphemism","Hyperbole","Paradox","Pun"],a:0,t:"Figures of Speech",e:"A euphemism replaces a harsh expression with a milder one."},
+
+{q:"A deliberate reference to an earlier event in a narrative is called:",o:["Flashback","Foreshadowing","Climax","Resolution"],a:0,t:"Narrative Technique",e:"A flashback takes the narrative back to an earlier event."},
+
+{q:"A play dealing with serious events that usually ends in suffering or disaster is a:",o:["Tragedy","Comedy","Farce","Satire"],a:0,t:"Drama",e:"A tragedy presents serious conflict and usually ends in suffering or catastrophe."},
+
+{q:"A play intended mainly to amuse the audience and usually ending happily is a:",o:["Comedy","Tragedy","Elegy","Epic"],a:0,t:"Drama",e:"Comedy is designed primarily to entertain and often ends happily."},
+
+{q:"A dramatic work combining serious and humorous elements is known as:",o:["Tragicomedy","Elegy","Epic","Ballad"],a:0,t:"Drama",e:"Tragicomedy combines features of tragedy and comedy."},
+
+{q:"The written instructions describing movements and actions in a play are called:",o:["Stage directions","Dialogue","Monologue","Prologue"],a:0,t:"Drama",e:"Stage directions guide actors on movement, actions and sometimes tone."},
+
+{q:"A speech by a character to another character or audience is generally called:",o:["Dialogue","Stage direction","Plot","Setting"],a:0,t:"Drama",e:"Dialogue is conversation or speech between characters."},
+
+{q:"A long speech delivered by one character is a:",o:["Monologue","Dialogue","Aside","Chorus"],a:0,t:"Drama",e:"A monologue is an extended speech by one character."},
+
+{q:"A speech in which a character reveals private thoughts while alone is a:",o:["Soliloquy","Dialogue","Aside","Prologue"],a:0,t:"Drama",e:"A soliloquy allows a character to reveal inner thoughts, usually while alone."},
+
+{q:"A brief remark made by a character that is supposedly unheard by other characters is an:",o:["Aside","Soliloquy","Epilogue","Dialogue"],a:0,t:"Drama",e:"An aside is a short remark intended for the audience or the character alone."},
+
+{q:"The use of an object to represent an idea is known as:",o:["Symbolism","Alliteration","Irony","Rhyme"],a:0,t:"Literary Devices",e:"Symbolism occurs when an object, action or image represents a deeper idea."},
+
+{q:"The emotional atmosphere created by a literary work is its:",o:["Mood","Plot","Setting","Conflict"],a:0,t:"Literary Elements",e:"Mood is the emotional atmosphere experienced by the reader or audience."},
+
+{q:"The writer's attitude toward the subject or characters is called:",o:["Tone","Mood","Theme","Setting"],a:0,t:"Literary Elements",e:"Tone refers to the writer's attitude toward the subject."},
+
+{q:"The particular way a writer uses language is called:",o:["Style","Plot","Setting","Conflict"],a:0,t:"Literary Elements",e:"Style refers to the distinctive manner in which a writer uses language."},
+
+{q:"The use of words whose meanings differ from their literal meanings is known as:",o:["Figurative language","Dialogue","Narration","Exposition"],a:0,t:"Language",e:"Figurative language communicates ideas beyond the literal meanings of words."},
+
+{q:"The repetition of a word or phrase at the beginning of successive lines is:",o:["Anaphora","Irony","Pun","Euphemism"],a:0,t:"Poetry",e:"Anaphora is repetition at the beginning of successive lines or clauses."},
+
+{q:"A group of lines in a poem is called a:",o:["Stanza","Chapter","Paragraph","Scene"],a:0,t:"Poetry",e:"A stanza is a grouped set of lines in a poem."},
+
+{q:"The pattern of stressed and unstressed syllables in poetry is called:",o:["Rhythm","Plot","Tone","Setting"],a:0,t:"Poetry",e:"Rhythm refers to the pattern of beats or stressed and unstressed syllables."},
+
+{q:"The repetition of similar sounds at the ends of lines is:",o:["Rhyme","Allusion","Irony","Symbolism"],a:0,t:"Poetry",e:"Rhyme involves correspondence of sounds, commonly at the ends of lines."},
+
+{q:"A short narrative poem that tells a story and is often associated with song is a:",o:["Ballad","Sonnet","Ode","Elegy"],a:0,t:"Poetry",e:"A ballad is a narrative poem traditionally associated with song."},
+
+{q:"A poem expressing personal emotions and thoughts is a:",o:["Lyric","Epic","Ballad","Satire"],a:0,t:"Poetry",e:"A lyric poem focuses on personal feelings, thoughts or emotions."},
+
+{q:"A narrator who knows the thoughts and feelings of all characters uses:",o:["Omniscient narration","First-person narration","Limited narration","Dramatic dialogue"],a:0,t:"Narrative Technique",e:"An omniscient narrator has knowledge of the thoughts and experiences of multiple characters."},
+
+{q:"A story told using 'I' or 'we' is usually written in:",o:["First person","Second person","Third person","Omniscient person"],a:0,t:"Narrative Technique",e:"First-person narration uses pronouns such as I, me, we and us."},
+
+{q:"A narrator who participates in the events of a story is a:",o:["First-person narrator","Omniscient narrator","Third-person narrator","External narrator"],a:0,t:"Narrative Technique",e:"A first-person narrator is involved in the events being narrated."},
+
+{q:"The technique of placing two contrasting characters, ideas or situations side by side is:",o:["Juxtaposition","Foreshadowing","Flashback","Personification"],a:0,t:"Literary Devices",e:"Juxtaposition places contrasting elements together to emphasize their differences."},
+
+{q:"A character created mainly to contrast with another character is a:",o:["Foil","Narrator","Protagonist","Antagonist"],a:0,t:"Characterization",e:"A foil contrasts with another character to highlight particular qualities."},
+
+{q:"The process through which a writer reveals a character's personality and qualities is:",o:["Characterization","Resolution","Exposition","Suspense"],a:0,t:"Characterization",e:"Characterization is the development and presentation of a character's qualities."}
+];
+  var geography = [
+{q:"Geography is mainly concerned with the study of:",o:["The earth and the relationships between people and their environment","Only rocks and minerals","Only human languages","Only historical events"],a:0,t:"Introduction to Geography",e:"Geography studies the earth, its physical features, people and their interaction with the environment."},
+
+{q:"The imaginary line that divides the Earth into Northern and Southern Hemispheres is the:",o:["Equator","Prime Meridian","Tropic of Cancer","Arctic Circle"],a:0,t:"Latitude",e:"The Equator is located at 0° latitude and divides the Earth into two hemispheres."},
+
+{q:"The Prime Meridian passes through:",o:["Greenwich","Lagos","New York","Cairo"],a:0,t:"Longitude",e:"The Prime Meridian is the 0° longitude line passing through Greenwich in London."},
+
+{q:"Lines drawn on a map joining places of equal height above sea level are called:",o:["Contours","Isobars","Isotherms","Latitudes"],a:0,t:"Map Reading",e:"Contour lines join places of equal elevation."},
+
+{q:"The scale 1:50,000 means that 1 cm on the map represents:",o:["50,000 cm on the ground","5,000 cm on the ground","500 cm on the ground","50 cm on the ground"],a:0,t:"Map Scale",e:"A representative fraction of 1:50,000 means one unit on the map represents 50,000 of the same units on the ground."},
+
+{q:"The instrument used for measuring atmospheric pressure is the:",o:["Barometer","Thermometer","Rain gauge","Hygrometer"],a:0,t:"Weather",e:"A barometer measures atmospheric pressure."},
+
+{q:"The instrument used to measure relative humidity is the:",o:["Hygrometer","Barometer","Anemometer","Wind vane"],a:0,t:"Weather",e:"A hygrometer is used to measure humidity."},
+
+{q:"Wind speed is measured with an:",o:["Anemometer","Barometer","Rain gauge","Thermometer"],a:0,t:"Weather",e:"An anemometer measures wind speed."},
+
+{q:"The amount of water vapour present in the atmosphere is known as:",o:["Humidity","Pressure","Insolation","Precipitation"],a:0,t:"Atmosphere",e:"Humidity refers to the amount of water vapour in the atmosphere."},
+
+{q:"The process by which water changes from liquid to vapour is:",o:["Evaporation","Condensation","Precipitation","Infiltration"],a:0,t:"Hydrological Cycle",e:"Evaporation changes liquid water into water vapour."},
+
+{q:"The process by which water vapour changes into liquid water is:",o:["Condensation","Evaporation","Transpiration","Runoff"],a:0,t:"Hydrological Cycle",e:"Condensation occurs when water vapour cools and changes into liquid droplets."},
+
+{q:"Rainfall caused when moist air is forced to rise over mountains is called:",o:["Relief rainfall","Convectional rainfall","Cyclonic rainfall","Artificial rainfall"],a:0,t:"Rainfall",e:"Relief rainfall occurs when moist air rises over elevated land and cools."},
+
+{q:"The breaking down of rocks in situ is known as:",o:["Weathering","Erosion","Transportation","Deposition"],a:0,t:"Geomorphology",e:"Weathering is the breakdown of rocks where they are found."},
+
+{q:"The removal and transportation of weathered materials is called:",o:["Erosion","Weathering","Deposition","Compaction"],a:0,t:"Geomorphology",e:"Erosion involves the removal and movement of weathered materials."},
+
+{q:"The wearing away of the land by running water is an example of:",o:["Water erosion","Wind erosion","Chemical weathering","Deposition"],a:0,t:"Erosion",e:"Running water can remove and transport soil and rock materials."},
+
+{q:"A broad, flat area of land beside a river that is frequently flooded is a:",o:["Flood plain","Delta","Waterfall","Gorge"],a:0,t:"River Features",e:"A flood plain is the relatively flat land beside a river that may be flooded."},
+
+{q:"A fan-shaped deposit formed where a river enters a sea or lake is commonly called a:",o:["Delta","Gorge","Levee","Waterfall"],a:0,t:"River Features",e:"A delta forms where a river deposits sediments at its mouth."},
+
+{q:"The point where a river enters a sea, lake or another river is its:",o:["Mouth","Source","Tributary","Watershed"],a:0,t:"Drainage",e:"The mouth is where a river ends by entering another body of water."},
+
+{q:"The place where a river begins is its:",o:["Source","Mouth","Estuary","Delta"],a:0,t:"Drainage",e:"The source is the starting point of a river."},
+
+{q:"A smaller river that flows into a larger river is a:",o:["Tributary","Distributary","Watershed","Meander"],a:0,t:"Drainage",e:"A tributary is a smaller stream or river that joins a larger one."},
+
+{q:"A ridge of high land separating two drainage basins is called a:",o:["Watershed","Delta","Flood plain","Levee"],a:0,t:"Drainage",e:"A watershed separates neighbouring drainage basins."},
+
+{q:"The gradual wearing away of a river's banks is known as:",o:["River erosion","Weathering","Deposition","Evaporation"],a:0,t:"River Processes",e:"Running water can erode the sides and bed of a river channel."},
+
+{q:"A bend or curve in a river is called a:",o:["Meander","Delta","Tributary","Gorge"],a:0,t:"River Features",e:"A meander is a pronounced bend in a river channel."},
+
+{q:"A deep, narrow valley with steep sides formed by river erosion is a:",o:["Gorge","Delta","Flood plain","Beach"],a:0,t:"River Features",e:"A gorge is a deep, narrow valley with steep sides, often formed by river erosion."},
+
+{q:"The layer of the atmosphere in which most weather phenomena occur is the:",o:["Troposphere","Stratosphere","Mesosphere","Thermosphere"],a:0,t:"Atmosphere",e:"Most clouds and weather processes occur in the troposphere."},
+
+{q:"The ozone layer is mainly found in the:",o:["Stratosphere","Troposphere","Mesosphere","Exosphere"],a:0,t:"Atmosphere",e:"The ozone layer is concentrated in the stratosphere."},
+
+{q:"The process by which green plants release water vapour through their leaves is:",o:["Transpiration","Respiration","Condensation","Infiltration"],a:0,t:"Hydrological Cycle",e:"Transpiration is the release of water vapour from plants, mainly through leaves."},
+
+{q:"The movement of water from the Earth's surface into the soil is called:",o:["Infiltration","Runoff","Evaporation","Condensation"],a:0,t:"Hydrological Cycle",e:"Infiltration is the process by which water enters the soil."},
+
+{q:"The movement of water over the land surface into streams and rivers is:",o:["Surface runoff","Infiltration","Condensation","Transpiration"],a:0,t:"Hydrological Cycle",e:"Surface runoff occurs when water flows over the ground into drainage channels."},
+
+{q:"A map showing relief and physical features of an area in detail is a:",o:["Topographical map","Political map","Population map","Road map"],a:0,t:"Map Reading",e:"Topographical maps show detailed physical and cultural features, including relief."},
+    {q:"The main cause of day and night is the:",o:["Rotation of the Earth","Revolution of the Earth","Tilt of the Earth","Shape of the Moon"],a:0,t:"Earth Movements",e:"The Earth rotates on its axis, producing day and night."},
+
+{q:"The Earth completes one revolution around the Sun in approximately:",o:["365¼ days","24 hours","30 days","12 hours"],a:0,t:"Earth Movements",e:"The Earth takes about 365¼ days to complete one revolution around the Sun."},
+
+{q:"The Earth's rotation takes approximately:",o:["24 hours","12 hours","365 days","30 days"],a:0,t:"Earth Movements",e:"One complete rotation of the Earth takes approximately 24 hours."},
+
+{q:"The imaginary line around which the Earth rotates is called its:",o:["Axis","Equator","Orbit","Prime Meridian"],a:0,t:"Earth Movements",e:"The Earth's axis is the imaginary line passing through its poles."},
+
+{q:"The apparent movement of the Sun from east to west is mainly caused by:",o:["Earth's rotation","Earth's revolution","The Moon's rotation","Ocean currents"],a:0,t:"Earth Movements",e:"Earth rotates from west to east, making the Sun appear to move from east to west."},
+
+{q:"The Tropic of Cancer is located at approximately:",o:["23½° N","23½° S","66½° N","0°"],a:0,t:"Latitude",e:"The Tropic of Cancer lies approximately 23½ degrees north of the Equator."},
+
+{q:"The Tropic of Capricorn is located at approximately:",o:["23½° S","23½° N","66½° N","0°"],a:0,t:"Latitude",e:"The Tropic of Capricorn lies approximately 23½ degrees south of the Equator."},
+
+{q:"The Arctic Circle is located at approximately:",o:["66½° N","23½° N","66½° S","0°"],a:0,t:"Latitude",e:"The Arctic Circle is approximately 66½ degrees north of the Equator."},
+
+{q:"The Antarctic Circle is located at approximately:",o:["66½° S","23½° S","66½° N","0°"],a:0,t:"Latitude",e:"The Antarctic Circle is approximately 66½ degrees south of the Equator."},
+
+{q:"Places on the same longitude experience approximately the same:",o:["Local time","Rainfall","Temperature","Altitude"],a:0,t:"Longitude and Time",e:"Longitude is used to determine differences in local time."},
+
+{q:"A difference of 15° of longitude corresponds to a time difference of:",o:["1 hour","15 minutes","30 minutes","2 hours"],a:0,t:"Longitude and Time",e:"The Earth rotates through 15 degrees of longitude in approximately one hour."},
+
+{q:"A place located east of Greenwich generally has a time that is:",o:["Ahead of Greenwich Mean Time","Behind Greenwich Mean Time","Always the same","Exactly 12 hours behind"],a:0,t:"Longitude and Time",e:"Places east of Greenwich are generally ahead in local time."},
+
+{q:"The international date line is located approximately along:",o:["180° longitude","0° longitude","90° E","45° W"],a:0,t:"Longitude",e:"The International Date Line roughly follows the 180° meridian."},
+
+{q:"The most abundant gas in the Earth's atmosphere is:",o:["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],a:0,t:"Atmosphere",e:"Nitrogen makes up about 78% of the atmosphere."},
+
+{q:"The gas most directly needed by humans for respiration is:",o:["Oxygen","Nitrogen","Carbon dioxide","Helium"],a:0,t:"Atmosphere",e:"Humans require oxygen for respiration."},
+
+{q:"The main source of energy for the Earth's weather systems is the:",o:["Sun","Moon","Ocean","Earth's core"],a:0,t:"Climate",e:"Solar energy drives atmospheric heating and many weather processes."},
+
+{q:"Climate refers to the average atmospheric conditions of a place over a:",o:["Long period","Single hour","Single day","Single storm"],a:0,t:"Climate",e:"Climate describes average weather conditions over a long period."},
+
+{q:"Which factor generally causes temperature to decrease with increasing altitude?",o:["Air becomes thinner and pressure decreases","The Sun becomes farther from Earth","Longitude increases","Rainfall stops"],a:0,t:"Climate",e:"Temperature generally falls with altitude because the air is less dense and pressure decreases."},
+
+{q:"The type of climate characterized by high temperatures and heavy rainfall throughout most of the year is:",o:["Equatorial climate","Desert climate","Mediterranean climate","Tundra climate"],a:0,t:"Climate",e:"Equatorial regions generally experience high temperatures and abundant rainfall throughout the year."},
+
+{q:"A desert is generally characterized by:",o:["Very low rainfall","Heavy rainfall throughout the year","Permanent snow","Dense rainforest"],a:0,t:"Climate",e:"Deserts receive very little precipitation."},
+
+{q:"The natural vegetation commonly associated with regions having a distinct wet and dry season is:",o:["Savanna","Tundra","Taiga","Temperate rainforest"],a:0,t:"Vegetation",e:"Savanna vegetation is common in tropical regions with distinct wet and dry seasons."},
+
+{q:"A tropical grassland with scattered trees is known as:",o:["Savanna","Tundra","Desert","Mangrove swamp"],a:0,t:"Vegetation",e:"Savanna consists mainly of grasses with scattered trees and shrubs."},
+
+{q:"Mangrove vegetation is commonly found in:",o:["Coastal swamps","High mountains","Dry deserts","Polar regions"],a:0,t:"Vegetation",e:"Mangroves are adapted to salty, waterlogged coastal environments."},
+
+{q:"The removal of vegetation cover can increase:",o:["Soil erosion","Soil fertility automatically","Rainfall","Groundwater recharge in every case"],a:0,t:"Environmental Issues",e:"Removing vegetation exposes soil to agents of erosion such as wind and running water."},
+
+{q:"Planting trees to replace those that have been removed is called:",o:["Reforestation","Deforestation","Desertification","Urbanization"],a:0,t:"Environmental Management",e:"Reforestation involves restoring forests by planting trees."},
+
+{q:"The permanent destruction of forest vegetation for other land uses is:",o:["Deforestation","Afforestation","Reforestation","Irrigation"],a:0,t:"Environmental Issues",e:"Deforestation is the removal or destruction of forests."},
+
+{q:"The gradual transformation of fertile land into desert-like conditions is called:",o:["Desertification","Deforestation","Afforestation","Weathering"],a:0,t:"Environmental Issues",e:"Desertification is the degradation of land in dry areas into increasingly desert-like conditions."},
+
+{q:"The process of removing salt from seawater to obtain fresh water is:",o:["Desalination","Filtration","Evaporation","Infiltration"],a:0,t:"Water Resources",e:"Desalination removes dissolved salts from seawater to produce usable freshwater."},
+
+{q:"Which of the following is a renewable natural resource?",o:["Solar energy","Coal","Crude oil","Natural gas"],a:0,t:"Natural Resources",e:"Solar energy is continuously replenished naturally."},
+
+{q:"The excessive concentration of people and activities in a city can lead to:",o:["Urban congestion","Glacial erosion","Volcanic eruption","Coral formation"],a:0,t:"Settlement Geography",e:"High concentrations of people and vehicles can produce traffic and urban congestion."}
+];
+  var civic = [
+{q:"Civic Education mainly teaches citizens about:",o:["Their rights, duties and responsibilities","Only farming methods","Only business management","Only geographical features"],a:0,t:"Civic Education",e:"Civic Education helps citizens understand their rights, duties and responsibilities."},
+
+{q:"A citizen is a person who:",o:["Legally belongs to a particular country","Visits a country for a holiday","Works only in government","Owns a large business"],a:0,t:"Citizenship",e:"A citizen has legal membership of a country."},
+
+{q:"One important duty of a responsible citizen is to:",o:["Obey the laws","Destroy public property","Avoid paying taxes","Promote violence"],a:0,t:"Civic Responsibility",e:"Citizens are expected to obey the laws of their country."},
+
+{q:"The right to express lawful opinions is known as:",o:["Freedom of expression","Right to private property","Right to life","Freedom of movement"],a:0,t:"Fundamental Rights",e:"Freedom of expression protects the right to communicate lawful opinions and ideas."},
+
+{q:"The right to vote in an election is an example of a:",o:["Political right","Economic right","Cultural right","Environmental right"],a:0,t:"Political Rights",e:"Voting is a political right that allows citizens to participate in government."},
+
+{q:"The right to life means that:",o:["A person's life should be protected by law","Everyone must become a politician","Citizens can ignore all laws","Only wealthy people have rights"],a:0,t:"Fundamental Rights",e:"The right to life protects individuals from unlawful deprivation of life."},
+
+{q:"A constitution protects citizens by:",o:["Defining rights and limiting government powers","Abolishing all laws","Preventing elections","Giving unlimited power to one person"],a:0,t:"Constitution",e:"A constitution establishes government powers and protects citizens' rights."},
+
+{q:"Democracy is a system of government in which:",o:["The people participate in choosing their leaders","The military controls all government","One family rules permanently","Citizens have no political rights"],a:0,t:"Democracy",e:"Democracy allows citizens to participate in choosing their representatives and leaders."},
+
+{q:"The principle that everyone is subject to the law is known as:",o:["Rule of law","Federal character","Political apathy","Nationalism"],a:0,t:"Rule of Law",e:"Rule of law means that individuals and authorities are governed by established laws."},
+
+{q:"Equality before the law means that:",o:["People should receive equal legal treatment","Only leaders obey the law","Rich people have special laws","Citizens can choose which laws to obey"],a:0,t:"Rule of Law",e:"Equality before the law means the law applies fairly to people without unlawful discrimination."},
+
+{q:"Political apathy refers to:",o:["Lack of interest in political activities","Active participation in elections","Respect for national symbols","Obedience to the constitution"],a:0,t:"Political Participation",e:"Political apathy is a lack of interest or participation in political activities."},
+
+{q:"One major consequence of political apathy is:",o:["Low voter participation","Greater political awareness","Increased civic participation","Better election monitoring"],a:0,t:"Political Participation",e:"Political apathy can lead to low participation in elections and public affairs."},
+
+{q:"A major way of reducing political apathy is through:",o:["Civic education and political awareness","Election violence","Voter intimidation","Suppression of information"],a:0,t:"Political Participation",e:"Civic education can help citizens understand the importance of political participation."},
+
+{q:"The national flag is an example of a:",o:["National symbol","Political party","Fundamental right","Pressure group"],a:0,t:"National Symbols",e:"The national flag represents the identity and sovereignty of a nation."},
+
+{q:"The Nigerian national anthem primarily promotes:",o:["National unity and patriotism","Political violence","Regional division","Private business"],a:0,t:"National Symbols",e:"The national anthem promotes national identity, unity and service."},
+
+{q:"Patriotism means:",o:["Love and loyalty toward one's country","Hatred of other countries","Refusal to obey laws","Avoiding national duties"],a:0,t:"Patriotism",e:"Patriotism involves love, loyalty and commitment to one's country."},
+
+{q:"Nationalism is best described as:",o:["Strong identification with and commitment to one's nation","Refusal to participate in society","Support for corruption","Disrespect for national identity"],a:0,t:"Nationalism",e:"Nationalism emphasizes loyalty and commitment to the nation."},
+
+{q:"One important benefit of national unity is:",o:["Peaceful coexistence among citizens","Increased ethnic conflict","Political instability","Social division"],a:0,t:"National Unity",e:"National unity promotes peaceful coexistence and cooperation among citizens."},
+
+{q:"Ethnic discrimination can be reduced through:",o:["Tolerance and respect for diversity","Violence and hatred","Political exclusion","Social segregation"],a:0,t:"Tolerance",e:"Respect for different ethnic, cultural and religious groups promotes peaceful coexistence."},
+
+{q:"Tolerance means:",o:["Respecting differences in other people","Forcing everyone to agree","Rejecting other cultures","Promoting discrimination"],a:0,t:"Tolerance",e:"Tolerance involves accepting and respecting legitimate differences among people."},
+
+{q:"Integrity means:",o:["Being honest and morally upright","Using public funds for personal benefit","Deceiving others","Breaking promises deliberately"],a:0,t:"Values",e:"Integrity involves honesty, strong moral principles and upright conduct."},
+
+{q:"Accountability requires public officials to:",o:["Explain and take responsibility for their actions","Avoid all questions","Hide public information","Ignore the law"],a:0,t:"Accountability",e:"Accountability means being answerable for decisions and actions."},
+
+{q:"Transparency in government promotes:",o:["Openness and access to relevant information","Secrecy in every decision","Corruption","Political violence"],a:0,t:"Good Governance",e:"Transparency makes government actions and information more open to public scrutiny."},
+
+{q:"Corruption involves:",o:["Abuse of entrusted power for private benefit","Honest public service","Respect for the law","Transparent administration"],a:0,t:"Corruption",e:"Corruption involves using entrusted authority or resources improperly for personal gain."},
+
+{q:"Bribery occurs when a person:",o:["Offers or receives something valuable to influence an action improperly","Pays a lawful tax","Votes in an election","Reports a crime"],a:0,t:"Corruption",e:"Bribery involves giving or receiving an improper benefit to influence a decision or action."},
+
+{q:"One effect of corruption on national development is:",o:["Diversion of public resources","Improved public services","Greater accountability","Increased transparency"],a:0,t:"Corruption",e:"Corruption can divert resources away from public services and development."},
+
+{q:"A pressure group mainly seeks to:",o:["Influence government policies","Form the government by itself","Conduct court trials","Replace the constitution"],a:0,t:"Pressure Groups",e:"Pressure groups seek to influence government decisions and policies without necessarily seeking political office."},
+
+{q:"A political party primarily seeks to:",o:["Win elections and control government through lawful means","Operate courts","Replace all civil servants","Prevent citizens from voting"],a:0,t:"Political Parties",e:"Political parties organize to contest elections and form government."},
+
+{q:"A free and fair election requires:",o:["Secret voting and equal opportunity for eligible voters","Voter intimidation","Ballot destruction","Multiple voting"],a:0,t:"Elections",e:"Free and fair elections require genuine choice, lawful voting procedures and equal participation."},
+
+{q:"The act of choosing representatives through voting is called:",o:["Election","Appointment","Impeachment","Judicial review"],a:0,t:"Elections",e:"An election is the process through which voters choose representatives or leaders."},
+    {q:"A responsible citizen should protect:",o:["Public property","Corruption","Election violence","Illegal activities"],a:0,t:"Civic Responsibility",e:"Responsible citizens help protect public property and national resources."},
+
+{q:"Community service involves:",o:["Voluntary activities that benefit the community","Destroying public facilities","Avoiding community problems","Promoting conflict"],a:0,t:"Community Development",e:"Community service involves activities carried out to improve the welfare of a community."},
+
+{q:"One major purpose of community development is to:",o:["Improve the living conditions of people","Create social conflict","Promote discrimination","Prevent cooperation"],a:0,t:"Community Development",e:"Community development seeks to improve social and economic conditions."},
+
+{q:"A good leader should demonstrate:",o:["Integrity and accountability","Dishonesty and selfishness","Corruption and violence","Discrimination and intolerance"],a:0,t:"Leadership",e:"Integrity and accountability are important qualities of responsible leadership."},
+
+{q:"Leadership by example means:",o:["Demonstrating the behaviour expected from others","Forcing people to obey illegally","Avoiding responsibility","Ignoring the needs of followers"],a:0,t:"Leadership",e:"A leader by example demonstrates the standards and behaviour expected from others."},
+
+{q:"A democratic leader should encourage:",o:["Participation and consultation","Fear and intimidation","Political exclusion","Violence"],a:0,t:"Leadership",e:"Democratic leadership encourages participation and consultation."},
+
+{q:"Human rights are best described as:",o:["Basic rights and freedoms belonging to human beings","Privileges available only to politicians","Benefits given only to wealthy people","Rules created by political parties"],a:0,t:"Human Rights",e:"Human rights are basic rights and freedoms that belong to people."},
+
+{q:"A violation of human rights occurs when:",o:["A person's protected rights are unlawfully denied or abused","Citizens obey the constitution","People participate in elections","Government protects citizens"],a:0,t:"Human Rights",e:"Human rights are violated when protected rights are unlawfully denied or abused."},
+
+{q:"Freedom of movement generally allows citizens to:",o:["Move freely within their country subject to lawful restrictions","Ignore immigration laws","Enter restricted places without permission","Avoid all legal obligations"],a:0,t:"Fundamental Rights",e:"Freedom of movement protects lawful movement within a country, subject to legitimate restrictions."},
+
+{q:"The right to fair hearing means that a person:",o:["Should have a fair opportunity to present their case before a competent authority","Can be punished without investigation","Must always be declared guilty","Cannot defend themselves"],a:0,t:"Fundamental Rights",e:"Fair hearing gives a person an opportunity to be heard before a lawful decision is made."},
+
+{q:"A constitution can be described as:",o:["The fundamental law of a state","A political party manifesto","A newspaper article","A court judgment only"],a:0,t:"Constitution",e:"The constitution is the fundamental legal framework of a state."},
+
+{q:"A written constitution is one that:",o:["Is contained mainly in documented legal instruments","Exists only through customs","Cannot be amended","Is created by political parties"],a:0,t:"Constitution",e:"A written constitution is contained in formal written legal documents."},
+
+{q:"The separation of powers helps to:",o:["Prevent excessive concentration of government power","Give all power to one institution","Abolish the judiciary","Prevent elections"],a:0,t:"Separation of Powers",e:"Separation of powers distributes government functions among different institutions."},
+
+{q:"The legislature is mainly responsible for:",o:["Making laws","Interpreting laws","Executing court judgments","Conducting military operations"],a:0,t:"Government Institutions",e:"The legislature performs the law-making function of government."},
+
+{q:"The executive is mainly responsible for:",o:["Implementing laws and government policies","Making every court judgment","Interpreting the constitution alone","Conducting examinations"],a:0,t:"Government Institutions",e:"The executive implements laws and carries out government policies."},
+
+{q:"The judiciary is mainly responsible for:",o:["Interpreting laws and administering justice","Making the national budget alone","Conducting elections","Collecting taxes only"],a:0,t:"Government Institutions",e:"The judiciary interprets laws and administers justice."},
+
+{q:"Checks and balances are designed to:",o:["Limit the abuse of government power","Give unlimited power to one branch","Abolish political parties","Prevent judicial independence"],a:0,t:"Government",e:"Checks and balances allow branches of government to restrain one another."},
+
+{q:"The principle of popular sovereignty means that:",o:["Political authority ultimately comes from the people","Only the military has authority","Judges control all citizens","Political parties own the state"],a:0,t:"Democracy",e:"Popular sovereignty means that ultimate political authority rests with the people."},
+
+{q:"Universal adult suffrage means:",o:["Eligible adult citizens have the right to vote","Only wealthy people can vote","Only government workers can vote","Children automatically vote"],a:0,t:"Elections",e:"Universal adult suffrage extends voting rights to eligible adult citizens."},
+
+{q:"A secret ballot protects voters by:",o:["Keeping their voting choices private","Allowing others to choose for them","Publishing every vote publicly","Preventing elections"],a:0,t:"Elections",e:"Secret voting protects voters from intimidation and undue influence."},
+
+{q:"Electoral malpractice includes:",o:["Vote buying and ballot manipulation","Peaceful voting","Proper voter accreditation","Transparent counting"],a:0,t:"Elections",e:"Vote buying and ballot manipulation are examples of electoral malpractice."},
+
+{q:"One major cause of electoral violence is:",o:["Political intolerance","Peaceful political competition","Civic education","Transparent elections"],a:0,t:"Electoral Violence",e:"Political intolerance can contribute to conflict and electoral violence."},
+
+{q:"A major way to prevent electoral violence is:",o:["Voter education and enforcement of electoral laws","Political intimidation","Vote buying","Spreading false information"],a:0,t:"Elections",e:"Voter education and effective enforcement of electoral laws can help reduce electoral violence."},
+
+{q:"National integration means:",o:["Bringing different groups together as one nation","Separating citizens by ethnicity","Promoting regional hatred","Rejecting cultural differences"],a:0,t:"National Integration",e:"National integration promotes unity and cooperation among different groups."},
+
+{q:"Federal character is intended to promote:",o:["Fair representation of different groups in national institutions","Permanent dominance by one group","Political violence","Regional isolation"],a:0,t:"National Unity",e:"Federal character seeks to promote balanced representation among different parts of the country."},
+
+{q:"Cultural diversity refers to:",o:["The existence of different cultures within a society","The elimination of traditions","One culture controlling everyone","The rejection of languages"],a:0,t:"Culture",e:"Cultural diversity refers to the presence of different cultural practices and identities."},
+
+{q:"A peaceful way of resolving conflict is:",o:["Dialogue and negotiation","Violence and revenge","Threats and intimidation","Destruction of property"],a:0,t:"Conflict Resolution",e:"Dialogue and negotiation can help conflicting parties reach peaceful agreements."},
+
+{q:"Mediation involves:",o:["A neutral third party helping conflicting sides reach an agreement","A judge automatically punishing both sides","One side forcing the other to surrender","Destroying evidence"],a:0,t:"Conflict Resolution",e:"A mediator helps parties communicate and work toward a mutually acceptable solution."},
+
+{q:"National development requires citizens to:",o:["Participate responsibly and contribute to society","Avoid all public responsibilities","Destroy public resources","Reject lawful authority"],a:0,t:"National Development",e:"Responsible participation and contribution by citizens support national development."},
+
+{q:"The primary aim of Civic Education is to develop:",o:["Responsible and informed citizens","Political violence","Social division","Indifference to national issues"],a:0,t:"Civic Education",e:"Civic Education aims to develop citizens who understand their rights, duties and responsibilities."}
+];
+  var computer = [
+
+{q:"A computer is an electronic device that:",o:["Accepts data, processes it and produces information","Only stores pictures","Only performs calculations","Only connects to the internet"],a:0,t:"Computer Fundamentals",e:"A computer accepts data, processes it according to instructions and produces information."},
+
+{q:"The physical components of a computer are collectively called:",o:["Software","Hardware","Firmware","Data"],a:1,t:"Computer Hardware",e:"Hardware refers to the physical components of a computer system."},
+
+{q:"Which of the following is an example of system software?",o:["Microsoft Word","Operating system","Calculator","Web page"],a:1,t:"Software",e:"An operating system is system software that manages computer hardware and software resources."},
+
+{q:"The brain of a computer is commonly called the:",o:["Monitor","Keyboard","CPU","Printer"],a:2,t:"CPU",e:"The Central Processing Unit performs and controls most processing operations."},
+
+{q:"CPU stands for:",o:["Central Processing Unit","Computer Processing Utility","Central Program Unit","Computer Primary Unit"],a:0,t:"CPU",e:"CPU means Central Processing Unit."},
+
+{q:"The Arithmetic and Logic Unit is responsible mainly for:",o:["Printing documents","Arithmetic and logical operations","Storing files permanently","Displaying images"],a:1,t:"CPU",e:"The ALU performs arithmetic calculations and logical comparisons."},
+
+{q:"The Control Unit of the CPU mainly:",o:["Controls and coordinates computer operations","Stores movies","Prints documents","Connects speakers"],a:0,t:"CPU",e:"The Control Unit directs and coordinates the activities of the computer."},
+
+{q:"Which memory is volatile?",o:["ROM","RAM","CD-ROM","Hard disk"],a:1,t:"Computer Memory",e:"RAM is volatile because its contents are lost when power is removed."},
+
+{q:"ROM is mainly used to store:",o:["Temporary user files","Permanent instructions needed for starting the computer","Deleted files","Internet history only"],a:1,t:"Computer Memory",e:"ROM stores instructions that are retained even when the computer is switched off."},
+
+{q:"Which of these is an input device?",o:["Monitor","Printer","Keyboard","Projector"],a:2,t:"Input Devices",e:"A keyboard is used to enter data and instructions into a computer."},
+
+{q:"A scanner is used mainly to:",o:["Convert physical documents into digital form","Print documents","Play music","Store electricity"],a:0,t:"Input Devices",e:"A scanner captures text or images from physical documents and converts them into digital data."},
+
+{q:"Which device is primarily used to produce a hard copy?",o:["Monitor","Printer","Mouse","Microphone"],a:1,t:"Output Devices",e:"A printer produces information on paper as a hard copy."},
+
+{q:"A monitor is an example of a/an:",o:["Input device","Output device","Storage device","Processing device"],a:1,t:"Output Devices",e:"A monitor displays processed information to the user."},
+
+{q:"Which device can function as both an input and output device?",o:["Touchscreen","Printer","Keyboard","Speaker"],a:0,t:"Computer Devices",e:"A touchscreen displays information and also accepts input through touch."},
+
+{q:"The smallest unit of digital information is the:",o:["Byte","Bit","Kilobyte","Word"],a:1,t:"Data Representation",e:"A bit is the smallest unit of digital information and can represent 0 or 1."},
+
+{q:"Eight bits make up one:",o:["Byte","Kilobyte","Megabyte","Nibble"],a:0,t:"Data Representation",e:"A byte consists of eight bits."},
+
+{q:"Which number system is directly used by computers?",o:["Decimal","Binary","Roman","Octal only"],a:1,t:"Number Systems",e:"Computers use binary because their electronic circuits operate using two states."},
+
+{q:"The binary number 1010 is equal to which decimal number?",o:["8","10","12","14"],a:1,t:"Number Systems",e:"1010 in binary equals 10 in decimal."},
+
+{q:"A file extension is used mainly to:",o:["Identify the type or format of a file","Increase computer speed","Protect the keyboard","Delete viruses automatically"],a:0,t:"Files",e:"File extensions help identify the file type."},
+
+{q:"Which file extension is commonly associated with a Microsoft Word document?",o:[".mp3",".docx",".jpg",".exe"],a:1,t:"Files",e:".docx is a common extension for Microsoft Word documents."},
+
+{q:"An operating system is responsible for:",o:["Managing computer resources","Writing every document automatically","Replacing the CPU","Producing electricity"],a:0,t:"Operating Systems",e:"An operating system manages hardware and software resources."},
+
+{q:"Which of the following is an operating system?",o:["Windows","Google Chrome","Microsoft Word","Photoshop"],a:0,t:"Operating Systems",e:"Windows is an operating system."},
+
+{q:"A computer virus is:",o:["A malicious program that can disrupt or damage computer systems","A hardware component","A type of keyboard","A computer monitor"],a:0,t:"Computer Security",e:"A computer virus is malicious software that can cause unwanted effects."},
+
+{q:"One effective way to reduce malware infections is to:",o:["Install updates and use reputable security software","Open every unknown attachment","Disable all security features","Share passwords publicly"],a:0,t:"Computer Security",e:"Keeping software updated and using reputable security tools can reduce security risks."},
+
+{q:"A strong password should generally:",o:["Be difficult to guess and not reused across important accounts","Contain only your name","Be shared with friends","Use 123456 only"],a:0,t:"Cybersecurity",e:"Strong passwords should be difficult to guess and should not be reused for sensitive accounts."},
+
+{q:"Phishing is an attempt to:",o:["Trick users into revealing sensitive information","Repair a damaged computer","Increase internet speed","Install legitimate updates"],a:0,t:"Cybersecurity",e:"Phishing uses deceptive messages or websites to obtain sensitive information."},
+
+{q:"A network that covers a small geographical area such as a school is called:",o:["WAN","LAN","MAN","PAN"],a:1,t:"Computer Networks",e:"A LAN connects devices within a relatively small geographical area."},
+
+{q:"LAN stands for:",o:["Local Area Network","Large Access Network","Linked Application Network","Local Access Node"],a:0,t:"Computer Networks",e:"LAN means Local Area Network."},
+
+{q:"The Internet can best be described as:",o:["A global network of interconnected computer networks","A single computer","A type of printer","A local keyboard connection"],a:0,t:"Internet",e:"The Internet is a worldwide system of interconnected computer networks."},
+    {q:"A network that covers a large geographical area is called:",o:["LAN","WAN","PAN","CAN"],a:1,t:"Computer Networks",e:"WAN means Wide Area Network and covers a large geographical area."},
+
+{q:"WAN stands for:",o:["Wide Area Network","Wireless Access Node","Web Area Network","Wide Access Network"],a:0,t:"Computer Networks",e:"WAN means Wide Area Network."},
+
+{q:"A device that forwards data packets between different networks is a:",o:["Router","Keyboard","Scanner","Monitor"],a:0,t:"Networking Devices",e:"A router directs data packets between different networks."},
+
+{q:"A modem is commonly used to:",o:["Connect a computer or network to an internet service","Print documents","Store files permanently","Display pictures"],a:0,t:"Networking Devices",e:"A modem provides communication between a local device or network and an internet service."},
+
+{q:"The unique numerical address used to identify a device on an IP network is called:",o:["IP address","File extension","MAC folder","URL name"],a:0,t:"Networking",e:"An IP address identifies a device on an IP network."},
+
+{q:"URL stands for:",o:["Uniform Resource Locator","Universal Routing Link","User Resource Language","Uniform Radio Location"],a:0,t:"Internet",e:"URL means Uniform Resource Locator."},
+
+{q:"Which protocol is commonly used for transferring web pages?",o:["HTTP","FTP","SMTP","POP3"],a:0,t:"Internet Protocols",e:"HTTP is a protocol used for communication between web browsers and web servers."},
+
+{q:"Which protocol is commonly associated with sending email?",o:["SMTP","HTTP","FTP","ARP"],a:0,t:"Internet Protocols",e:"SMTP is commonly used for sending email messages."},
+
+{q:"FTP is mainly used for:",o:["Transferring files","Playing videos","Creating passwords","Printing documents"],a:0,t:"Internet Protocols",e:"FTP means File Transfer Protocol and is used for transferring files."},
+
+{q:"A web browser is software used to:",o:["Access and display websites","Repair computer hardware","Format a hard disk","Create electricity"],a:0,t:"Web Browsers",e:"A web browser retrieves and displays web pages."},
+
+{q:"Which of the following is a web browser?",o:["Google Chrome","Microsoft Excel","Windows","Adobe Photoshop"],a:0,t:"Web Browsers",e:"Google Chrome is a web browser."},
+
+{q:"A search engine is mainly used to:",o:["Find information on the internet","Create computer hardware","Increase RAM capacity","Print documents"],a:0,t:"Internet",e:"Search engines help users locate information and resources on the internet."},
+
+{q:"Cloud computing refers to:",o:["Using computing resources and services over a network, especially the internet","Storing files only on paper","Repairing computers manually","Using computers without electricity"],a:0,t:"Cloud Computing",e:"Cloud computing provides computing resources and services through networks such as the internet."},
+
+{q:"Which of the following is an example of cloud storage?",o:["Google Drive","Keyboard","Monitor","CPU"],a:0,t:"Cloud Computing",e:"Google Drive provides online cloud storage."},
+
+{q:"A database is best described as:",o:["An organized collection of related data","A computer monitor","A type of keyboard","A network cable"],a:0,t:"Database",e:"A database stores organized collections of related data."},
+
+{q:"A field in a database represents:",o:["A single category of information","The entire database","A computer network","A printer command"],a:0,t:"Database",e:"A field represents one category or attribute of information in a database."},
+
+{q:"A record in a database is:",o:["A collection of related fields","A single character only","A computer virus","A network cable"],a:0,t:"Database",e:"A record is a collection of related fields describing one item or entity."},
+
+{q:"A primary key is used to:",o:["Uniquely identify a record","Delete the entire database","Connect a printer","Increase screen brightness"],a:0,t:"Database",e:"A primary key uniquely identifies each record in a database table."},
+
+{q:"Which software is commonly used for spreadsheets?",o:["Microsoft Excel","Microsoft Word","Paint","Notepad"],a:0,t:"Spreadsheet",e:"Microsoft Excel is spreadsheet software used for calculations and data analysis."},
+
+{q:"In a spreadsheet, the intersection of a row and column is called a:",o:["Cell","Record","Field","Folder"],a:0,t:"Spreadsheet",e:"A cell is formed where a row and column intersect."},
+
+{q:"A spreadsheet formula normally begins with:",o:["=","#","@","&"],a:0,t:"Spreadsheet",e:"Spreadsheet formulas normally begin with an equals sign."},
+
+{q:"Which function is commonly used to add values in a spreadsheet?",o:["SUM","MAX","COUNT","AVERAGE"],a:0,t:"Spreadsheet",e:"The SUM function adds selected numerical values."},
+
+{q:"Which function calculates the mean of a set of values?",o:["AVERAGE","SUM","COUNT","MIN"],a:0,t:"Spreadsheet",e:"The AVERAGE function calculates the arithmetic mean."},
+
+{q:"A word processor is mainly used for:",o:["Creating and editing text documents","Managing computer networks","Scanning viruses","Designing computer processors"],a:0,t:"Word Processing",e:"Word processors are used to create, edit and format text documents."},
+
+{q:"Which of the following is a word-processing application?",o:["Microsoft Word","Microsoft Excel","Google Chrome","Windows Defender"],a:0,t:"Word Processing",e:"Microsoft Word is a word-processing application."},
+
+{q:"The process of arranging data into a useful and meaningful form is called:",o:["Information processing","Formatting","Booting","Networking"],a:0,t:"Information Processing",e:"Information processing involves collecting, processing and organizing data to produce useful information."},
+
+{q:"A flowchart is used to:",o:["Represent the steps of a process graphically","Store music files","Increase processor speed","Protect a monitor"],a:0,t:"Algorithms and Flowcharts",e:"A flowchart represents the steps and logic of a process using symbols."},
+
+{q:"In a flowchart, a diamond usually represents:",o:["A decision","Input/output","Start or end","Processing"],a:0,t:"Flowcharts",e:"A diamond-shaped symbol normally represents a decision or condition."},
+
+{q:"An algorithm is:",o:["A step-by-step procedure for solving a problem","A type of computer monitor","A storage device","A network cable"],a:0,t:"Algorithms",e:"An algorithm is a finite sequence of steps used to solve a problem or perform a task."}];
+  var crs = [
+
+{q:"According to Genesis, God created the heavens and the earth in the:",o:["Beginning","Middle of history","Time of Noah","Time of Moses"],a:0,t:"Creation",e:"Genesis begins with the account of God's creation of the heavens and the earth."},
+
+{q:"God created man in His own:",o:["Image and likeness","Kingdom and palace","Temple and city","Wisdom and power"],a:0,t:"Creation",e:"Genesis teaches that human beings were created in God's image and likeness."},
+
+{q:"The first man created by God was:",o:["Abraham","Adam","Moses","Noah"],a:1,t:"Creation",e:"Adam is presented in Genesis as the first man."},
+
+{q:"The first woman was created from:",o:["Adam's rib","Noah's family","Abraham's house","Moses' staff"],a:0,t:"Creation",e:"According to Genesis, Eve was created from Adam's rib."},
+
+{q:"Adam and Eve were placed in the:",o:["Garden of Eden","Land of Canaan","City of Jerusalem","Land of Egypt"],a:0,t:"Creation",e:"Adam and Eve lived in the Garden of Eden."},
+
+{q:"The forbidden fruit was from the tree of the knowledge of:",o:["Good and evil","Life and death","Wisdom and power","Gold and silver"],a:0,t:"The Fall",e:"God commanded Adam not to eat from the tree of the knowledge of good and evil."},
+
+{q:"The serpent tempted:",o:["Eve","Sarah","Mary","Ruth"],a:0,t:"The Fall",e:"The serpent tempted Eve to eat the forbidden fruit."},
+
+{q:"The disobedience of Adam and Eve resulted in:",o:["The Fall of humanity","The building of the temple","The Exodus","The flood"],a:0,t:"The Fall",e:"Their disobedience is described as the Fall of humanity."},
+
+{q:"Cain killed his brother:",o:["Abel","Seth","Enoch","Isaac"],a:0,t:"Cain and Abel",e:"Cain killed his brother Abel after becoming jealous of him."},
+
+{q:"The first murder recorded in the Bible was committed by:",o:["Cain","Abel","Noah","Jacob"],a:0,t:"Cain and Abel",e:"Cain murdered Abel, his brother."},
+
+{q:"Noah was commanded by God to build a:",o:["Temple","Ark","Palace","Tower"],a:1,t:"Noah",e:"God instructed Noah to build an ark because of the coming flood."},
+
+{q:"The flood occurred because of the:",o:["Wickedness of humanity","Lack of rainfall","Failure of Noah","Death of Abraham"],a:0,t:"Noah",e:"Genesis describes widespread human wickedness as the reason for the judgment of the flood."},
+
+{q:"The sign of God's covenant with Noah was the:",o:["Rainbow","Star","Sun","Olive branch"],a:0,t:"Noahic Covenant",e:"God set the rainbow as a sign of His covenant with Noah."},
+
+{q:"Abraham was originally called:",o:["Abram","Jacob","Isaac","Israel"],a:0,t:"Abraham",e:"Abram was the name given to Abraham before God changed it."},
+
+{q:"God promised Abraham that he would become the father of:",o:["Many nations","Only Egypt","One city","The Roman Empire"],a:0,t:"Abrahamic Covenant",e:"God promised Abraham that he would be the father of many nations."},
+
+{q:"The son of Abraham and Sarah was:",o:["Isaac","Ishmael","Jacob","Joseph"],a:0,t:"Abraham",e:"Isaac was the son born to Abraham and Sarah."},
+
+{q:"Abraham was tested when God instructed him to offer:",o:["Isaac","Jacob","Joseph","Moses"],a:0,t:"Abraham's Faith",e:"Abraham was tested when God instructed him to offer Isaac."},
+
+{q:"Isaac's wife was:",o:["Rebekah","Rachel","Ruth","Hannah"],a:0,t:"Isaac",e:"Rebekah became Isaac's wife."},
+
+{q:"Jacob had his name changed to:",o:["Israel","Judah","Joseph","Esau"],a:0,t:"Jacob",e:"Jacob was later given the name Israel."},
+
+{q:"Jacob had how many sons who became the ancestors of the tribes of Israel?",o:["10","12","14","7"],a:1,t:"Jacob",e:"Jacob had twelve sons who became associated with the twelve tribes of Israel."},
+
+{q:"Joseph was sold by his brothers because of:",o:["Jealousy","Kindness","Fear of Pharaoh","His wealth"],a:0,t:"Joseph",e:"Joseph's brothers became jealous of him and sold him."},
+
+{q:"Joseph eventually became an important official in:",o:["Egypt","Canaan","Rome","Babylon"],a:0,t:"Joseph",e:"Joseph rose to become a powerful official in Egypt."},
+
+{q:"Moses was called by God through the:",o:["Burning bush","Rainbow","Temple","Ark"],a:0,t:"Moses",e:"God called Moses through the burning bush."},
+
+{q:"God commanded Moses to lead the Israelites out of:",o:["Egypt","Rome","Babylon","Assyria"],a:0,t:"Exodus",e:"Moses led the Israelites out of slavery in Egypt."},
+
+{q:"The Israelites crossed the:",o:["Red Sea","Dead Sea","Mediterranean Sea","River Jordan"],a:0,t:"Exodus",e:"God enabled the Israelites to cross the Red Sea during the Exodus."},
+
+{q:"The Ten Commandments were given to Moses on:",o:["Mount Sinai","Mount Carmel","Mount Zion","Mount Olives"],a:0,t:"Ten Commandments",e:"Moses received the Ten Commandments on Mount Sinai."},
+
+{q:"The first commandment teaches that people should:",o:["Have no other gods before God","Steal from others","Tell lies","Disobey parents"],a:0,t:"Ten Commandments",e:"The first commandment prohibits having other gods before God."},
+
+{q:"The commandment concerning parents teaches children to:",o:["Honor their father and mother","Ignore their parents","Disobey authority","Avoid responsibility"],a:0,t:"Ten Commandments",e:"The commandment requires children to honor their father and mother."},
+
+{q:"David defeated Goliath using a:",o:["Sling and stone","Sword and shield","Bow and arrow","Spear"],a:0,t:"David",e:"David defeated Goliath with a sling and a stone."},
+
+{q:"David later became king of:",o:["Israel","Egypt","Rome","Babylon"],a:0,t:"David",e:"David became king of Israel."},
+    // CRS Questions 31–60
+// Paste these after Question 30 and before the final ];
+
+{q:"Solomon succeeded David as king of:",o:["Israel","Egypt","Rome","Babylon"],a:0,t:"Solomon",e:"Solomon succeeded David as king of Israel."},
+
+{q:"Solomon is especially remembered for asking God for:",o:["Wisdom","Wealth","Military power","Long life"],a:0,t:"Solomon",e:"Solomon asked God for wisdom to govern the people."},
+
+{q:"Solomon built the first temple at:",o:["Jerusalem","Bethlehem","Nazareth","Jericho"],a:0,t:"Solomon",e:"Solomon built the temple in Jerusalem."},
+
+{q:"The prophet who challenged the prophets of Baal on Mount Carmel was:",o:["Elijah","Isaiah","Jeremiah","Amos"],a:0,t:"Elijah",e:"Elijah confronted the prophets of Baal on Mount Carmel."},
+
+{q:"Elijah's challenge demonstrated the supremacy of:",o:["God","Baal","King Ahab","The prophets"],a:0,t:"Elijah",e:"The event demonstrated that the God of Israel is the true God."},
+
+{q:"Jonah was sent by God to preach to the people of:",o:["Nineveh","Jerusalem","Bethlehem","Egypt"],a:0,t:"Jonah",e:"God sent Jonah to preach repentance to Nineveh."},
+
+{q:"Jonah initially tried to escape from God's command by:",o:["Sailing to Tarshish","Going to Jerusalem","Hiding in the temple","Joining the army"],a:0,t:"Jonah",e:"Jonah attempted to flee by sailing toward Tarshish."},
+
+{q:"According to the account, Jonah was swallowed by a:",o:["Great fish","Whale shark","Crocodile","Sea serpent"],a:0,t:"Jonah",e:"Jonah was swallowed by a great fish after fleeing from God's command."},
+
+{q:"The people of Nineveh responded to Jonah's preaching by:",o:["Repenting","Attacking Jonah","Leaving the city","Building a temple"],a:0,t:"Jonah",e:"The people of Nineveh repented after hearing Jonah's message."},
+
+{q:"Isaiah's prophecy foretold the coming of:",o:["The Messiah","Pharaoh","Goliath","King Saul"],a:0,t:"Prophecy",e:"Isaiah contains prophecies concerning the coming Messiah."},
+
+{q:"John the Baptist prepared people for the ministry of:",o:["Jesus Christ","Peter","Paul","Moses"],a:0,t:"John the Baptist",e:"John the Baptist prepared the way for Jesus Christ."},
+
+{q:"John the Baptist preached the message of:",o:["Repentance","War","Wealth","Political rebellion"],a:0,t:"John the Baptist",e:"John called people to repentance and preparation for God's kingdom."},
+
+{q:"Jesus was baptized by:",o:["John the Baptist","Peter","James","Paul"],a:0,t:"Baptism of Jesus",e:"John the Baptist baptized Jesus in the Jordan River."},
+
+{q:"Jesus was baptized in the:",o:["Jordan River","Nile River","Red Sea","River Euphrates"],a:0,t:"Baptism of Jesus",e:"Jesus was baptized by John in the Jordan River."},
+
+{q:"After His baptism, Jesus was tempted in the:",o:["Wilderness","Temple","Synagogue","Garden"],a:0,t:"Temptation of Jesus",e:"Jesus was tempted by the devil in the wilderness."},
+
+{q:"Jesus chose how many apostles?",o:["10","12","14","7"],a:1,t:"The Apostles",e:"Jesus chose twelve apostles."},
+
+{q:"The first miracle recorded in John's Gospel was the turning of water into:",o:["Wine","Oil","Milk","Blood"],a:0,t:"Miracles of Jesus",e:"Jesus turned water into wine at the wedding in Cana."},
+
+{q:"Jesus taught that the greatest commandment is to:",o:["Love God","Acquire wealth","Seek political power","Avoid society"],a:0,t:"Teachings of Jesus",e:"Jesus taught that loving God is the greatest commandment."},
+
+{q:"The second great commandment is to:",o:["Love your neighbour as yourself","Seek revenge","Avoid strangers","Become wealthy"],a:0,t:"Teachings of Jesus",e:"Jesus taught people to love their neighbours as themselves."},
+
+{q:"The parable of the Good Samaritan teaches the importance of:",o:["Showing love and compassion","Seeking revenge","Accumulating wealth","Avoiding strangers"],a:0,t:"Parables",e:"The Good Samaritan demonstrates practical love and compassion toward others."},
+
+{q:"The parable of the Prodigal Son emphasizes:",o:["Forgiveness and repentance","Military strength","Political authority","Material wealth"],a:0,t:"Parables",e:"The parable highlights repentance, forgiveness and the Father's love."},
+
+{q:"Jesus fed five thousand people with five loaves and:",o:["Two fish","Three fish","Seven fish","Ten fish"],a:0,t:"Miracles of Jesus",e:"Jesus fed the crowd using five loaves and two fish."},
+
+{q:"Jesus taught His disciples to pray using the:",o:["Lord's Prayer","Prayer of Solomon","Prayer of Elijah","Prayer of Abraham"],a:0,t:"Prayer",e:"The Lord's Prayer is the model prayer Jesus taught His disciples."},
+
+{q:"Jesus' entry into Jerusalem was described as a:",o:["Triumphal entry","Military invasion","Royal wedding","Funeral procession"],a:0,t:"Passion of Christ",e:"Jesus entered Jerusalem in what is known as the Triumphal Entry."},
+
+{q:"Jesus was betrayed by:",o:["Judas Iscariot","Peter","John","Thomas"],a:0,t:"Passion of Christ",e:"Judas Iscariot betrayed Jesus."},
+
+{q:"Judas identified Jesus to His arresters with:",o:["A kiss","A letter","A shout","A song"],a:0,t:"Passion of Christ",e:"Judas used a kiss as the sign identifying Jesus to those who came to arrest Him."},
+
+{q:"Peter denied Jesus:",o:["Three times","Once","Twice","Seven times"],a:0,t:"Passion of Christ",e:"Peter denied knowing Jesus three times."},
+
+{q:"Jesus was crucified at:",o:["Golgotha","Bethany","Cana","Nazareth"],a:0,t:"Crucifixion",e:"Jesus was crucified at Golgotha, also called Calvary."},
+
+{q:"Christians celebrate the resurrection of Jesus because it represents:",o:["Victory over death","The beginning of the Roman Empire","The destruction of Jerusalem","The end of the apostles"],a:0,t:"Resurrection",e:"The resurrection is central to Christian faith and represents Christ's victory over death."},
+
+{q:"The Holy Spirit came upon the disciples dramatically on the day of:",o:["Pentecost","Passover","Atonement","Sabbath"],a:0,t:"Pentecost",e:"The Holy Spirit came upon the disciples on the day of Pentecost."}
+
+];
+var subjects = {
+  "Mathematics": mathematics
+};
+
+var currentSubject = "";
+  var practiceMode = "full";
+var activeQuestions = [];
+var currentQuestion = 0;
+var score = 0;
+var answers = [];
+  var timeLeft = 30 * 60;
+var timerInterval = null;
+  function startTimer(){
+  clearInterval(timerInterval);
+
+  if(practiceMode === "full"){
+  timeLeft = 30 * 60;
+}else{
+  timeLeft = 10 * 60;
+  }
+
+  var timer = document.getElementById("timer");
+
+  function updateTimer(){
+    var minutes = Math.floor(timeLeft / 60);
+    var seconds = timeLeft % 60;
+timer.textContent =
+  "Time: " +
+  String(minutes).padStart(2, "0") +
+  ":" +
+  String(seconds).padStart(2, "0");
+
+if(timeLeft <= 5 * 60){
+  timer.style.color = "#dc3545";
+}else{
+  timer.style.color = "#123b70";
+}
+
+    if(timeLeft <= 0){
+      clearInterval(timerInterval);
+
+      alert("Time is up! Your answers will now be submitted.");
+
+      calculateScore();
+      return;
+    }
+
+    timeLeft--;
+  }
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+  }
+
+var home = document.getElementById("home");
+var quiz = document.getElementById("quiz");
+var result = document.getElementById("result");
+
+var subjectTitle = document.getElementById("subjectTitle");
+var questionNumber = document.getElementById("questionNumber");
+var questionText = document.getElementById("questionText");
+var optionsBox = document.getElementById("options");
+var questionNav = document.getElementById("questionNav");
+  var answeredCount = document.getElementById("answeredCount");
+var nextBtn = document.getElementById("nextBtn");
+var backBtn = document.getElementById("backBtn");
+
+var scoreText = document.getElementById("scoreText");
+var resultMessage = document.getElementById("resultMessage");
+  var reviewBox = document.getElementById("reviewBox");
+var restartBtn = document.getElementById("restartBtn");
+  var quizHomeBtn = document.getElementById("quizHomeBtn");
+  var retryBtn = document.getElementById("retryBtn");
+  var wrongBtn = document.getElementById("wrongBtn");
+
+var subjectButtons = document.querySelectorAll(".subject-btn");
+var practiceButtons = document.querySelectorAll(".practice-mode");
+
+practiceButtons.forEach(function(button){
+  button.addEventListener("click", function(){
+
+    practiceButtons.forEach(function(item){
+      item.classList.remove("active");
+    });
+
+    this.classList.add("active");
+
+    practiceMode = this.getAttribute("data-mode");
+  });
+});
+subjectButtons.forEach(function(button){
+
+  button.addEventListener("click", function(){
+
+    var subject = button.getAttribute("data-subject");
+
+    if(subject === "Mathematics"){
+      startQuiz(subject, mathematics);
+      return;
+    }
+if(subject === "English Language"){
+  startQuiz("English Language", english);
+  return;
+}
+
+if(subject === "Biology"){
+  startQuiz("Biology", biology);
+  return;
+}
+
+if(subject === "Chemistry"){
+  startQuiz("Chemistry", chemistry);
+  return;
+}
+
+if(subject === "Physics"){
+  startQuiz("Physics", physics);
+  return;
+}
+
+if(subject === "Government"){
+  startQuiz("Government", government);
+  return;
+}
+
+if(subject === "Economics"){
+  startQuiz("Economics", economics);
+  return;
+}
+
+if(subject === "Agricultural Science"){
+  startQuiz("Agricultural Science", agricultural);
+  return;
+}
+
+if(subject === "Literature in English"){
+  startQuiz("Literature in English", literature);
+  return;
+}
+
+if(subject === "Geography"){
+  startQuiz("Geography", geography);
+  return;
+}
+
+if(subject === "Civic Education"){
+  startQuiz("Civic Education", civic);
+  return;
+}
+
+if(subject === "Computer Studies"){
+  startQuiz("Computer Studies", computer);
+  return;
+}
+
+if(subject === "CRS"){
+  startQuiz("CRS", crs);
+  return;
+  }
+    alert(subject + " will be added in the next part.");
+  });
+
+});
+
+function startQuiz(subject, questions){
+
+  currentSubject = subject;
+  if(practiceMode === "quick"){
+  activeQuestions = questions.slice(0,20);
+}else if(practiceMode === "random"){
+  activeQuestions = questions.slice();
+
+  for(var i = activeQuestions.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+
+    var temp = activeQuestions[i];
+    activeQuestions[i] = activeQuestions[j];
+    activeQuestions[j] = temp;
+  }
+
+  activeQuestions = activeQuestions.slice(0,20);
+}else{
+  activeQuestions = questions.slice(0,60);
+  }
+
+  currentQuestion = 0;
+  score = 0;
+  answers = [];
+  
+  
+  
+
+  home.style.display = "none";
+  result.style.display = "none";
+  quiz.style.display = "block";
+subjectTitle.textContent = subject;
+
+startTimer();
+
+showQuestion();
+}
+
+function showQuestion(){
+
+  var item = activeQuestions[currentQuestion];
+
+  questionNumber.textContent =
+    "Question " + (currentQuestion + 1) +
+    " of " + activeQuestions.length;
+  var answeredTotal = 0;
+
+for(var a = 0; a < activeQuestions.length; a++){
+  if(answers[a] !== undefined){
+    answeredTotal++;
+  }
+}
+
+answeredCount.textContent =
+  "Answered: " + answeredTotal +
+  " / " + activeQuestions.length;
+
+  var progressBar = document.getElementById("progressBar");
+  var progressText = document.getElementById("progressText");
+
+  var progress =
+    ((currentQuestion + 1) / activeQuestions.length) * 100;
+
+  progressBar.style.width = progress + "%";
+
+  progressText.textContent =
+    Math.round(progress) + "%";
+
+  questionText.textContent = item.q;
+  
+questionNav.innerHTML = "";
+
+for(var n = 0; n < activeQuestions.length; n++){
+
+  var numberButton = document.createElement("button");
+
+  numberButton.textContent = n + 1;
+
+  if(n === currentQuestion){
+    numberButton.classList.add("current");
+  }
+
+  if(answers[n] !== undefined){
+    numberButton.classList.add("answered");
+  }
+
+  numberButton.addEventListener("click", function(){
+
+    var selectedNumber = parseInt(this.textContent) - 1;
+
+    currentQuestion = selectedNumber;
+
+    showQuestion();
+  });
+
+  questionNav.appendChild(numberButton);
+}
+  optionsBox.innerHTML = "";
+
+  for(var i = 0; i < item.o.length; i++){
+
+    var button = document.createElement("button");
+
+    button.className = "option";
+    button.textContent = item.o[i];
+
+    if(answers[currentQuestion] === i){
+      button.classList.add("selected");
+    }
+
+    button.addEventListener("click", function(){
+
+      var allOptions =
+        optionsBox.querySelectorAll(".option");
+
+      allOptions.forEach(function(option){
+        option.classList.remove("selected");
+      });
+
+      this.classList.add("selected");
+
+      answers[currentQuestion] =
+        Array.from(allOptions).indexOf(this);
+var answeredTotal = 0;
+
+for(var x = 0; x < activeQuestions.length; x++){
+  if(answers[x] !== undefined){
+    answeredTotal++;
+  }
+}
+
+answeredCount.textContent =
+  "Answered: " + answeredTotal +
+  " / " + activeQuestions.length;
+    });
+
+    optionsBox.appendChild(button);
+    
+  }
+
+  backBtn.disabled = currentQuestion === 0;
+
+  if(currentQuestion === activeQuestions.length - 1){
+    nextBtn.textContent = "Submit";
+  }else{
+    nextBtn.textContent = "Next";
+  }
+}
+
+nextBtn.addEventListener("click", function(){
+
+  if(answers[currentQuestion] === undefined){
+    alert("Please select an answer first.");
+    return;
+  }
+
+  if(currentQuestion === activeQuestions.length - 1){
+
+  var answeredTotal = 0;
+
+  for(var a = 0; a < activeQuestions.length; a++){
+    if(answers[a] !== undefined){
+      answeredTotal++;
+    }
+  }
+
+var confirmSubmit = confirm(
+  "Submit your practice?\n\n" +
+  "You have answered " + answeredTotal +
+  " / " + activeQuestions.length +
+  " questions.\n\n" +
+  "Your score will be calculated after submission."
+);
+
+  if(confirmSubmit){
+    calculateScore();
+  }
+
+  return;
+  }
+
+  currentQuestion++;
+  showQuestion();
+});
+
+backBtn.addEventListener("click", function(){
+
+  if(currentQuestion > 0){
+    currentQuestion--;
+    showQuestion();
+  }
+
+});
+
+function calculateScore(){
+
+  clearInterval(timerInterval);
+
+  score = 0;
+
+  for(var i = 0; i < activeQuestions.length; i++){
+    if(answers[i] === activeQuestions[i].a){
+      score++;
+    }
+  }
+
+  quiz.style.display = "none";
+  result.style.display = "block";
+
+  var percentage = Math.round(
+  (score / activeQuestions.length) * 100
+);
+  var performanceMessage = "";
+
+if(percentage >= 80){
+  performanceMessage = "Excellent performance! Keep it up.";
+}else if(percentage >= 60){
+  performanceMessage = "Good performance! Keep practising.";
+}else if(percentage >= 50){
+  performanceMessage = "Fair performance. You can improve with more practice.";
+}else{
+  performanceMessage = "Keep practising. Review your mistakes and try again.";
+}
+
+scoreText.textContent =
+  score + " / " + activeQuestions.length +
+  " (" + percentage + "%)";
+  var accuracyText = document.createElement("p");
+
+accuracyText.textContent =
+  "Accuracy: " + percentage + "%";
+
+accuracyText.style.fontSize = "18px";
+accuracyText.style.fontWeight = "bold";
+accuracyText.style.marginTop = "8px";
+
+
+  scoreText.appendChild(accuracyText);
+  var performanceText = document.createElement("p");
+
+performanceText.textContent = performanceMessage;
+
+performanceText.style.fontSize = "16px";
+performanceText.style.marginTop = "8px";
+
+result.insertBefore(
+  performanceText,
+  reviewBox
+);
+  var wrongAnswers = activeQuestions.length - score;
+
+resultMessage.textContent =
+    "Correct: " + score +
+    " | Wrong: " + wrongAnswers;
+
+  reviewBox.innerHTML = "";
+
+  for(var r = 0; r < activeQuestions.length; r++){
+
+    var reviewItem = document.createElement("div");
+
+    reviewItem.style.background = "#f5f7fa";
+    reviewItem.style.padding = "15px";
+    reviewItem.style.marginBottom = "12px";
+    reviewItem.style.borderRadius = "10px";
+    reviewItem.style.textAlign = "left";
+    if(answers[r] === activeQuestions[r].a){
+  reviewItem.classList.add("review-correct");
+}else{
+  reviewItem.classList.add("review-wrong");
+    }
+
+    var question = document.createElement("p");
+    question.style.fontWeight = "bold";
+    question.textContent =
+      (r + 1) + ". " + activeQuestions[r].q;
+
+    var yourAnswer = document.createElement("p");
+
+    if(answers[r] !== undefined){
+      yourAnswer.textContent =
+        "Your answer: " + activeQuestions[r].o[answers[r]];
+    }else{
+      yourAnswer.textContent =
+        "Your answer: Not answered";
+    }
+
+    var correctAnswer = document.createElement("p");
+    correctAnswer.textContent =
+      "Correct answer: " +
+      activeQuestions[r].o[activeQuestions[r].a];
+var explanation = document.createElement("p");
+
+if(activeQuestions[r].e){
+  explanation.textContent =
+    "Explanation: " + activeQuestions[r].e;
+}else{
+
+  var correct = activeQuestions[r].o[activeQuestions[r].a];
+
+  if(currentSubject === "Mathematics"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". Check the calculation carefully and review the mathematical principle used in this question.";
+
+  }else if(currentSubject === "English Language"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". The answer is determined by the meaning, usage, or grammatical rule tested in the question.";
+
+  }else if(currentSubject === "Biology"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This follows the biological principle or concept being tested.";
+
+  }else if(currentSubject === "Chemistry"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This follows the chemical principle, reaction, property, or concept tested.";
+
+  }else if(currentSubject === "Physics"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". Apply the relevant physics law, formula, or principle to understand the answer.";
+
+  }else if(currentSubject === "Government"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the government, political system, institution, or civic concept tested.";
+
+  }else if(currentSubject === "Economics"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This follows the economic principle or concept being tested.";
+
+  }else if(currentSubject === "Agricultural Science"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the agricultural principle or farming practice tested.";
+
+  }else if(currentSubject === "Literature in English"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This is based on the literary work, literary device, character, theme, or concept being tested.";
+
+  }else if(currentSubject === "Geography"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the geographical feature, process, location, or concept tested.";
+
+  }else if(currentSubject === "Civic Education"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the civic principle, right, duty, responsibility, or concept tested.";
+
+  }else if(currentSubject === "Computer Studies"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the computer concept, hardware, software, or information technology principle tested.";
+
+  }else if(currentSubject === "CRS"){
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". This relates to the biblical teaching, event, person, or Christian principle tested.";
+
+  }else{
+    explanation.textContent =
+      "Explanation: The correct answer is " + correct +
+      ". Review this question and the related topic to understand the answer.";
+  }
+  }
+
+    var status = document.createElement("p");
+
+    if(answers[r] === activeQuestions[r].a){
+      status.textContent = "✓ Correct";
+      status.style.fontWeight = "bold";
+    }else{
+      status.textContent = "✗ Wrong";
+      status.style.fontWeight = "bold";
+    }
+
+    reviewItem.appendChild(question);
+    reviewItem.appendChild(yourAnswer);
+    reviewItem.appendChild(correctAnswer);
+    reviewItem.appendChild(explanation);
+    reviewItem.appendChild(status);
+
+    reviewBox.appendChild(reviewItem);
+  }
+}
+
+
+restartBtn.addEventListener("click", function(){
+quizHomeBtn.addEventListener("click", function(){
+
+  clearInterval(timerInterval);
+
+  quiz.style.display = "none";
+  result.style.display = "none";
+  home.style.display = "block";
+
+});
+  result.style.display = "none";
+  quiz.style.display = "none";
+  home.style.display = "block";
+
+});
+  retryBtn.addEventListener("click", function(){
+    wrongBtn.addEventListener("click", function(){
+
+  var allReviews = reviewBox.children;
+
+  if(wrongBtn.textContent === "Show Wrong Answers"){
+
+    for(var i = 0; i < allReviews.length; i++){
+
+      if(allReviews[i].classList.contains("review-correct")){
+        allReviews[i].style.display = "none";
+      }else{
+        allReviews[i].style.display = "block";
+      }
+
+    }
+
+    wrongBtn.textContent = "Show All Answers";
+
+  }else{
+
+    for(var i = 0; i < allReviews.length; i++){
+      allReviews[i].style.display = "block";
+    }
+
+    wrongBtn.textContent = "Show Wrong Answers";
+  }
+
+});
+
+
+  result.style.display = "none";
+  quiz.style.display = "block";
+
+  if(currentSubject === "Mathematics"){
+    startQuiz("Mathematics", mathematics);
+  }else if(currentSubject === "English Language"){
+    startQuiz("English Language", english);
+  }else if(currentSubject === "Biology"){
+    startQuiz("Biology", biology);
+  }else if(currentSubject === "Chemistry"){
+    startQuiz("Chemistry", chemistry);
+  }else if(currentSubject === "Physics"){
+    startQuiz("Physics", physics);
+  }else if(currentSubject === "Government"){
+    startQuiz("Government", government);
+  }else if(currentSubject === "Economics"){
+    startQuiz("Economics", economics);
+  }else if(currentSubject === "Agricultural Science"){
+    startQuiz("Agricultural Science", agricultural);
+  }else if(currentSubject === "Literature in English"){
+    startQuiz("Literature in English", literature);
+  }else if(currentSubject === "Geography"){
+    startQuiz("Geography", geography);
+  }else if(currentSubject === "Civic Education"){
+    startQuiz("Civic Education", civic);
+  }else if(currentSubject === "Computer Studies"){
+    startQuiz("Computer Studies", computer);
+  }else if(currentSubject === "CRS"){
+    startQuiz("CRS", crs);
+  }
+});
+</script>
+
+</body>
+</html>
