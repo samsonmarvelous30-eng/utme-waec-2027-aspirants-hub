@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard | Aspirants Hub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    header {
+      background: #102a56;
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 25px;
+    }
+
+    header p {
+      margin: 0;
+      color: #dbeafe;
+    }
+
+    main {
+      max-width: 750px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      margin-bottom: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .account-email {
+      overflow-wrap: anywhere;
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: #eff6ff;
+      padding: 16px;
+      border-radius: 10px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-top: 8px;
+      color: #1d4ed8;
+    }
+
+    button, .button {
+      display: inline-block;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 5px 5px 5px 0;
+    }
+
+    .secondary {
+      background: #475569;
+    }
+
+    .result {
+      padding: 15px;
+      margin-top: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .result h3 {
+      margin-top: 0;
+    }
+
+    .muted {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    @media (max-width: 420px) {
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Student Dashboard</h1>
+    <p>UTME &amp; WAEC 2027 Aspirants Hub</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Welcome back!</h2>
+      <p class="muted">Signed-in account</p>
+      <p id="dashboardEmail" class="account-email">Checking account...</p>
+      <button id="logoutBtn" type="button" class="secondary">Log Out</button>
+      <a class="button" href="index.html">Go to Practice</a>
+    </section>
+
+    <section class="card">
+      <h2>My Progress</h2>
+
+      <div class="summary">
+        <div class="stat">
+          Quizzes completed
+          <strong id="quizCount">—</strong>
+        </div>
+
+        <div class="stat">
+          Average score
+          <strong id="averageScore">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>My Quiz Results</h2>
+      <button id="refreshResultsBtn" type="button">Refresh Results</button>
+      <p id="dashboardMessage" class="muted" role="status">Loading results...</p>
+      <div id="dashboardResults"></div>
+    </section>
+  </main>
+
+  <footer>
+    UTME &amp; WAEC 2027 Aspirants Hub
+  </footer>
+
+  <script type="module" src="auth.js"></script>
+
+  <script type="module">
+    import { getAuth, onAuthStateChanged, signOut }
+      from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+    const auth = getAuth();
+
+    const emailEl = document.getElementById("dashboardEmail");
+    const messageEl = document.getElementById("dashboardMessage");
+    const resultsEl = document.getElementById("dashboardResults");
+    const countEl = document.getElementById("quizCount");
+    const averageEl = document.getElementById("averageScore");
+    const refreshBtn = document.getElementById("refreshResultsBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    let signedInUser = null;
+
+    async function loadResults() {
+      resultsEl.replaceChildren();
+
+      if (!signedInUser) {
+        messageEl.textContent = "Please log in to view your results.";
+        countEl.textContent = "0";
+        averageEl.textContent = "—";
+        return;
+      }
+
+      if (typeof window.loadQuizResults !== "function") {
+        messageEl.textContent = "Results service is not ready. Refresh the page.";
+        return;
+      }
+
+      messageEl.textContent = "Loading your results...";
+
+      try {
+        const results = await window.loadQuizResults();
+
+        if (!signedInUser) return;
+
+        countEl.textContent = String(results.length);
+
+        const validResults = results.filter(item =>
+          Number.isFinite(item.score) &&
+          Number.isFinite(item.total) &&
+          item.total > 0
+        );
+
+        if (validResults.length) {
+          const average = validResults.reduce(
+            (sum, item) => sum + (item.score / item.total) * 100, 0
+          ) / validResults.length;
+
+          averageEl.textContent = Math.round(average) + "%";
+        } else {
+          averageEl.textContent = "—";
+        }
+
+        if (!results.length) {
+          messageEl.textContent = "You haven't saved any quiz results yet.";
+          return;
+        }
+
+        messageEl.textContent = "Your saved results are shown below.";
+
+        results.forEach(item => {
+          const card = document.createElement("article");
+          card.className = "result";
+
+          const title = document.createElement("h3");
+          title.textContent = item.subject || "Quiz";
+
+          const score = document.createElement("p");
+          score.textContent = "Score: " + item.score + " / " + item.total;
+
+          const percentage = document.createElement("p");
+          percentage.textContent =
+            "Percentage: " + (Number.isFinite(item.percentage)
+              ? item.percentage
+              : Math.round((item.score / item.total) * 100)) + "%";
+
+          card.append(title, score, percentage);
+          resultsEl.appendChild(card);
+        });
+      } catch (error) {
+        messageEl.textContent = "Couldn't load results. Please refresh and try again.";
+      }
+    }
+
+    onAuthStateChanged(auth, user => {
+      signedInUser = user;
+      emailEl.textContent = user ? user.email : "Not logged in";
+      loadResults();
+    });
+
+    refreshBtn.addEventListener("click", loadResults);
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        window.location.href = "index.html";
+      } catch (error) {
+        messageEl.textContent = "Couldn't log out. Please try again.";
+      }
+    });
+  </script>
+</body>
+  </html>
