@@ -39,6 +39,9 @@ const logoutBtn = document.getElementById("logoutBtn");
 const message = document.getElementById("accountMessage");
 
 let currentUser = null;
+window.studentAuthReady = new Promise(resolve => {
+  window.resolveStudentAuth = resolve;
+});
 window.studentIsLoggedIn = false;
 function showMessage(text) {
   if (message) message.textContent = text;
