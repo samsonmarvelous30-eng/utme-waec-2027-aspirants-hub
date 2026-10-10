@@ -4173,8 +4173,10 @@ if(subject === "CRS"){
 
 });
 
-function startQuiz(subject, questions){
-
+async function startQuiz(subject, questions){
+  if (window.studentAuthReady) {
+    await window.studentAuthReady;
+ }
   if (!window.studentIsLoggedIn) {
     alert("Please create an account or log in before starting a quiz.");
     home.style.display = "block";
