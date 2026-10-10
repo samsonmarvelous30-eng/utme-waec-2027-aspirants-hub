@@ -39,7 +39,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const message = document.getElementById("accountMessage");
 
 let currentUser = null;
-
+window.studentIsLoggedIn = false;
 function showMessage(text) {
   if (message) message.textContent = text;
 }
@@ -113,6 +113,7 @@ if (logoutBtn) {
 
 onAuthStateChanged(auth, user => {
   currentUser = user;
+  window.studentIsLoggedIn = !!user;
 
   if (user) {
     showMessage("Logged in as " + user.email);
