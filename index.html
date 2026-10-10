@@ -4175,6 +4175,17 @@ if(subject === "CRS"){
 
 function startQuiz(subject, questions){
 
+  if (!window.studentIsLoggedIn) {
+    alert("Please create an account or log in before starting a quiz.");
+    home.style.display = "block";
+    quiz.style.display = "none";
+    result.style.display = "none";
+    document.getElementById("accountSection").scrollIntoView({
+      behavior: "smooth"
+    });
+    return;
+  }
+
   currentSubject = subject;
   if(practiceMode === "quick"){
   activeQuestions = questions.slice(0,20);
