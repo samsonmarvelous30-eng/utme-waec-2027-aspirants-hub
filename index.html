@@ -4680,6 +4680,82 @@ quizHomeBtn.addEventListener("click", function(){
 
   <p id="accountMessage" role="status" style="text-align:center;margin-top:15px;"></p>
 </section>
+<!-- STUDENT DASHBOARD -->
+<section id="studentDashboard" style="max-width:700px;margin:30px auto;padding:20px;background:#fff;color:#222;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);font-family:Arial,sans-serif;">
 
+  <h2 style="text-align:center;">Student Dashboard</h2>
+
+  <div style="padding:15px;background:#f1f5ff;border-radius:10px;margin-bottom:20px;">
+    <h3>My Account</h3>
+    <p>Email: <strong id="dashboardEmail">Not logged in</strong></p>
+  </div>
+
+  <h3>My Quiz Results</h3>
+
+  <button id="refreshResultsBtn" type="button" style="padding:12px 18px;border:0;border-radius:8px;background:#2563eb;color:white;cursor:pointer;">
+    Refresh Results
+  </button>
+
+  <p id="dashboardMessage" role="status">Log in to view your saved results.</p>
+
+  <div id="dashboardResults"></div>
+
+</section>
+
+<script type="module">
+  import { getAuth, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+
+  const dashboardEmail = document.getElementById("dashboardEmail");
+  const dashboardMessage = document.getElementById("dashboardMessage");
+  const dashboardResults = document.getElementById("dashboardResults");
+  const refreshResultsBtn = document.getElementById("refreshResultsBtn");
+
+  const dashboardAuth = getAuth();
+
+  async function showDashboardResults() {
+    dashboardResults.innerHTML = "";
+
+    if (!dashboardAuth.currentUser) {
+      dashboardMessage.textContent = "Please log in to view your saved results.";
+      return;
+    }
+
+    dashboardMessage.textContent = "Loading your results...";
+
+    const results = await window.loadQuizResults();
+
+    if (!results.length) {
+      dashboardMessage.textContent = "No saved quiz results found yet.";
+      return;
+    }
+
+    dashboardMessage.textContent = "You have " + results.length + " saved quiz result(s).";
+
+    results.forEach(item => {
+      const card = document.createElement("div");
+      card.style.cssText = "padding:15px;margin:12px 0;background:#f5f7fb;border-radius:10px;border-left:4px solid #2563eb;";
+
+      const subject = document.createElement("h4");
+      subject.textContent = item.subject || "Quiz";
+
+      const score = document.createElement("p");
+      score.textContent = "Score: " + item.score + " / " + item.total;
+
+      const percentage = document.createElement("p");
+      percentage.textContent = "Percentage: " + (item.percentage ?? 0) + "%";
+
+      card.append(subject, score, percentage);
+      dashboardResults.appendChild(card);
+    });
+  }
+
+  onAuthStateChanged(dashboardAuth, user => {
+    dashboardEmail.textContent = user ? user.email : "Not logged in";
+    showDashboardResults();
+  });
+
+  refreshResultsBtn.addEventListener("click", showDashboardResults);
+</script>
 </body>
 </html>
