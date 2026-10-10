@@ -117,6 +117,10 @@ if (logoutBtn) {
 onAuthStateChanged(auth, user => {
   currentUser = user;
   window.studentIsLoggedIn = !!user;
+  if (window.resolveStudentAuth) {
+  window.resolveStudentAuth(user);
+  window.resolveStudentAuth = null;
+  }
 
   if (user) {
     showMessage("Logged in as " + user.email);
