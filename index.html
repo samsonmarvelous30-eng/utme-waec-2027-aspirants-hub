@@ -4646,5 +4646,33 @@ quizHomeBtn.addEventListener("click", function(){
 
   <a href="privacy.html" style="color:#2563eb; text-decoration:none; margin:8px;">Privacy Policy</a>
 </footer>
+<!-- STUDENT ACCOUNT SECTION -->
+<section id="accountSection" style="max-width:500px;margin:30px auto;padding:20px;background:#fff;border-radius:15px;color:#222;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+  <h2 style="text-align:center;">Student Account</h2>
+  <p style="text-align:center;">Create an account or log in to your Aspirants Hub account.</p>
+
+  <label for="accountEmail">Email address</label>
+  <input id="accountEmail" type="email" placeholder="Enter your email"
+    autocomplete="email" style="width:100%;padding:12px;margin:8px 0 15px;box-sizing:border-box;">
+
+  <label for="accountPassword">Password</label>
+  <input id="accountPassword" type="password" placeholder="At least 6 characters"
+    autocomplete="current-password" style="width:100%;padding:12px;margin:8px 0 15px;box-sizing:border-box;">
+
+  <button id="registerBtn" type="button" style="width:100%;padding:12px;margin-bottom:10px;cursor:pointer;">
+    Create Account
+  </button>
+
+  <button id="loginBtn" type="button" style="width:100%;padding:12px;cursor:pointer;">
+    Log In
+  </button>
+
+  <button id="logoutBtn" type="button" hidden style="width:100%;padding:12px;margin-top:10px;cursor:pointer;">
+    Log Out
+  </button>
+
+  <p id="accountMessage" role="status" style="text-align:center;margin-top:15px;"></p>
+</section>
+
 </body>
 </html>
