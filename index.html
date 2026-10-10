@@ -4416,7 +4416,13 @@ result.insertBefore(
   reviewBox
 );
   var wrongAnswers = activeQuestions.length - score;
-
+if (window.saveQuizResult) {
+  window.saveQuizResult(
+    currentSubject,
+    score,
+    activeQuestions.length
+  );
+ }
 resultMessage.textContent =
     "Correct: " + score +
     " | Wrong: " + wrongAnswers;
