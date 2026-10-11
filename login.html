@@ -358,7 +358,7 @@ form.addEventListener("submit", async event => {
     window.location.replace("index.html");
 
   } catch (error) {
-    let errorText = "Something went wrong. Please try again.";
+    let errorText = "Registration failed: " + (error.message || "Please try again.");
 
     if (
       error.code === "auth/email-already-in-use"
