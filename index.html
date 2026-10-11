@@ -4178,6 +4178,9 @@ async function startQuiz(subject, questions){
     await window.studentAuthReady;
  }
   if (!window.studentIsLoggedIn) {
+  window.location.href = "login.html";
+  return;
+ }
     alert("Please create an account or log in before starting a quiz.");
     home.style.display = "block";
     quiz.style.display = "none";
