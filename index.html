@@ -4172,15 +4172,20 @@ if(subject === "CRS"){
   });
 
 });
-
-async function startQuiz(subject, questions) {
+async function startQuiz(subject, questions){
 
   if (window.studentAuthReady) {
     await window.studentAuthReady;
   }
 
   if (!window.studentIsLoggedIn) {
-    window.location.href = "login.html";
+    alert("Please create an account or log in before starting a quiz.");
+    home.style.display = "block";
+    quiz.style.display = "none";
+    result.style.display = "none";
+    document.getElementById("accountSection").scrollIntoView({
+      behavior: "smooth"
+    });
     return;
   }
 
