@@ -107,7 +107,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
-      showMessage("You have logged out.");
+      window.location.replace("login.html");
     } catch (error) {
       showMessage("Logout failed. Please try again.");
     }
