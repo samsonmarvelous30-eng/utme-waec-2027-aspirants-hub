@@ -4665,6 +4665,26 @@ quizHomeBtn.addEventListener("click", function(){
 });
 </script>
  <script type="module" src="auth.js"></script>
+ <script type="module">
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+
+const app = getApps().length
+  ? getApps()[0]
+  : initializeApp({
+      apiKey: "YOUR_API_KEY",
+      authDomain: "utme-waec-aspirants-hub.firebaseapp.com",
+      projectId: "utme-waec-aspirants-hub"
+    });
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    window.location.replace("login.html");
+  }
+});
+ </script>
 <footer style="text-align:center; padding:20px 10px; margin-top:30px; font-family:Arial,sans-serif; font-size:14px;">
   <p>&copy; 2026 UTME &amp; WAEC 2027 Aspirants Hub</p>
 
