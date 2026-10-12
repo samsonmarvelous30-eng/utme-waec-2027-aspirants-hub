@@ -12,7 +12,6 @@ import {
   getDatabase
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 
-// Existing Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA9mgI_Atf0sxcDtQgF-hBLYPhEctELc6M",
   authDomain: "utme-waec-aspirants-hub.firebaseapp.com",
@@ -23,7 +22,6 @@ const firebaseConfig = {
   databaseURL: "https://utme-waec-aspirants-hub-default-rtdb.firebaseio.com/"
 };
 
-// Reuse an existing app instance or initialise one
 const app = getApps().length
   ? getApps()[0]
   : initializeApp(firebaseConfig);
@@ -34,9 +32,14 @@ const database = getDatabase(app);
 const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
 const playersBtn = document.getElementById("playersBtn");
+const homeBtn = document.getElementById("homeBtn");
+
+let signedIn = false;
 
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
+  signedIn = Boolean(user);
+
+  if (!signedIn) {
     message.textContent =
       "Please sign in before entering Quiz Battle.";
 
@@ -45,23 +48,39 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
-  message.textContent =
-    "You're signed in! Firebase is connected. Multiplayer matchmaking is not enabled yet.";
-
   randomBtn.disabled = false;
   playersBtn.disabled = false;
+
+  message.textContent =
+    "You're signed in! Choose how you want to battle.";
 });
 
 randomBtn.addEventListener("click", () => {
+  if (!signedIn) {
+    message.textContent = "Please sign in first.";
+    return;
+  }
+
   message.textContent =
-    "Random matchmaking will be available when the secure battle system is ready.";
+    "Random Match is not connected yet. Secure matchmaking setup is still required.";
 });
 
 playersBtn.addEventListener("click", () => {
+  if (!signedIn) {
+    message.textContent = "Please sign in first.";
+    return;
+  }
+
+  const roomCode = Math.random()
+    .toString(36)
+    .substring(2, 8)
+    .toUpperCase();
+
   message.textContent =
-    "The online players list will appear after player presence is configured.";
+    "Your suggested room code is " + roomCode +
+    ". This is only a preview; no room has been created or shared yet.";
 });
 
-document.getElementById("homeBtn").addEventListener("click", () => {
+homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
