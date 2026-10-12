@@ -84,3 +84,10 @@ playersBtn.addEventListener("click", () => {
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
+// Quiz Battle player identity
+onAuthStateChanged(auth, (user) => {
+  if (!user) return;
+
+  console.log("Battle player UID:", user.uid);
+  console.log("Battle player name:", user.displayName || "Student");
+});
