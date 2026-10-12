@@ -39,7 +39,9 @@ let signedIn = false;
 
 onAuthStateChanged(auth, (user) => {
   signedIn = Boolean(user);
-
+if (user) {
+  console.log("Current battle player:", user.uid);
+}
   if (!signedIn) {
     message.textContent =
       "Please sign in before entering Quiz Battle.";
