@@ -4601,39 +4601,27 @@ quizHomeBtn.addEventListener("click", function(){
   home.style.display = "block";
 
 });
-  retryBtn.addEventListener("click", function(){
-    wrongBtn.addEventListener("click", function(){
+// Back to Subjects button
+quizHomeBtn.addEventListener("click", function(){
+  clearInterval(timerInterval);
 
-  var allReviews = reviewBox.children;
-
-  if(wrongBtn.textContent === "Show Wrong Answers"){
-
-    for(var i = 0; i < allReviews.length; i++){
-
-      if(allReviews[i].classList.contains("review-correct")){
-        allReviews[i].style.display = "none";
-      }else{
-        allReviews[i].style.display = "block";
-      }
-
-    }
-
-    wrongBtn.textContent = "Show All Answers";
-
-  }else{
-
-    for(var i = 0; i < allReviews.length; i++){
-      allReviews[i].style.display = "block";
-    }
-
-    wrongBtn.textContent = "Show Wrong Answers";
-  }
-
+  quiz.style.display = "none";
+  result.style.display = "none";
+  home.style.display = "block";
 });
 
+// Restart button
+restartBtn.addEventListener("click", function(){
+  clearInterval(timerInterval);
 
   result.style.display = "none";
-  quiz.style.display = "block";
+  quiz.style.display = "none";
+  home.style.display = "block";
+});
+
+// Retry button
+retryBtn.addEventListener("click", function(){
+  result.style.display = "none";
 
   if(currentSubject === "Mathematics"){
     startQuiz("Mathematics", mathematics);
@@ -4663,6 +4651,28 @@ quizHomeBtn.addEventListener("click", function(){
     startQuiz("CRS", crs);
   }
 });
+
+// Show Wrong Answers button
+wrongBtn.addEventListener("click", function(){
+  var allReviews = reviewBox.children;
+
+  if(wrongBtn.textContent.trim() === "Show Wrong Answers"){
+    for(var i = 0; i < allReviews.length; i++){
+      allReviews[i].style.display =
+        allReviews[i].classList.contains("review-correct")
+          ? "none"
+          : "block";
+    }
+
+    wrongBtn.textContent = "Show All Answers";
+  }else{
+    for(var i = 0; i < allReviews.length; i++){
+      allReviews[i].style.display = "block";
+    }
+
+    wrongBtn.textContent = "Show Wrong Answers";
+  }
+});  
 </script>
  <script type="module" src="auth.js"></script>
  <script type="module">
