@@ -9,7 +9,11 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
 
 import {
-  getDatabase
+  getDatabase,
+  ref,
+  set,
+  onDisconnect,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -37,12 +41,42 @@ const homeBtn = document.getElementById("homeBtn");
 
 let signedIn = false;
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   signedIn = Boolean(user);
-if (user) {
+
+  if (!user) {
+    message.textContent =
+      "Please sign in before entering Quiz Battle.";
+    randomBtn.disabled = true;
+    playersBtn.disabled = true;
+    return;
+  }
+
+  randomBtn.disabled = false;
+  playersBtn.disabled = false;
+
+  const playerRef = ref(database, "players/" + user.uid);
+
+  try {
+    await onDisconnect(playerRef).set({
+      online: false
+    });
+
+    await set(playerRef, {
+      online: true,
+      lastSeen: serverTimestamp()
+    });
+
+    message.textContent =
+      "You're online and ready for Quiz Battle!";
+  } catch (error) {
+    console.error("Presence error:", error);
+    message.textContent =
+      "Could not register your online status.";
+  }
+
   console.log("Current battle player:", user.uid);
-}
-  if (!signedIn) {
+});
     message.textContent =
       "Please sign in before entering Quiz Battle.";
 
