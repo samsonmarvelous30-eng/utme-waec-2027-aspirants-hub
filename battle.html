@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Battle | UTME & WAEC 2027</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #fff;
+    }
+
+    header {
+      padding: 22px 16px;
+      text-align: center;
+      background: #151d35;
+      border-bottom: 1px solid #283452;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      color: #60a5fa;
+      font-size: 25px;
+    }
+
+    header p {
+      margin: 0;
+      color: #b8c4dc;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(100% - 28px, 650px);
+      margin: 25px auto;
+    }
+
+    .card {
+      background: #151d35;
+      border: 1px solid #283452;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 19px;
+    }
+
+    .status {
+      display: inline-block;
+      background: #26344f;
+      color: #bfdbfe;
+      padding: 7px 11px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .notice {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    button {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #26344f;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 12px;
+      color: #fbbf24;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚔️ Quiz Battle</h1>
+    <p>UTME & WAEC 2027 Aspirants Hub</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <span class="status">MULTIPLAYER ARENA</span>
+      <h2>Ready to challenge someone?</h2>
+      <p class="notice">
+        Compete with other aspirants, answer the same questions,
+        and see who earns the highest score.
+      </p>
+      <button id="randomBtn">Find a Random Opponent</button>
+      <button id="playersBtn" class="secondary">View Online Players</button>
+      <p id="message" role="status" aria-live="polite">
+        Multiplayer is awaiting its secure database connection.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>🔥 Live Battle Feed</h2>
+      <p class="notice" id="feed">
+        Battle announcements will appear here when the live system is connected.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>🏆 Battle Leaderboard</h2>
+      <p class="notice" id="leaderboard">
+        Scores will appear here after completed battles are connected to the secure scoring system.
+      </p>
+    </section>
+
+    <button id="homeBtn" class="secondary">Back to Home</button>
+  </main>
+
+  <footer>
+    UTME & WAEC 2027 Aspirants Hub
+  </footer>
+
+  <script>
+    const message = document.getElementById("message");
+
+    document.getElementById("randomBtn").addEventListener("click", () => {
+      message.textContent =
+        "Random matchmaking is not connected yet. The secure multiplayer setup is still in progress.";
+    });
+
+    document.getElementById("playersBtn").addEventListener("click", () => {
+      message.textContent =
+        "The online players list will appear after player presence is connected.";
+    });
+
+    document.getElementById("homeBtn").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+  </html>
