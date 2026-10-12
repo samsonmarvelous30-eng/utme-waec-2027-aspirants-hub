@@ -32,8 +32,7 @@ const currentPlayer = () => auth.currentUser?.uid || null;
 const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
 const playersBtn = document.getElementById("playersBtn");
-const playerUid = currentPlayer();
-console.log("Current battle player:", playerUid);
+
 const homeBtn = document.getElementById("homeBtn");
 
 let signedIn = false;
