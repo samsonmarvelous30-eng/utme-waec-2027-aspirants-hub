@@ -13,6 +13,7 @@ import {
   ref,
   set,
   get,
+  update,
   onDisconnect,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
@@ -38,40 +39,100 @@ const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
 const playersBtn = document.getElementById("playersBtn");
 const homeBtn = document.getElementById("homeBtn");
+const nicknameInput = document.getElementById("nickname");
+const saveNicknameBtn = document.getElementById("saveNicknameBtn");
+const nicknameMessage = document.getElementById("nicknameMessage");
 
-let signedIn = false;
+let currentNickname = "Student";
+
+function cleanNickname(value) {
+  return value.trim().replace(/\s+/g, " ");
+}
 
 onAuthStateChanged(auth, async (user) => {
-  signedIn = Boolean(user);
-
   if (!user) {
     message.textContent = "Please sign in before entering Quiz Battle.";
     randomBtn.disabled = true;
     playersBtn.disabled = true;
+    saveNicknameBtn.disabled = true;
+    nicknameInput.disabled = true;
     return;
   }
 
   randomBtn.disabled = false;
   playersBtn.disabled = false;
+  saveNicknameBtn.disabled = false;
+  nicknameInput.disabled = false;
 
   const playerRef = ref(database, "players/" + user.uid);
 
   try {
-    await onDisconnect(playerRef).set({
+    const existing = await get(playerRef);
+    const playerData = existing.exists() ? existing.val() : {};
+
+    currentNickname =
+      playerData.nickname ||
+      user.displayName ||
+      "Student";
+
+    nicknameInput.value = currentNickname;
+
+    await onDisconnect(playerRef).update({
       online: false,
       lastSeen: serverTimestamp()
     });
 
-    await set(playerRef, {
+    await update(playerRef, {
       online: true,
       lastSeen: serverTimestamp(),
-      name: user.displayName || "Student"
+      nickname: currentNickname
     });
 
     message.textContent = "You're online and ready for Quiz Battle!";
   } catch (error) {
     console.error("Presence error:", error);
-    message.textContent = "Presence error: " + (error.code || error.message);
+    message.textContent =
+      "Connection error: " + (error.code || error.message);
+  }
+});
+
+saveNicknameBtn.addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    nicknameMessage.textContent = "Please sign in first.";
+    return;
+  }
+
+  const nickname = cleanNickname(nicknameInput.value);
+
+  if (nickname.length < 3 || nickname.length > 16) {
+    nicknameMessage.textContent =
+      "Your nickname must be 3–16 characters long.";
+    return;
+  }
+
+  saveNicknameBtn.disabled = true;
+  nicknameMessage.textContent = "Saving nickname...";
+
+  try {
+    const playerRef = ref(database, "players/" + user.uid);
+
+    await update(playerRef, {
+      nickname,
+      online: true,
+      lastSeen: serverTimestamp()
+    });
+
+    currentNickname = nickname;
+    nicknameInput.value = nickname;
+    nicknameMessage.textContent = "Nickname saved successfully!";
+  } catch (error) {
+    console.error("Nickname error:", error);
+    nicknameMessage.textContent =
+      "Could not save: " + (error.code || error.message);
+  } finally {
+    saveNicknameBtn.disabled = false;
   }
 });
 
@@ -84,29 +145,28 @@ playersBtn.addEventListener("click", async () => {
   message.textContent = "Checking online players...";
 
   try {
-    const playersRef = ref(database, "players");
-    const snapshot = await get(playersRef);
+    const snapshot = await get(ref(database, "players"));
 
     if (!snapshot.exists()) {
-      message.textContent = "No online players found yet. Invite a student to open Quiz Battle.";
+      message.textContent = "No online players found yet.";
       return;
     }
 
     const players = snapshot.val();
+
     const onlinePlayers = Object.entries(players)
-      .filter(([uid, player]) => uid !== auth.currentUser.uid && player.online === true);
+      .filter(([uid, player]) =>
+        uid !== auth.currentUser.uid && player.online === true
+      )
+      .map(([, player]) => player.nickname || "Student");
 
-    if (onlinePlayers.length === 0) {
-      message.textContent = "No other players are online yet. Invite a student to join!";
-      return;
-    }
-
-    message.textContent = "Online players: " + onlinePlayers
-      .map(([, player]) => player.name || "Student")
-      .join(", ");
+    message.textContent = onlinePlayers.length
+      ? "Online players: " + onlinePlayers.join(", ")
+      : "No other players are online yet. Invite a student to join!";
   } catch (error) {
     console.error("Players lookup error:", error);
-    message.textContent = "Could not load players: " + (error.code || error.message);
+    message.textContent =
+      "Could not load players: " + (error.code || error.message);
   }
 });
 
@@ -116,10 +176,11 @@ randomBtn.addEventListener("click", () => {
     return;
   }
 
-  message.textContent = "You're ready! Random matchmaking still needs to be connected.";
+  message.textContent =
+    "Welcome, " + currentNickname +
+    "! Random matchmaking is still being developed.";
 });
 
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
-  
