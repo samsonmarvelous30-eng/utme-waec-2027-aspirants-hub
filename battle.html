@@ -123,6 +123,19 @@
       <p id="message" role="status" aria-live="polite">
         Multiplayer is awaiting its secure database connection.
       </p>
+      <div style="margin-top:18px;">
+  <label for="nickname">Your nickname (3–16 characters)</label>
+  <input
+    id="nickname"
+    type="text"
+    minlength="3"
+    maxlength="16"
+    placeholder="Enter your nickname"
+    style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #283452;background:#0b1020;color:white;"
+  >
+  <button id="saveNicknameBtn" type="button">Save Nickname</button>
+  <p id="nicknameMessage" role="status"></p>
+      </div>
     </section>
 
     <section class="card">
