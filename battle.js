@@ -70,7 +70,7 @@ onAuthStateChanged(auth, async (user) => {
     message.textContent =
       "You're online and ready for Quiz Battle!";
   } catch (error) {
-    console.error("Presence error:", error);
+    message.textContent = "Presence error: " + error.code;
     message.textContent =
       "Could not register your online status.";
   }
