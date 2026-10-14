@@ -35,6 +35,41 @@ const app = getApps().length
 const auth = getAuth(app);
 const database = getDatabase(app);
 const MATCHMAKING_URL =
+  "PASTE_YOUR_RAPID_WORKER_FUNCTION_URL_HERE";
+
+async function findMatch() {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error("Please sign in first.");
+  }
+
+  const nickname = nicknameInput.value.trim();
+
+  if (nickname.length < 3 || nickname.length > 16) {
+    throw new Error("Your nickname must be 3–16 characters.");
+  }
+
+  const token = await user.getIdToken();
+
+  const response = await fetch(MATCHMAKING_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({ nickname })
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || "Matchmaking failed.");
+  }
+
+  return result;
+}
+const MATCHMAKING_URL =
   "https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker";
 const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
@@ -196,32 +231,29 @@ playersBtn.addEventListener("click", async () => {
   }
 });
 
-randomBtn.addEventListener("click", async () => {
-  if (!auth.currentUser) {
-    message.textContent = "Please sign in first.";
-    return;
-  }
 
+randomBtn.addEventListener("click", async () => {
   randomBtn.disabled = true;
-  message.textContent = "Checking your sign-in...";
+  message.textContent = "Finding an opponent...";
 
   try {
-    const result = await testMatchmakingAuthentication();
+    const result = await findMatch();
 
-    message.textContent =
-      "Authentication successful! Ready for matchmaking.";
-
-    console.log("Authentication result:", result);
+    if (result.status === "matched") {
+      message.textContent =
+        "Opponent found: " + result.opponentNickname +
+        ". Battle ID: " + result.battleId;
+    } else {
+      message.textContent =
+        "You're in the queue! Waiting for another student to join.";
+    }
   } catch (error) {
-    console.error("Matchmaking authentication error:", error);
-
-    message.textContent =
-      error.message || "Could not verify your sign-in.";
+    console.error("Matchmaking error:", error);
+    message.textContent = error.message || "Matchmaking failed.";
   } finally {
     randomBtn.disabled = false;
   }
 });
-
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
