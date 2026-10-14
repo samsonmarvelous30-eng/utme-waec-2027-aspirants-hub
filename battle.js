@@ -45,7 +45,9 @@ const homeBtn = document.getElementById("homeBtn");
 const nicknameInput = document.getElementById("nickname");
 const saveNicknameBtn = document.getElementById("saveNicknameBtn");
 const nicknameMessage = document.getElementById("nicknameMessage");
+const readyBtn = document.getElementById("readyBtn");
 
+let currentBattleId = null;
 let currentNickname = "Student";
 
 function cleanNickname(value) {
@@ -254,13 +256,21 @@ randomBtn.addEventListener("click", async () => {
     currentNickname = nickname;
 
     const result = await findMatch();
+if (result.status === "matched") {
+  currentBattleId = result.battleId || null;
 
-    if (result.status === "matched") {
-      message.textContent =
-        "Opponent found: " +
-        (result.opponentNickname || "Student") +
-        ". Battle ID: " +
-        (result.battleId || "created");
+  message.textContent =
+    "Opponent found: " +
+    (result.opponentNickname || "Student") +
+    ". Battle ID: " +
+    (currentBattleId || "created");
+
+  if (currentBattleId) {
+    readyBtn.hidden = false;
+  } else {
+    message.textContent +=
+      " A valid Battle ID is needed to continue.";
+  }
     } else if (result.status === "waiting") {
       message.textContent =
         "You're in the queue! Waiting for another student to join.";
@@ -280,4 +290,55 @@ randomBtn.addEventListener("click", async () => {
 
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
+});
+readyBtn.addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    message.textContent = "Please sign in first.";
+    return;
+  }
+
+  if (!currentBattleId) {
+    message.textContent =
+      "No active battle found. Find an opponent first.";
+    return;
+  }
+
+  readyBtn.disabled = true;
+  message.textContent = "Updating your Ready status...";
+
+  try {
+    const token = await user.getIdToken();
+
+    const response = await fetch(MATCHMAKING_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        action: "ready",
+        battleId: currentBattleId
+      })
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(
+        result.error || "Could not update Ready status."
+      );
+    }
+
+    message.textContent =
+      "You're marked as Ready! Waiting for your opponent.";
+  } catch (error) {
+    console.error("Ready action error:", error);
+
+    message.textContent =
+      error.message || "Could not update Ready status.";
+
+    readyBtn.disabled = false;
+  }
 });
