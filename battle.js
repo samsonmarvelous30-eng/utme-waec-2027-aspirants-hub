@@ -35,7 +35,7 @@ const app = getApps().length
 const auth = getAuth(app);
 const database = getDatabase(app);
 const MATCHMAKING_URL =
-  "https://ptmoetdipwcdexbtvrq.supabase.co/functions/v1/rapid-worker";
+  "https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker";
 const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
 const playersBtn = document.getElementById("playersBtn");
