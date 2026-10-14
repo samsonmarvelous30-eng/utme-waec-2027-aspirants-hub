@@ -34,7 +34,8 @@ const app = getApps().length
 
 const auth = getAuth(app);
 const database = getDatabase(app);
-
+const MATCHMAKING_URL =
+  "https://ptmoetdipwcdexbtvrq.supabase.co/functions/v1/rapid-worker";
 const message = document.getElementById("message");
 const randomBtn = document.getElementById("randomBtn");
 const playersBtn = document.getElementById("playersBtn");
@@ -44,7 +45,32 @@ const saveNicknameBtn = document.getElementById("saveNicknameBtn");
 const nicknameMessage = document.getElementById("nicknameMessage");
 
 let currentNickname = "Student";
+async function testMatchmakingAuthentication() {
+  const user = auth.currentUser;
 
+  if (!user) {
+    throw new Error("Please sign in first.");
+  }
+
+  const token = await user.getIdToken(true);
+
+  const response = await fetch(MATCHMAKING_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({})
+  });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error || "Authentication failed.");
+  }
+
+  return result;
+  }
 function cleanNickname(value) {
   return value.trim().replace(/\s+/g, " ");
 }
@@ -170,15 +196,30 @@ playersBtn.addEventListener("click", async () => {
   }
 });
 
-randomBtn.addEventListener("click", () => {
+randomBtn.addEventListener("click", async () => {
   if (!auth.currentUser) {
     message.textContent = "Please sign in first.";
     return;
   }
 
-  message.textContent =
-    "Welcome, " + currentNickname +
-    "! Random matchmaking is still being developed.";
+  randomBtn.disabled = true;
+  message.textContent = "Checking your sign-in...";
+
+  try {
+    const result = await testMatchmakingAuthentication();
+
+    message.textContent =
+      "Authentication successful! Ready for matchmaking.";
+
+    console.log("Authentication result:", result);
+  } catch (error) {
+    console.error("Matchmaking authentication error:", error);
+
+    message.textContent =
+      error.message || "Could not verify your sign-in.";
+  } finally {
+    randomBtn.disabled = false;
+  }
 });
 
 homeBtn.addEventListener("click", () => {
