@@ -11,7 +11,6 @@ import {
 import {
   getDatabase,
   ref,
-  set,
   get,
   update,
   onDisconnect,
@@ -25,7 +24,8 @@ const firebaseConfig = {
   storageBucket: "utme-waec-aspirants-hub.firebasestorage.app",
   messagingSenderId: "483058761546",
   appId: "1:483058761546:web:ec6eaa3109eca1c941cbb3",
-  databaseURL: "https://utme-waec-aspirants-hub-default-rtdb.firebaseio.com/"
+  databaseURL:
+    "https://utme-waec-aspirants-hub-default-rtdb.firebaseio.com/"
 };
 
 const app = getApps().length
@@ -34,8 +34,23 @@ const app = getApps().length
 
 const auth = getAuth(app);
 const database = getDatabase(app);
+
 const MATCHMAKING_URL =
-  https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker
+  "https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker";
+
+const message = document.getElementById("message");
+const randomBtn = document.getElementById("randomBtn");
+const playersBtn = document.getElementById("playersBtn");
+const homeBtn = document.getElementById("homeBtn");
+const nicknameInput = document.getElementById("nickname");
+const saveNicknameBtn = document.getElementById("saveNicknameBtn");
+const nicknameMessage = document.getElementById("nicknameMessage");
+
+let currentNickname = "Student";
+
+function cleanNickname(value) {
+  return value.trim().replace(/\s+/g, " ");
+}
 
 async function findMatch() {
   const user = auth.currentUser;
@@ -44,11 +59,14 @@ async function findMatch() {
     throw new Error("Please sign in first.");
   }
 
-  const nickname = nicknameInput.value.trim();
+  const nickname = cleanNickname(nicknameInput.value);
 
   if (nickname.length < 3 || nickname.length > 16) {
     throw new Error("Your nickname must be 3–16 characters.");
   }
+
+  // Make sure the saved nickname is current.
+  currentNickname = nickname;
 
   const token = await user.getIdToken();
 
@@ -61,58 +79,22 @@ async function findMatch() {
     body: JSON.stringify({ nickname })
   });
 
-  const result = await response.json();
+  const result = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(result.error || "Matchmaking failed.");
+    throw new Error(
+      result.error || result.message || "Matchmaking failed."
+    );
   }
 
   return result;
-}
-const MATCHMAKING_URL =
-  "https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker";
-const message = document.getElementById("message");
-const randomBtn = document.getElementById("randomBtn");
-const playersBtn = document.getElementById("playersBtn");
-const homeBtn = document.getElementById("homeBtn");
-const nicknameInput = document.getElementById("nickname");
-const saveNicknameBtn = document.getElementById("saveNicknameBtn");
-const nicknameMessage = document.getElementById("nicknameMessage");
-
-let currentNickname = "Student";
-async function testMatchmakingAuthentication() {
-  const user = auth.currentUser;
-
-  if (!user) {
-    throw new Error("Please sign in first.");
-  }
-
-  const token = await user.getIdToken(true);
-
-  const response = await fetch(MATCHMAKING_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    body: JSON.stringify({})
-  });
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error || "Authentication failed.");
-  }
-
-  return result;
-  }
-function cleanNickname(value) {
-  return value.trim().replace(/\s+/g, " ");
 }
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    message.textContent = "Please sign in before entering Quiz Battle.";
+    message.textContent =
+      "Please sign in before entering Quiz Battle.";
+
     randomBtn.disabled = true;
     playersBtn.disabled = true;
     saveNicknameBtn.disabled = true;
@@ -149,11 +131,14 @@ onAuthStateChanged(auth, async (user) => {
       nickname: currentNickname
     });
 
-    message.textContent = "You're online and ready for Quiz Battle!";
+    message.textContent =
+      "You're online and ready for Quiz Battle!";
   } catch (error) {
     console.error("Presence error:", error);
+
     message.textContent =
-      "Connection error: " + (error.code || error.message);
+      "Connection error: " +
+      (error.code || error.message || "Please try again.");
   }
 });
 
@@ -187,11 +172,15 @@ saveNicknameBtn.addEventListener("click", async () => {
 
     currentNickname = nickname;
     nicknameInput.value = nickname;
-    nicknameMessage.textContent = "Nickname saved successfully!";
+
+    nicknameMessage.textContent =
+      "Nickname saved successfully!";
   } catch (error) {
     console.error("Nickname error:", error);
+
     nicknameMessage.textContent =
-      "Could not save: " + (error.code || error.message);
+      "Could not save: " +
+      (error.code || error.message || "Please try again.");
   } finally {
     saveNicknameBtn.disabled = false;
   }
@@ -203,6 +192,7 @@ playersBtn.addEventListener("click", async () => {
     return;
   }
 
+  playersBtn.disabled = true;
   message.textContent = "Checking online players...";
 
   try {
@@ -217,7 +207,9 @@ playersBtn.addEventListener("click", async () => {
 
     const onlinePlayers = Object.entries(players)
       .filter(([uid, player]) =>
-        uid !== auth.currentUser.uid && player.online === true
+        uid !== auth.currentUser.uid &&
+        player &&
+        player.online === true
       )
       .map(([, player]) => player.nickname || "Student");
 
@@ -226,34 +218,66 @@ playersBtn.addEventListener("click", async () => {
       : "No other players are online yet. Invite a student to join!";
   } catch (error) {
     console.error("Players lookup error:", error);
+
     message.textContent =
-      "Could not load players: " + (error.code || error.message);
+      "Could not load players: " +
+      (error.code || error.message || "Please try again.");
+  } finally {
+    playersBtn.disabled = false;
   }
 });
-
 
 randomBtn.addEventListener("click", async () => {
   randomBtn.disabled = true;
   message.textContent = "Finding an opponent...";
 
   try {
+    // Save the nickname first, so Firebase and matchmaking agree.
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error("Please sign in first.");
+    }
+
+    const nickname = cleanNickname(nicknameInput.value);
+
+    if (nickname.length < 3 || nickname.length > 16) {
+      throw new Error("Your nickname must be 3–16 characters.");
+    }
+
+    await update(ref(database, "players/" + user.uid), {
+      nickname,
+      online: true,
+      lastSeen: serverTimestamp()
+    });
+
+    currentNickname = nickname;
+
     const result = await findMatch();
 
     if (result.status === "matched") {
       message.textContent =
-        "Opponent found: " + result.opponentNickname +
-        ". Battle ID: " + result.battleId;
-    } else {
+        "Opponent found: " +
+        (result.opponentNickname || "Student") +
+        ". Battle ID: " +
+        (result.battleId || "created");
+    } else if (result.status === "waiting") {
       message.textContent =
         "You're in the queue! Waiting for another student to join.";
+    } else {
+      message.textContent =
+        result.message || "Matchmaking returned an unexpected response.";
     }
   } catch (error) {
     console.error("Matchmaking error:", error);
-    message.textContent = error.message || "Matchmaking failed.";
+
+    message.textContent =
+      error.message || "Matchmaking failed. Please try again.";
   } finally {
     randomBtn.disabled = false;
   }
 });
+
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
