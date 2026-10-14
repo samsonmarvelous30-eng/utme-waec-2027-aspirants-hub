@@ -35,7 +35,7 @@ const app = getApps().length
 const auth = getAuth(app);
 const database = getDatabase(app);
 const MATCHMAKING_URL =
-  "PASTE_YOUR_RAPID_WORKER_FUNCTION_URL_HERE";
+  https://ptmoetdipwcdexdbtvrq.supabase.co/functions/v1/rapid-worker
 
 async function findMatch() {
   const user = auth.currentUser;
