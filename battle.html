@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
   <title>Quiz Battle | UTME & WAEC 2027</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -24,7 +28,7 @@
     header h1 {
       margin: 0 0 8px;
       color: #60a5fa;
-      font-size: 25px;
+      font-size: 26px;
     }
 
     header p {
@@ -35,7 +39,7 @@
 
     main {
       width: min(100% - 28px, 650px);
-      margin: 25px auto;
+      margin: 24px auto;
     }
 
     .card {
@@ -46,9 +50,15 @@
       margin-bottom: 18px;
     }
 
-    .card h2 {
+    h2 {
       margin-top: 0;
       font-size: 19px;
+    }
+
+    .notice {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .status {
@@ -58,12 +68,6 @@
       padding: 7px 11px;
       border-radius: 20px;
       font-size: 12px;
-    }
-
-    .notice {
-      color: #cbd5e1;
-      font-size: 14px;
-      line-height: 1.6;
     }
 
     button {
@@ -85,15 +89,144 @@
     }
 
     button:disabled {
-      opacity: .6;
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
-    #message {
-      margin-top: 12px;
+    input {
+      font-size: 16px;
+    }
+
+    #message,
+    #nicknameMessage {
       color: #fbbf24;
       font-size: 14px;
       line-height: 1.5;
+    }
+
+    /* Battle screen */
+
+    #battleScreen,
+    #countdownScreen,
+    #resultScreen {
+      display: none;
+    }
+
+    .players {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .player {
+      padding: 15px 10px;
+      text-align: center;
+      background: #0b1020;
+      border: 1px solid #283452;
+      border-radius: 12px;
+      min-width: 0;
+    }
+
+    .player-name {
+      font-size: 13px;
+      color: #cbd5e1;
+      overflow-wrap: anywhere;
+    }
+
+    .player-score {
+      margin-top: 8px;
+      color: #60a5fa;
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .timer-box {
+      margin: 18px 0;
+      text-align: center;
+      padding: 14px;
+      background: #0b1020;
+      border-radius: 12px;
+    }
+
+    #timer {
+      color: #fbbf24;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .progress-track {
+      height: 7px;
+      margin-top: 12px;
+      background: #26344f;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 100%;
+      background: #3b82f6;
+      transition: width 0.3s linear;
+    }
+
+    #questionNumber {
+      color: #93c5fd;
+      font-size: 13px;
+    }
+
+    #questionText {
+      font-size: 19px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .answer-option {
+      width: 100%;
+      text-align: left;
+      background: #202c47;
+      border: 1px solid #344565;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    .answer-option.selected {
+      background: #1d4ed8;
+      border-color: #60a5fa;
+    }
+
+    .answer-option.correct {
+      background: #166534;
+      border-color: #4ade80;
+    }
+
+    .answer-option.wrong {
+      background: #991b1b;
+      border-color: #f87171;
+    }
+
+    #countdownNumber {
+      margin: 22px 0;
+      text-align: center;
+      font-size: 90px;
+      font-weight: bold;
+      color: #60a5fa;
+    }
+
+    #countdownLabel {
+      text-align: center;
+      color: #cbd5e1;
+    }
+
+    #resultTitle {
+      text-align: center;
+      color: #fbbf24;
+      font-size: 27px;
+    }
+
+    #resultMessage {
+      text-align: center;
+      line-height: 1.6;
     }
 
     footer {
@@ -102,82 +235,195 @@
       color: #94a3b8;
       font-size: 12px;
     }
+
+    [hidden] {
+      display: none !important;
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>⚔️ Quiz Battle</h1>
-    <p>UTME & WAEC 2027 Aspirants Hub</p>
-  </header>
 
-  <main>
-    <section class="card">
-      <span class="status">MULTIPLAYER ARENA</span>
-      <h2>Ready to challenge someone?</h2>
-      <p class="notice">
-        Compete with other aspirants, answer the same questions,
-        and see who earns the highest score.
-      </p>
-      <button id="randomBtn">Find a Random Opponent</button>
-      <button id="playersBtn" class="secondary">View Online Players</button>
-      <p id="message" role="status" aria-live="polite">
-      
-      Multiplayer is awaiting its secure database connection.
-      </p>
-      <button id="readyBtn" hidden>I'm Ready!</button>
-      <div style="margin-top:18px;">
-  <label for="nickname">Your nickname (3–16 characters)</label>
-  <input
-    id="nickname"
-    type="text"
-    minlength="3"
-    maxlength="16"
-    placeholder="Enter your nickname"
-    style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #283452;background:#0b1020;color:white;"
-  >
-  <button id="saveNicknameBtn" type="button">Save Nickname</button>
-  <p id="nicknameMessage" role="status"></p>
+<header>
+  <h1>⚔️ Quiz Battle</h1>
+  <p>UTME & WAEC 2027 Aspirants Hub</p>
+</header>
+
+<main>
+
+  <!-- MATCHMAKING -->
+  <section class="card" id="lobbyScreen">
+    <span class="status">MULTIPLAYER ARENA</span>
+    <h2>Ready to challenge someone?</h2>
+
+    <p class="notice">
+      Find another aspirant, get ready, and compete to see who
+      earns the highest score.
+    </p>
+
+    <label for="nickname">Your nickname (3–16 characters)</label>
+
+    <input
+      id="nickname"
+      type="text"
+      minlength="3"
+      maxlength="16"
+      placeholder="Enter your nickname"
+      autocomplete="nickname"
+      style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #283452;background:#0b1020;color:white;"
+    >
+
+    <button id="saveNicknameBtn" type="button">
+      Save Nickname
+    </button>
+
+    <p id="nicknameMessage" role="status" aria-live="polite"></p>
+
+    <button id="randomBtn" type="button">
+      Find a Random Opponent
+    </button>
+
+    <button id="playersBtn" class="secondary" type="button">
+      View Online Players
+    </button>
+
+    <p id="message" role="status" aria-live="polite">
+      Save your nickname to get started.
+    </p>
+
+    <button id="readyBtn" type="button" hidden>
+      I'm Ready!
+    </button>
+
+    <button id="homeBtn" class="secondary" type="button">
+      Back to Home
+    </button>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="card" id="countdownScreen">
+    <span class="status">BATTLE STARTING</span>
+
+    <h2>Get Ready!</h2>
+
+    <div id="countdownNumber">3</div>
+
+    <p id="countdownLabel">
+      The battle is about to begin...
+    </p>
+  </section>
+
+  <!-- LIVE BATTLE -->
+  <section class="card" id="battleScreen">
+    <span class="status" id="battleStatus">
+      LIVE BATTLE
+    </span>
+
+    <div class="players">
+
+      <div class="player">
+        <div class="player-name" id="myName">You</div>
+        <div class="player-score" id="myScore">0</div>
+        <div class="notice">Your score</div>
       </div>
-    </section>
 
-    <section class="card">
-      <h2>🔥 Live Battle Feed</h2>
-      <p class="notice" id="feed">
-        Battle announcements will appear here when the live system is connected.
-      </p>
-    </section>
+      <div class="player">
+        <div class="player-name" id="opponentName">
+          Opponent
+        </div>
+        <div class="player-score" id="opponentScore">0</div>
+        <div class="notice">Opponent score</div>
+      </div>
 
-    <section class="card">
-      <h2>🏆 Battle Leaderboard</h2>
-      <p class="notice" id="leaderboard">
-        Scores will appear here after completed battles are connected to the secure scoring system.
-      </p>
-    </section>
+    </div>
 
-    <button id="homeBtn" class="secondary">Back to Home</button>
-  </main>
+    <div class="timer-box">
+      <div class="notice">Time remaining</div>
+      <div id="timer">30</div>
 
-  <footer>
-    UTME & WAEC 2027 Aspirants Hub
-  </footer>
+      <div class="progress-track">
+        <div id="progressBar"></div>
+      </div>
+    </div>
 
-  <script>
-    const message = document.getElementById("message");
+    <p id="questionNumber">Question 1</p>
 
-    document.getElementById("randomBtn").addEventListener("click", () => {
-      message.textContent =
-        "Random matchmaking is not connected yet. The secure multiplayer setup is still in progress.";
-    });
+    <h2 id="questionText">
+      Waiting for the battle questions...
+    </h2>
 
-    document.getElementById("playersBtn").addEventListener("click", () => {
-      message.textContent =
-        "The online players list will appear after player presence is connected.";
-    });
+    <div id="answerOptions"></div>
 
-    document.getElementById("homeBtn").addEventListener("click", () => {
-      window.location.href = "index.html";
-    });
-  </script>
-  <script type="module" src="battle.js"></script>
+    <p id="answerMessage" class="notice" aria-live="polite">
+      Choose your answer.
+    </p>
+
+    <button id="nextQuestionBtn" type="button" hidden>
+      Next Question
+    </button>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="card" id="resultScreen">
+    <span class="status">BATTLE COMPLETED</span>
+
+    <h2 id="resultTitle">Battle Results</h2>
+
+    <p id="resultMessage">
+      Your final results will appear here.
+    </p>
+
+    <div class="players">
+      <div class="player">
+        <div class="player-name" id="resultMyName">You</div>
+        <div class="player-score" id="resultMyScore">0</div>
+        <div class="notice">Your final score</div>
+      </div>
+
+      <div class="player">
+        <div class="player-name" id="resultOpponentName">
+          Opponent
+        </div>
+        <div class="player-score" id="resultOpponentScore">0</div>
+        <div class="notice">Opponent's score</div>
+      </div>
+    </div>
+
+    <button id="playAgainBtn" type="button">
+      Find Another Opponent
+    </button>
+
+    <button id="resultHomeBtn" class="secondary" type="button">
+      Back to Home
+    </button>
+  </section>
+
+  <!-- LIVE FEED -->
+  <section class="card" id="feedCard">
+    <h2>🔥 Live Battle Feed</h2>
+
+    <p class="notice" id="feed">
+      Battle announcements will appear here.
+    </p>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="card" id="leaderboardCard">
+    <h2>🏆 Battle Leaderboard</h2>
+
+    <p class="notice" id="leaderboard">
+      Completed battle scores will appear here when the
+      leaderboard is connected.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  UTME & WAEC 2027 Aspirants Hub
+</footer>
+
+<script type="module" src="battle.js"></script>
+
 </body>
-  </html>
+                                                        </html>
