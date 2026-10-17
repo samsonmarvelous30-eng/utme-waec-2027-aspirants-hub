@@ -49,26 +49,38 @@ const readyBtn = document.getElementById("readyBtn");
 
 let currentBattleId = null;
 let currentNickname = "Student";
+let matchTimer = null;
+let battleTimer = null;
+let checkingMatch = false;
+let myReadyStatus = false;
+let battleIsActive = false;
+
+readyBtn.hidden = true;
 
 function cleanNickname(value) {
   return value.trim().replace(/\s+/g, " ");
 }
 
-async function findMatch() {
+function stopMatchChecking() {
+  if (matchTimer) {
+    clearInterval(matchTimer);
+    matchTimer = null;
+  }
+}
+
+function stopBattleChecking() {
+  if (battleTimer) {
+    clearInterval(battleTimer);
+    battleTimer = null;
+  }
+}
+
+async function workerRequest(data) {
   const user = auth.currentUser;
 
   if (!user) {
     throw new Error("Please sign in first.");
   }
-
-  const nickname = cleanNickname(nicknameInput.value);
-
-  if (nickname.length < 3 || nickname.length > 16) {
-    throw new Error("Your nickname must be 3–16 characters.");
-  }
-
-  // Make sure the saved nickname is current.
-  currentNickname = nickname;
 
   const token = await user.getIdToken();
 
@@ -78,21 +90,146 @@ async function findMatch() {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
     },
-    body: JSON.stringify({ nickname })
+    body: JSON.stringify(data)
   });
 
   const result = await response.json().catch(() => ({}));
 
   if (!response.ok) {
     throw new Error(
-      result.error || result.message || "Matchmaking failed."
+      result.error || result.message || "Request failed."
     );
   }
 
   return result;
 }
 
+async function findMatch() {
+  const nickname = cleanNickname(nicknameInput.value);
+
+  if (nickname.length < 3 || nickname.length > 16) {
+    throw new Error("Your nickname must be 3–16 characters.");
+  }
+
+  currentNickname = nickname;
+
+  return workerRequest({ nickname });
+}
+
+/* Retrieve the battle assigned to this player. */
+async function checkForMatch() {
+  if (!auth.currentUser || checkingMatch || currentBattleId) {
+    return;
+  }
+
+  checkingMatch = true;
+
+  try {
+    const result = await workerRequest({
+      action: "check_match"
+    });
+
+    if (result.status === "matched" && result.battleId) {
+      currentBattleId = result.battleId;
+      myReadyStatus = false;
+
+      stopMatchChecking();
+
+      readyBtn.hidden = false;
+      readyBtn.disabled = false;
+
+      message.textContent =
+        "Opponent found: " +
+        (result.opponentNickname || "Student") +
+        ". Tap Ready when you're ready.";
+
+      startBattleChecking();
+    }
+  } catch (error) {
+    console.error("Match checking error:", error);
+  } finally {
+    checkingMatch = false;
+  }
+}
+
+function startMatchChecking() {
+  stopMatchChecking();
+
+  checkForMatch();
+
+  matchTimer = setInterval(() => {
+    checkForMatch();
+  }, 2000);
+}
+
+/* Check whether both players have pressed Ready. */
+async function checkBattleStatus() {
+  if (!currentBattleId || !auth.currentUser) {
+    return;
+  }
+
+  try {
+    const result = await workerRequest({
+      action: "check_match"
+    });
+
+    if (
+      result.status !== "matched" ||
+      result.battleId !== currentBattleId
+    ) {
+      return;
+    }
+
+    const bothReady =
+      result.playerOneReady === true &&
+      result.playerTwoReady === true;
+
+    if (
+      result.battleStatus === "active" ||
+      result.status === "active" ||
+      bothReady
+    ) {
+      battleIsActive = true;
+      readyBtn.disabled = true;
+
+      message.textContent =
+        "Both players are ready! The battle is active.";
+
+      stopBattleChecking();
+      return;
+    }
+
+    if (myReadyStatus) {
+      message.textContent =
+        "You're Ready! Waiting for your opponent...";
+    }
+  } catch (error) {
+    console.error("Battle status error:", error);
+  }
+}
+
+function startBattleChecking() {
+  stopBattleChecking();
+
+  checkBattleStatus();
+
+  battleTimer = setInterval(() => {
+    checkBattleStatus();
+  }, 2000);
+}
+
+/* Sign-in and player presence. */
 onAuthStateChanged(auth, async (user) => {
+  stopMatchChecking();
+  stopBattleChecking();
+
+  currentBattleId = null;
+  myReadyStatus = false;
+  battleIsActive = false;
+
+  readyBtn.hidden = true;
+  readyBtn.disabled = false;
+
   if (!user) {
     message.textContent =
       "Please sign in before entering Quiz Battle.";
@@ -101,6 +238,7 @@ onAuthStateChanged(auth, async (user) => {
     playersBtn.disabled = true;
     saveNicknameBtn.disabled = true;
     nicknameInput.disabled = true;
+
     return;
   }
 
@@ -112,8 +250,11 @@ onAuthStateChanged(auth, async (user) => {
   const playerRef = ref(database, "players/" + user.uid);
 
   try {
-    const existing = await get(playerRef);
-    const playerData = existing.exists() ? existing.val() : {};
+    const snapshot = await get(playerRef);
+
+    const playerData = snapshot.exists()
+      ? snapshot.val()
+      : {};
 
     currentNickname =
       playerData.nickname ||
@@ -144,6 +285,7 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+/* Save nickname. */
 saveNicknameBtn.addEventListener("click", async () => {
   const user = auth.currentUser;
 
@@ -164,9 +306,7 @@ saveNicknameBtn.addEventListener("click", async () => {
   nicknameMessage.textContent = "Saving nickname...";
 
   try {
-    const playerRef = ref(database, "players/" + user.uid);
-
-    await update(playerRef, {
+    await update(ref(database, "players/" + user.uid), {
       nickname,
       online: true,
       lastSeen: serverTimestamp()
@@ -188,6 +328,7 @@ saveNicknameBtn.addEventListener("click", async () => {
   }
 });
 
+/* Show other online players. */
 playersBtn.addEventListener("click", async () => {
   if (!auth.currentUser) {
     message.textContent = "Please sign in first.";
@@ -229,12 +370,23 @@ playersBtn.addEventListener("click", async () => {
   }
 });
 
+/* Find an opponent. */
 randomBtn.addEventListener("click", async () => {
   randomBtn.disabled = true;
+
+  stopMatchChecking();
+  stopBattleChecking();
+
+  currentBattleId = null;
+  myReadyStatus = false;
+  battleIsActive = false;
+
+  readyBtn.hidden = true;
+  readyBtn.disabled = false;
+
   message.textContent = "Finding an opponent...";
 
   try {
-    // Save the nickname first, so Firebase and matchmaking agree.
     const user = auth.currentUser;
 
     if (!user) {
@@ -256,27 +408,27 @@ randomBtn.addEventListener("click", async () => {
     currentNickname = nickname;
 
     const result = await findMatch();
-if (result.status === "matched") {
-  currentBattleId = result.battleId || null;
 
-  message.textContent =
-    "Opponent found: " +
-    (result.opponentNickname || "Student") +
-    ". Battle ID: " +
-    (currentBattleId || "created");
+    if (result.status === "matched" && result.battleId) {
+      currentBattleId = result.battleId;
 
-  if (currentBattleId) {
-    readyBtn.hidden = false;
-  } else {
-    message.textContent +=
-      " A valid Battle ID is needed to continue.";
-  }
+      readyBtn.hidden = false;
+
+      message.textContent =
+        "Opponent found: " +
+        (result.opponentNickname || "Student") +
+        ". Tap Ready when you're ready.";
+
+      startBattleChecking();
     } else if (result.status === "waiting") {
       message.textContent =
-        "You're in the queue! Waiting for another student to join.";
+        "You're in the queue! Looking for your match...";
+
+      startMatchChecking();
     } else {
       message.textContent =
-        result.message || "Matchmaking returned an unexpected response.";
+        result.message ||
+        "Matchmaking returned an unexpected response.";
     }
   } catch (error) {
     console.error("Matchmaking error:", error);
@@ -288,20 +440,21 @@ if (result.status === "matched") {
   }
 });
 
+/* Return home. */
 homeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
-readyBtn.addEventListener("click", async () => {
-  const user = auth.currentUser;
 
-  if (!user) {
+/* Mark this player Ready. */
+readyBtn.addEventListener("click", async () => {
+  if (!auth.currentUser) {
     message.textContent = "Please sign in first.";
     return;
   }
 
   if (!currentBattleId) {
     message.textContent =
-      "No active battle found. Find an opponent first.";
+      "No battle found. Find an opponent first.";
     return;
   }
 
@@ -309,30 +462,32 @@ readyBtn.addEventListener("click", async () => {
   message.textContent = "Updating your Ready status...";
 
   try {
-    const token = await user.getIdToken();
-
-    const response = await fetch(MATCHMAKING_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        action: "ready",
-        battleId: currentBattleId
-      })
+    const result = await workerRequest({
+      action: "ready",
+      battleId: currentBattleId
     });
 
-    const result = await response.json().catch(() => ({}));
+    myReadyStatus = true;
 
-    if (!response.ok) {
-      throw new Error(
-        result.error || "Could not update Ready status."
-      );
+    if (
+      result.status === "active" ||
+      (
+        result.playerOneReady === true &&
+        result.playerTwoReady === true
+      )
+    ) {
+      battleIsActive = true;
+
+      message.textContent =
+        "Both players are ready! The battle is active.";
+
+      stopBattleChecking();
+    } else {
+      message.textContent =
+        "You're Ready! Waiting for your opponent...";
+
+      startBattleChecking();
     }
-
-    message.textContent =
-      "You're marked as Ready! Waiting for your opponent.";
   } catch (error) {
     console.error("Ready action error:", error);
 
