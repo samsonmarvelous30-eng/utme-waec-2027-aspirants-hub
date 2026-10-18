@@ -87,14 +87,18 @@ let questionTimer = null;
 let resultPollTimer = null;
 
 let myReadyStatus = false;
-let battleIsActive = false;
 let questions = [];
 let questionIndex = 0;
 let myScoreValue = 0;
 let opponentScoreValue = 0;
 let answered = false;
-let questionSeconds = 20;
 let answerPending = false;
+let questionSeconds = 20;
+
+let battleStartPromise = null;
+let startedBattleId = null;
+let finishingBattle = false;
+let resultsScreenShown = false;
 
 function cleanNickname(value) {
   return value.trim().replace(/\s+/g, " ");
@@ -109,14 +113,17 @@ function stopTimer(name) {
     clearInterval(matchTimer);
     matchTimer = null;
   }
+
   if (name === "battle") {
     clearInterval(battleTimer);
     battleTimer = null;
   }
+
   if (name === "question") {
     clearInterval(questionTimer);
     questionTimer = null;
   }
+
   if (name === "results") {
     clearInterval(resultPollTimer);
     resultPollTimer = null;
@@ -124,17 +131,22 @@ function stopTimer(name) {
 }
 
 function showScreen(screen) {
-  [lobbyScreen, countdownScreen, battleScreen, resultScreen]
-    .filter(Boolean)
-    .forEach(element => {
-      element.hidden = element !== screen;
-    });
+  [
+    lobbyScreen,
+    countdownScreen,
+    battleScreen,
+    resultScreen
+  ].filter(Boolean).forEach(element => {
+    element.hidden = element !== screen;
+  });
 }
 
 async function workerRequest(data) {
   const user = auth.currentUser;
 
-  if (!user) throw new Error("Please sign in first.");
+  if (!user) {
+    throw new Error("Please sign in first.");
+  }
 
   const token = await user.getIdToken();
 
@@ -156,6 +168,25 @@ async function workerRequest(data) {
   return result;
 }
 
+function resetBattleState() {
+  stopTimer("question");
+  stopTimer("results");
+  stopTimer("battle");
+
+  currentBattleId = null;
+  myReadyStatus = false;
+  questions = [];
+  questionIndex = 0;
+  myScoreValue = 0;
+  opponentScoreValue = 0;
+  answered = false;
+  answerPending = false;
+  startedBattleId = null;
+  battleStartPromise = null;
+  finishingBattle = false;
+  resultsScreenShown = false;
+}
+
 async function checkForMatch() {
   if (!auth.currentUser || currentBattleId) return;
 
@@ -175,14 +206,12 @@ async function checkForMatch() {
         readyBtn.disabled = false;
       }
 
-      setMessage(
-        `Opponent found: ${opponentNickname}. Tap Ready!`
-      );
+      setMessage(`Opponent found: ${opponentNickname}. Tap Ready!`);
 
       startBattleChecking();
     }
   } catch (error) {
-    console.error(error);
+    console.error("Match check error:", error);
   }
 }
 
@@ -194,6 +223,11 @@ function startMatchChecking() {
 
 async function checkBattleStatus() {
   if (!currentBattleId || !auth.currentUser) return;
+
+  if (startedBattleId === currentBattleId) {
+    stopTimer("battle");
+    return;
+  }
 
   try {
     const result = await workerRequest({
@@ -211,7 +245,6 @@ async function checkBattleStatus() {
       result.status === "active" ||
       bothReady
     ) {
-      battleIsActive = true;
       stopTimer("battle");
 
       if (readyBtn) readyBtn.disabled = true;
@@ -226,7 +259,7 @@ async function checkBattleStatus() {
       setMessage("Ready! Waiting for your opponent...");
     }
   } catch (error) {
-    console.error(error);
+    console.error("Battle status error:", error);
   }
 }
 
@@ -239,55 +272,89 @@ function startBattleChecking() {
 async function startBattle() {
   if (!currentBattleId || !auth.currentUser) return;
 
-  try {
-    stopTimer("battle");
+  if (startedBattleId === currentBattleId) return;
 
-    const started = await workerRequest({
-      action: "start_battle",
-      battleId: currentBattleId,
-      nickname: currentNickname
-    });
+  if (battleStartPromise) return battleStartPromise;
 
-    if (!started || !started.questionCount) {
-      throw new Error("Could not start this battle.");
+  const battleId = currentBattleId;
+
+  battleStartPromise = (async () => {
+    try {
+      stopTimer("battle");
+
+      const started = await workerRequest({
+        action: "start_battle",
+        battleId,
+        nickname: currentNickname
+      });
+
+      if (!started || !started.questionCount) {
+        throw new Error("Could not start this battle.");
+      }
+
+      if (started.status === "completed") {
+        throw new Error("This battle has already been completed.");
+      }
+
+      const response = await workerRequest({
+        action: "get_battle_questions",
+        battleId
+      });
+
+      if (response.status === "completed") {
+        throw new Error("This battle has already been completed.");
+      }
+
+      const loadedQuestions = response.questions || [];
+
+      if (loadedQuestions.length !== 20) {
+        throw new Error(
+          "This battle needs exactly 20 questions."
+        );
+      }
+
+      if (currentBattleId !== battleId) return;
+
+      questions = loadedQuestions;
+      questionIndex = 0;
+      myScoreValue = 0;
+      opponentScoreValue = 0;
+      answered = false;
+      answerPending = false;
+      finishingBattle = false;
+      resultsScreenShown = false;
+
+      if (myName) myName.textContent = currentNickname;
+      if (opponentName) {
+        opponentName.textContent = opponentNickname;
+      }
+
+      if (myScore) myScore.textContent = "0";
+      if (opponentScore) opponentScore.textContent = "0";
+
+      startedBattleId = battleId;
+
+      showScreen(countdownScreen);
+      await countdown();
+
+      if (currentBattleId !== battleId) return;
+
+      showScreen(battleScreen);
+      renderQuestion();
+      startResultsPolling();
+    } catch (error) {
+      console.error("Start battle error:", error);
+
+      setMessage(error.message || "Could not start the battle.");
+
+      startedBattleId = null;
+      showScreen(lobbyScreen);
+    } finally {
+      battleStartPromise = null;
     }
+  })();
 
-    const response = await workerRequest({
-      action: "get_battle_questions",
-      battleId: currentBattleId
-    });
-
-    questions = response.questions || [];
-
-    if (questions.length !== 20) {
-      throw new Error(
-        "This battle needs exactly 20 questions. Please contact the admin."
-      );
-    }
-
-    questionIndex = 0;
-    myScoreValue = 0;
-    opponentScoreValue = 0;
-
-    if (myName) myName.textContent = currentNickname;
-    if (opponentName) {
-      opponentName.textContent = opponentNickname;
-    }
-
-    if (myScore) myScore.textContent = "0";
-    if (opponentScore) opponentScore.textContent = "0";
-
-    showScreen(countdownScreen);
-    await countdown();
-    showScreen(battleScreen);
-
-    renderQuestion();
-    startResultsPolling();
-  } catch (error) {
-    console.error("Start battle error:", error);
-    setMessage(error.message || "Could not start the battle.");
-    showScreen(lobbyScreen);
-  }
+  return battleStartPromise;
 }
 
 function countdown() {
@@ -303,7 +370,11 @@ function countdown() {
 
       if (count <= 0) {
         clearInterval(interval);
-        if (countdownNumber) countdownNumber.textContent = "GO!";
+
+        if (countdownNumber) {
+          countdownNumber.textContent = "GO!";
+        }
+
         setTimeout(resolve, 600);
       } else if (countdownNumber) {
         countdownNumber.textContent = String(count);
@@ -350,6 +421,7 @@ function renderQuestion() {
 
     question.options.forEach(option => {
       const button = document.createElement("button");
+
       button.type = "button";
       button.className = "answer-option";
       button.textContent = `${option.key}. ${option.text}`;
@@ -365,7 +437,9 @@ function renderQuestion() {
   questionTimer = setInterval(() => {
     questionSeconds--;
 
-    if (timer) timer.textContent = `${questionSeconds}s`;
+    if (timer) {
+      timer.textContent = `${questionSeconds}s`;
+    }
 
     if (questionSeconds <= 0) {
       stopTimer("question");
@@ -378,9 +452,10 @@ function renderQuestion() {
 }
 
 async function submitAnswer(answer, selectedButton) {
-  if (answered || answerPending) return;
+  if (answered || answerPending || finishingBattle) return;
 
   answerPending = true;
+  stopTimer("question");
 
   if (answerOptions) {
     answerOptions.querySelectorAll("button").forEach(button => {
@@ -388,43 +463,51 @@ async function submitAnswer(answer, selectedButton) {
     });
   }
 
-  stopTimer("question");
-
   try {
-    if (answer !== "TIMEOUT") {
-      const question = questions[questionIndex];
+    const question = questions[questionIndex];
 
-      const result = await workerRequest({
-        action: "submit_answer",
-        battleId: currentBattleId,
-        questionId: question.id,
-        answer
-      });
+    const result = await workerRequest({
+      action: "submit_answer",
+      battleId: currentBattleId,
+      questionId: question.id,
+      answer
+    });
 
-      if (result.correct) {
-        myScoreValue = result.score;
-        if (answerMessage) {
-          answerMessage.textContent = "Correct!";
-        }
-      } else if (answerMessage) {
-        answerMessage.textContent = "Not quite!";
-      }
-
-      if (myScore) myScore.textContent = String(result.score);
-    } else {
-      if (answerMessage) {
-        answerMessage.textContent = "Time's up!";
-      }
+    if (!result.accepted) {
+      throw new Error("The answer was not accepted.");
     }
 
-    answered = true;
-    answerPending = false;
+    myScoreValue = Number(result.score || 0);
+
+    if (myScore) {
+      myScore.textContent = String(myScoreValue);
+    }
+
+    if (answerMessage) {
+      if (answer === "TIMEOUT") {
+        answerMessage.textContent = "Time's up!";
+      } else if (result.correct) {
+        answerMessage.textContent = "Correct!";
+      } else {
+        answerMessage.textContent = "Not quite!";
+      }
+    }
 
     if (selectedButton) {
       selectedButton.classList.add("selected-answer");
     }
 
-    if (nextQuestionBtn) nextQuestionBtn.hidden = false;
+    answered = true;
+    answerPending = false;
+
+    if (nextQuestionBtn) {
+      nextQuestionBtn.hidden = false;
+    }
+
+    if (progressBar) {
+      progressBar.style.width =
+        `${((questionIndex + 1) / questions.length) * 100}%`;
+    }
   } catch (error) {
     console.error("Answer submission error:", error);
 
@@ -435,25 +518,55 @@ async function submitAnswer(answer, selectedButton) {
         error.message || "Could not submit answer. Try again.";
     }
 
+    // A duplicate-answer response means the server already
+    // recorded this question. Do not permit another submission.
+    if (
+      error.message &&
+      error.message.toLowerCase().includes("already answered")
+    ) {
+      answered = true;
+
+      if (nextQuestionBtn) {
+        nextQuestionBtn.hidden = false;
+      }
+
+      return;
+    }
+
     if (answerOptions) {
       answerOptions.querySelectorAll("button").forEach(button => {
         button.disabled = false;
       });
     }
+
+    // Allow another attempt after a temporary network failure.
+    questionTimer = setInterval(() => {
+      questionSeconds--;
+
+      if (timer) timer.textContent = `${questionSeconds}s`;
+
+      if (questionSeconds <= 0) {
+        stopTimer("question");
+
+        if (!answered && !answerPending) {
+          submitAnswer("TIMEOUT", null);
+        }
+      }
+    }, 1000);
   }
 }
 
 function nextQuestion() {
-  if (!answered) return;
+  if (!answered || answerPending) return;
 
   questionIndex++;
   renderQuestion();
 }
 
-async function startResultsPolling() {
+function startResultsPolling() {
   stopTimer("results");
 
-  await updateScores();
+  updateScores();
 
   resultPollTimer = setInterval(updateScores, 2500);
 }
@@ -473,20 +586,33 @@ async function updateScores() {
     const opponent = results.find(item => item.user_id !== myUid);
 
     if (mine) {
-      myScoreValue = mine.score || 0;
-      if (myScore) myScore.textContent = String(myScoreValue);
+      myScoreValue = Number(mine.score || 0);
+
+      if (myScore) {
+        myScore.textContent = String(myScoreValue);
+      }
     }
 
     if (opponent) {
-      opponentScoreValue = opponent.score || 0;
+      opponentScoreValue = Number(opponent.score || 0);
 
       if (opponentScore) {
         opponentScore.textContent = String(opponentScoreValue);
       }
 
       if (opponentName && opponent.nickname) {
+        opponentNickname = opponent.nickname;
         opponentName.textContent = opponent.nickname;
       }
+    }
+
+    // If both players finished, update the final result screen.
+    if (
+      result.sessionStatus === "completed" &&
+      result.bothFinished &&
+      resultsScreenShown
+    ) {
+      displayFinalResult();
     }
   } catch (error) {
     console.error("Score refresh error:", error);
@@ -494,14 +620,134 @@ async function updateScores() {
 }
 
 async function finishBattle() {
+  if (finishingBattle || resultsScreenShown) return;
+
+  finishingBattle = true;
+
   stopTimer("question");
   stopTimer("results");
 
-  await updateScores();
+  if (answerOptions) {
+    answerOptions.querySelectorAll("button").forEach(button => {
+      button.disabled = true;
+    });
+  }
+
+  try {
+    const result = await workerRequest({
+      action: "finish_battle",
+      battleId: currentBattleId
+    });
+
+    const results = result.results || [];
+
+    const mine = results.find(item => item.user_id === myUid);
+    const opponent = results.find(item => item.user_id !== myUid);
+
+    if (mine) {
+      myScoreValue = Number(mine.score || 0);
+    }
+
+    if (opponent) {
+      opponentScoreValue = Number(opponent.score || 0);
+      opponentNickname = opponent.nickname || opponentNickname;
+    }
+
+    if (result.status === "completed") {
+      resultsScreenShown = true;
+      displayFinalResult();
+      return;
+    }
+
+    showScreen(resultScreen);
+
+    if (resultTitle) {
+      resultTitle.textContent = "You finished!";
+    }
+
+    if (resultMessage) {
+      resultMessage.textContent =
+        "Your score has been saved. Waiting for your opponent to finish.";
+    }
+
+    if (resultMyName) {
+      resultMyName.textContent = currentNickname;
+    }
+
+    if (resultMyScore) {
+      resultMyScore.textContent = String(myScoreValue);
+    }
+
+    if (resultOpponentName) {
+      resultOpponentName.textContent = opponentNickname;
+    }
+
+    if (resultOpponentScore) {
+      resultOpponentScore.textContent = String(opponentScoreValue);
+    }
+
+    resultsScreenShown = true;
+
+    // Continue checking until the server confirms completion.
+    resultPollTimer = setInterval(async () => {
+      try {
+        const status = await workerRequest({
+          action: "get_battle_results",
+          battleId: currentBattleId
+        });
+
+        const mineNow = (status.results || []).find(
+          item => item.user_id === myUid
+        );
+
+        const opponentNow = (status.results || []).find(
+          item => item.user_id !== myUid
+        );
+
+        if (mineNow) {
+          myScoreValue = Number(mineNow.score || 0);
+        }
+
+        if (opponentNow) {
+          opponentScoreValue = Number(opponentNow.score || 0);
+          opponentNickname = opponentNow.nickname || opponentNickname;
+        }
+
+        if (status.sessionStatus === "completed" && status.bothFinished) {
+          stopTimer("results");
+          displayFinalResult();
+        } else if (resultMessage) {
+          resultMessage.textContent =
+            "Your score is saved. Waiting for your opponent to finish.";
+        }
+      } catch (error) {
+        console.error("Final result polling error:", error);
+      }
+    }, 2500);
+  } catch (error) {
+    console.error("Finish battle error:", error);
+
+    finishingBattle = false;
+
+    if (resultMessage) {
+      resultMessage.textContent =
+        error.message || "Could not finish the battle. Please retry.";
+    }
+
+    showScreen(battleScreen);
+  }
+}
+
+function displayFinalResult() {
+  stopTimer("results");
+  stopTimer("question");
 
   showScreen(resultScreen);
 
-  if (resultMyName) resultMyName.textContent = currentNickname;
+  if (resultMyName) {
+    resultMyName.textContent = currentNickname;
+  }
+
   if (resultMyScore) {
     resultMyScore.textContent = String(myScoreValue);
   }
@@ -516,29 +762,35 @@ async function finishBattle() {
 
   if (myScoreValue > opponentScoreValue) {
     if (resultTitle) resultTitle.textContent = "You won!";
+
     if (resultMessage) {
       resultMessage.textContent = "Great job! You won this battle.";
     }
   } else if (myScoreValue < opponentScoreValue) {
     if (resultTitle) resultTitle.textContent = "Battle complete";
+
     if (resultMessage) {
-      resultMessage.textContent = "Good effort! Try again to improve your score.";
+      resultMessage.textContent =
+        "Good effort! Try again to improve your score.";
     }
   } else {
     if (resultTitle) resultTitle.textContent = "It's a draw!";
+
     if (resultMessage) {
-      resultMessage.textContent = "You both finished with the same score.";
+      resultMessage.textContent =
+        "You both finished with the same score.";
     }
   }
 }
-
+// --------------------------------------------------
+// AUTHENTICATION AND ONLINE PRESENCE
+// --------------------------------------------------
 onAuthStateChanged(auth, async user => {
   stopTimer("match");
   stopTimer("battle");
 
-  currentBattleId = null;
-  myReadyStatus = false;
-  battleIsActive = false;
+  resetBattleState();
+
   myUid = user?.uid || null;
 
   if (readyBtn) {
@@ -570,7 +822,9 @@ onAuthStateChanged(auth, async user => {
     currentNickname =
       playerData.nickname || user.displayName || "Student";
 
-    if (nicknameInput) nicknameInput.value = currentNickname;
+    if (nicknameInput) {
+      nicknameInput.value = currentNickname;
+    }
 
     await onDisconnect(playerRef).update({
       online: false,
@@ -590,6 +844,9 @@ onAuthStateChanged(auth, async user => {
   }
 });
 
+// --------------------------------------------------
+// SAVE NICKNAME
+// --------------------------------------------------
 if (saveNicknameBtn) {
   saveNicknameBtn.addEventListener("click", async () => {
     const user = auth.currentUser;
@@ -598,8 +855,11 @@ if (saveNicknameBtn) {
     const nickname = cleanNickname(nicknameInput.value);
 
     if (nickname.length < 3 || nickname.length > 16) {
-      nicknameMessage.textContent =
-        "Nickname must be 3–16 characters long.";
+      if (nicknameMessage) {
+        nicknameMessage.textContent =
+          "Nickname must be 3–16 characters long.";
+      }
+
       return;
     }
 
@@ -613,16 +873,24 @@ if (saveNicknameBtn) {
       });
 
       currentNickname = nickname;
-      nicknameMessage.textContent = "Nickname saved!";
+
+      if (nicknameMessage) {
+        nicknameMessage.textContent = "Nickname saved!";
+      }
     } catch (error) {
-      nicknameMessage.textContent =
-        error.message || "Could not save nickname.";
+      if (nicknameMessage) {
+        nicknameMessage.textContent =
+          error.message || "Could not save nickname.";
+      }
     } finally {
       saveNicknameBtn.disabled = false;
     }
   });
 }
 
+// --------------------------------------------------
+// VIEW ONLINE PLAYERS
+// --------------------------------------------------
 if (playersBtn) {
   playersBtn.addEventListener("click", async () => {
     if (!auth.currentUser) return;
@@ -653,10 +921,18 @@ if (playersBtn) {
   });
 }
 
+// --------------------------------------------------
+// FIND OPPONENT
+// --------------------------------------------------
 if (randomBtn) {
   randomBtn.addEventListener("click", async () => {
     if (!auth.currentUser) {
       setMessage("Please sign in first.");
+      return;
+    }
+
+    if (currentBattleId) {
+      setMessage("You already have a battle in progress.");
       return;
     }
 
@@ -684,7 +960,10 @@ if (randomBtn) {
         currentBattleId = result.battleId;
         opponentNickname = result.opponentNickname || "Opponent";
 
-        if (readyBtn) readyBtn.hidden = false;
+        if (readyBtn) {
+          readyBtn.hidden = false;
+          readyBtn.disabled = false;
+        }
 
         setMessage(`Opponent found: ${opponentNickname}. Tap Ready!`);
         startBattleChecking();
@@ -702,6 +981,9 @@ if (randomBtn) {
   });
 }
 
+// --------------------------------------------------
+// READY
+// --------------------------------------------------
 if (readyBtn) {
   readyBtn.addEventListener("click", async () => {
     if (!currentBattleId) {
@@ -735,10 +1017,16 @@ if (readyBtn) {
   });
 }
 
+// --------------------------------------------------
+// QUESTION NAVIGATION
+// --------------------------------------------------
 if (nextQuestionBtn) {
   nextQuestionBtn.addEventListener("click", nextQuestion);
 }
 
+// --------------------------------------------------
+// HOME AND REPLAY
+// --------------------------------------------------
 if (homeBtn) {
   homeBtn.addEventListener("click", () => {
     window.location.href = "index.html";
