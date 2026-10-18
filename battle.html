@@ -104,13 +104,7 @@
       line-height: 1.5;
     }
 
-    /* Battle screen */
-
-    #battleScreen,
-    #countdownScreen,
-    #resultScreen {
-      display: none;
-    }
+    /* Battle screen styles */
 
     .players {
       display: grid;
@@ -236,6 +230,7 @@
       font-size: 12px;
     }
 
+    /* Hide only elements marked as hidden by JavaScript. */
     [hidden] {
       display: none !important;
     }
@@ -301,7 +296,7 @@
   </section>
 
   <!-- COUNTDOWN -->
-  <section class="card" id="countdownScreen">
+  <section class="card" id="countdownScreen" hidden>
     <span class="status">BATTLE STARTING</span>
 
     <h2>Get Ready!</h2>
@@ -314,7 +309,7 @@
   </section>
 
   <!-- LIVE BATTLE -->
-  <section class="card" id="battleScreen">
+  <section class="card" id="battleScreen" hidden>
     <span class="status" id="battleStatus">
       LIVE BATTLE
     </span>
@@ -339,7 +334,7 @@
 
     <div class="timer-box">
       <div class="notice">Time remaining</div>
-      <div id="timer">30</div>
+      <div id="timer">20</div>
 
       <div class="progress-track">
         <div id="progressBar"></div>
@@ -364,7 +359,7 @@
   </section>
 
   <!-- RESULTS -->
-  <section class="card" id="resultScreen">
+  <section class="card" id="resultScreen" hidden>
     <span class="status">BATTLE COMPLETED</span>
 
     <h2 id="resultTitle">Battle Results</h2>
@@ -426,4 +421,4 @@
 <script type="module" src="battle.js"></script>
 
 </body>
-                                                        </html>
+      </html>
