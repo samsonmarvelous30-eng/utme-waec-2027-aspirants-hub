@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0b1020">
+
   <title>Quiz Battle Admin | UTME & WAEC 2027</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -48,7 +51,10 @@
       border-radius: 14px;
     }
 
-    h2 { font-size: 19px; margin-top: 0; }
+    h2 {
+      margin-top: 0;
+      font-size: 19px;
+    }
 
     .muted {
       color: #b8c4dc;
@@ -59,11 +65,13 @@
     label {
       display: block;
       margin: 14px 0 7px;
-      font-size: 14px;
       color: #dbeafe;
+      font-size: 14px;
     }
 
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       display: block;
       width: 100%;
       padding: 12px;
@@ -81,6 +89,7 @@
     }
 
     button {
+      display: block;
       width: 100%;
       min-height: 44px;
       margin-top: 10px;
@@ -89,14 +98,31 @@
       border-radius: 9px;
       background: #2563eb;
       color: #fff;
-      font-weight: bold;
       font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    button.secondary { background: #26344f; }
-    button.danger { background: #991b1b; }
-    button:disabled { opacity: .55; cursor: not-allowed; }
+    button.secondary {
+      background: #26344f;
+    }
+
+    button.danger {
+      background: #991b1b;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #60a5fa;
+      outline-offset: 2px;
+    }
 
     .stats {
       display: grid;
@@ -106,24 +132,24 @@
 
     .stat {
       padding: 16px;
+      border: 1px solid #283452;
       border-radius: 10px;
       background: #0b1020;
-      border: 1px solid #283452;
     }
 
     .stat strong {
       display: block;
       margin-top: 8px;
-      font-size: 27px;
       color: #60a5fa;
+      font-size: 27px;
     }
 
     #status {
-      white-space: pre-wrap;
       overflow-wrap: anywhere;
-      line-height: 1.6;
+      white-space: pre-wrap;
       color: #fbbf24;
       font-size: 14px;
+      line-height: 1.6;
     }
 
     .question-item {
@@ -135,8 +161,8 @@
     }
 
     .question-item p {
-      line-height: 1.5;
       overflow-wrap: anywhere;
+      line-height: 1.5;
     }
 
     .question-meta {
@@ -150,55 +176,98 @@
       gap: 8px;
     }
 
-    [hidden] { display: none !important; }
+    [hidden] {
+      display: none !important;
+    }
+
+    #homeBtn {
+      margin-bottom: 24px;
+      background: #1d4ed8;
+    }
+
+    #homeBtn:hover {
+      background: #2563eb;
+    }
 
     @media (max-width: 420px) {
-      .card { padding: 14px; }
-      .actions { grid-template-columns: 1fr; }
+      .card {
+        padding: 14px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
+
 <header>
   <h1>Quiz Battle Admin</h1>
   <p>UTME & WAEC 2027 Aspirants Hub</p>
 </header>
 
 <main>
+
+  <!-- ADMIN AUTHENTICATION -->
   <section class="card">
     <h2>Admin Access</h2>
+
     <p class="muted">
       Sign in with your authorised Firebase admin account.
       The server verifies whether your account has permission.
     </p>
-    <p id="authStatus" class="muted">Checking sign-in status...</p>
-    <button id="signInBtn" type="button" hidden>Sign In</button>
-    <button id="signOutBtn" class="secondary" type="button" hidden>Sign Out</button>
+
+    <p id="authStatus" class="muted">
+      Checking sign-in status...
+    </p>
+
+    <button id="signInBtn" type="button" hidden>
+      Sign In
+    </button>
+
+    <button
+      id="signOutBtn"
+      class="secondary"
+      type="button"
+      hidden>
+      Sign Out
+    </button>
   </section>
 
+  <!-- ADMIN DASHBOARD -->
   <section id="adminPanel" hidden>
+
     <section class="card">
       <h2>Dashboard</h2>
+
       <div class="stats">
         <div class="stat">
           Active questions
           <strong id="activeCount">—</strong>
         </div>
+
         <div class="stat">
           Listed questions
           <strong id="listedCount">—</strong>
         </div>
       </div>
-      <button id="refreshBtn" class="secondary" type="button">
+
+      <button
+        id="refreshBtn"
+        class="secondary"
+        type="button">
         Refresh Questions
       </button>
     </section>
 
+    <!-- ADD OR EDIT QUESTION -->
     <section class="card" id="editorCard">
       <h2 id="formTitle">Add a Question</h2>
 
       <form id="questionForm">
+
         <input id="questionId" type="hidden">
 
         <label for="subject">Subject</label>
@@ -219,7 +288,10 @@
         </select>
 
         <label for="question">Question</label>
-        <textarea id="question" required maxlength="3000"
+        <textarea
+          id="question"
+          required
+          maxlength="3000"
           placeholder="Enter the question"></textarea>
 
         <label for="optionA">Option A</label>
@@ -243,16 +315,27 @@
         </select>
 
         <label for="explanation">Explanation (optional)</label>
-        <textarea id="explanation" maxlength="3000"
+        <textarea
+          id="explanation"
+          maxlength="3000"
           placeholder="Explain why the answer is correct"></textarea>
 
-        <button id="saveBtn" type="submit">Add Question</button>
-        <button id="cancelEditBtn" class="secondary" type="button" hidden>
+        <button id="saveBtn" type="submit">
+          Add Question
+        </button>
+
+        <button
+          id="cancelEditBtn"
+          class="secondary"
+          type="button"
+          hidden>
           Cancel Editing
         </button>
+
       </form>
     </section>
 
+    <!-- QUESTION BANK -->
     <section class="card">
       <h2>Question Bank</h2>
 
@@ -275,24 +358,44 @@
       </select>
 
       <label for="searchQuestions">Search questions</label>
-      <input id="searchQuestions" placeholder="Type to search...">
+      <input
+        id="searchQuestions"
+        type="search"
+        placeholder="Type to search...">
 
-      <p id="questionListStatus" class="muted">Questions have not loaded yet.</p>
+      <p id="questionListStatus" class="muted">
+        Questions have not loaded yet.
+      </p>
+
       <div id="questionList"></div>
     </section>
+
   </section>
 
+  <!-- STATUS MESSAGE -->
   <section class="card">
     <p id="status" role="status" aria-live="polite">
       Waiting for authentication.
     </p>
   </section>
 
-  <button id="homeBtn" class="secondary" type="button">
-    Back to Quiz Battle
+  <!-- BACK TO QUIZ BATTLE -->
+  <button
+    id="homeBtn"
+    class="secondary"
+    type="button">
+    ← Back to Quiz Battle
   </button>
+
 </main>
 
-<script type="module" src="admin.js"></script>
+<script type="module" src="./admin.js"></script>
+
+<script>
+  document.getElementById("homeBtn").addEventListener("click", function () {
+    window.location.href = "./index.html";
+  });
+</script>
+
 </body>
-          </html>
+  </html>
