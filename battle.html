@@ -508,6 +508,120 @@
         transition-duration: .01ms !important;
       }
     }
+    
+/* =====================================
+   QUIZ BATTLE - ESPORTS BACKGROUNDS
+===================================== */
+
+body {
+  background-color: #050817;
+  background-image:
+    radial-gradient(ellipse at 15% 20%, rgba(35, 93, 190, .28), transparent 38%),
+    radial-gradient(ellipse at 85% 75%, rgba(130, 35, 190, .22), transparent 40%),
+    linear-gradient(135deg, #050817, #10152d 50%, #050817);
+  background-attachment: fixed;
+}
+
+/* Gaming atmosphere */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 45%, rgba(70, 130, 255, .035) 50%, transparent 55%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 49px,
+      rgba(120, 160, 255, .035) 50px
+    );
+}
+
+/* LOBBY BACKGROUND */
+#lobbyScreen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(46, 107, 225, .25), transparent 55%),
+    linear-gradient(145deg, rgba(13, 24, 49, .98), rgba(8, 13, 30, .98));
+  border: 1px solid rgba(80, 150, 255, .35);
+  box-shadow:
+    0 0 35px rgba(30, 100, 230, .12),
+    inset 0 0 35px rgba(60, 100, 200, .06);
+}
+
+/* COUNTDOWN ARENA */
+#countdownScreen {
+  min-height: 340px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(0, 190, 255, .22), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(120, 40, 255, .14), transparent 65%),
+    linear-gradient(135deg, #080d20, #111b38, #080d20);
+  border: 1px solid rgba(56, 217, 255, .35);
+  box-shadow:
+    0 0 35px rgba(56, 217, 255, .12),
+    inset 0 0 50px rgba(70, 100, 255, .08);
+}
+
+/* LIVE BATTLE ARENA */
+#battleScreen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(30, 130, 255, .25), transparent 48%),
+    radial-gradient(ellipse at 0% 70%, rgba(0, 220, 255, .12), transparent 40%),
+    radial-gradient(ellipse at 100% 70%, rgba(160, 50, 255, .13), transparent 40%),
+    linear-gradient(145deg, #070c1b, #111a32 50%, #070c1b);
+  border: 1px solid rgba(75, 150, 255, .38);
+  box-shadow:
+    0 0 40px rgba(50, 110, 255, .13),
+    inset 0 0 60px rgba(50, 100, 220, .08);
+}
+
+/* RESULTS ARENA */
+#resultScreen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(245, 180, 45, .18), transparent 48%),
+    radial-gradient(ellipse at 50% 100%, rgba(110, 55, 220, .15), transparent 50%),
+    linear-gradient(145deg, #090e20, #17182e, #090e20);
+  border: 1px solid rgba(245, 190, 70, .32);
+  box-shadow:
+    0 0 35px rgba(245, 190, 70, .09),
+    inset 0 0 40px rgba(130, 80, 200, .06);
+}
+
+/* PLAYER ARENA PANELS */
+#battleScreen .player:first-child {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(20, 210, 255, .2), transparent 75%),
+    linear-gradient(145deg, #10243b, #080f20);
+  border: 1px solid rgba(56, 217, 255, .5);
+  box-shadow: 0 0 20px rgba(56, 217, 255, .1);
+}
+
+#battleScreen .player:last-child {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(175, 70, 255, .2), transparent 75%),
+    linear-gradient(145deg, #241536, #0e1025);
+  border: 1px solid rgba(168, 85, 247, .5);
+  box-shadow: 0 0 20px rgba(168, 85, 247, .1);
+}
+
+/* NEON TIMER */
+#timer {
+  text-shadow:
+    0 0 8px rgba(255, 190, 60, .5),
+    0 0 25px rgba(255, 160, 30, .25);
+}
+
+/* RESPONSIVE BACKGROUND */
+@media (max-width: 480px) {
+  #battleScreen,
+  #lobbyScreen,
+  #countdownScreen,
+  #resultScreen {
+    background-attachment: scroll;
+  }
+      }
+      
   </style>
 </head>
 
@@ -708,4 +822,5 @@
 
 </body>
   </html>
+
   
