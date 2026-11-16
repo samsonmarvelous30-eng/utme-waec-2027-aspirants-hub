@@ -3,236 +3,510 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#080d1c">
   <title>Quiz Battle | UTME & WAEC 2027</title>
 
   <style>
+    :root {
+      --bg: #080d1c;
+      --panel: #111a30;
+      --panel-light: #172541;
+      --border: rgba(126, 159, 220, .19);
+      --blue: #3b82f6;
+      --cyan: #38d9ff;
+      --purple: #8b5cf6;
+      --gold: #fbbf24;
+      --muted: #9aabc8;
+      --white: #f5f8ff;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1020;
-      color: #fff;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(37, 99, 235, .22), transparent 34%),
+        radial-gradient(ellipse at 90% 25%, rgba(124, 58, 237, .17), transparent 35%),
+        linear-gradient(145deg, #080d1c, #0c1428 55%, #080d1c);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      background-image:
+        linear-gradient(rgba(130, 160, 220, .12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130, 160, 220, .12) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
     }
 
     header {
-      padding: 22px 16px;
+      position: relative;
+      padding: 25px 16px 22px;
       text-align: center;
-      background: #151d35;
-      border-bottom: 1px solid #283452;
+      background: linear-gradient(110deg, rgba(17, 30, 57, .96), rgba(25, 22, 58, .94));
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .2);
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
     }
 
     header h1 {
       margin: 0 0 8px;
-      color: #60a5fa;
-      font-size: 26px;
+      font-size: clamp(27px, 6vw, 36px);
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff, #7dd3fc, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     header p {
       margin: 0;
-      color: #b8c4dc;
-      font-size: 14px;
+      color: #b9c8e5;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
     }
 
     main {
-      width: min(100% - 28px, 650px);
-      margin: 24px auto;
+      position: relative;
+      width: min(100% - 28px, 680px);
+      margin: 28px auto;
     }
 
     .card {
-      background: #151d35;
-      border: 1px solid #283452;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 18px;
+      position: relative;
+      padding: 22px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(19, 31, 56, .97), rgba(13, 22, 42, .98));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 16px 45px rgba(0, 0, 0, .23);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
     }
 
     h2 {
-      margin-top: 0;
-      font-size: 19px;
+      margin: 15px 0 12px;
+      font-size: 21px;
+      line-height: 1.3;
+      letter-spacing: .2px;
     }
 
     .notice {
-      color: #cbd5e1;
+      color: var(--muted);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .status {
-      display: inline-block;
-      background: #26344f;
-      color: #bfdbfe;
-      padding: 7px 11px;
-      border-radius: 20px;
-      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      color: #8be9ff;
+      background: rgba(14, 165, 233, .12);
+      border: 1px solid rgba(56, 217, 255, .25);
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.3px;
     }
 
-    button {
-      width: 100%;
-      min-height: 46px;
-      padding: 12px;
-      margin-top: 10px;
-      border: 0;
-      border-radius: 10px;
-      background: #2563eb;
-      color: white;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
     }
 
-    button.secondary {
-      background: #26344f;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    label {
+      display: block;
+      margin-top: 22px;
+      color: #dce7ff;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     input {
+      width: 100%;
+      min-height: 49px;
+      margin-top: 9px;
+      padding: 13px 15px;
+      color: white;
+      background: #080f20;
+      border: 1px solid #344767;
+      border-radius: 11px;
+      outline: none;
       font-size: 16px;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 217, 255, .12);
+    }
+
+    input::placeholder {
+      color: #667795;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      min-height: 49px;
+      margin-top: 12px;
+      padding: 13px 15px;
+      color: white;
+      background: linear-gradient(100deg, #2563eb, #4f46e5);
+      border: 1px solid rgba(147, 197, 253, .25);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .3px;
+      cursor: pointer;
+      box-shadow: 0 7px 20px rgba(37, 99, 235, .2);
+      transition: transform .18s, filter .18s, box-shadow .18s;
+    }
+
+    button:hover:not(:disabled) {
+      filter: brightness(1.15);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, .3);
+    }
+
+    button:active:not(:disabled) {
+      transform: scale(.99);
+    }
+
+    button.secondary {
+      color: #d6e2fa;
+      background: linear-gradient(100deg, #202e4b, #263453);
+      border-color: #3a4c6d;
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #randomBtn {
+      min-height: 55px;
+      margin-top: 20px;
+      background: linear-gradient(100deg, #087bdc, #5145d9, #793ee8);
+      border: 1px solid rgba(125, 211, 252, .45);
+      box-shadow: 0 8px 28px rgba(79, 70, 229, .28);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    #readyBtn {
+      background: linear-gradient(100deg, #059669, #16a34a);
+      border-color: rgba(74, 222, 128, .4);
     }
 
     #message,
     #nicknameMessage {
-      color: #fbbf24;
-      font-size: 14px;
-      line-height: 1.5;
+      color: #fcd67a;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
     }
 
-    /* Battle screen styles */
+    #message {
+      padding: 12px;
+      background: rgba(251, 191, 36, .07);
+      border: 1px solid rgba(251, 191, 36, .15);
+      border-radius: 10px;
+    }
+
+    /* Player panels */
 
     .players {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin: 18px 0;
+      margin: 20px 0;
     }
 
     .player {
-      padding: 15px 10px;
-      text-align: center;
-      background: #0b1020;
-      border: 1px solid #283452;
-      border-radius: 12px;
+      position: relative;
       min-width: 0;
+      padding: 19px 12px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(59, 130, 246, .15), transparent 65%),
+        linear-gradient(145deg, #111d35, #0a1225);
+      border: 1px solid #314566;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .player:first-child {
+      border-top: 2px solid var(--cyan);
+    }
+
+    .player:last-child {
+      border-top: 2px solid var(--purple);
     }
 
     .player-name {
+      color: #dbeafe;
       font-size: 13px;
-      color: #cbd5e1;
+      font-weight: 800;
       overflow-wrap: anywhere;
     }
 
     .player-score {
-      margin-top: 8px;
-      color: #60a5fa;
-      font-size: 27px;
-      font-weight: bold;
+      margin-top: 10px;
+      color: var(--cyan);
+      font-size: 32px;
+      font-weight: 900;
+      text-shadow: 0 0 18px rgba(56, 217, 255, .2);
     }
 
+    .player .notice {
+      margin: 5px 0 0;
+      font-size: 11px;
+    }
+
+    /* Timer */
+
     .timer-box {
-      margin: 18px 0;
+      margin: 20px 0;
+      padding: 18px;
       text-align: center;
-      padding: 14px;
-      background: #0b1020;
-      border-radius: 12px;
+      background: linear-gradient(135deg, #101c34, #11172f);
+      border: 1px solid #344565;
+      border-radius: 15px;
     }
 
     #timer {
-      color: #fbbf24;
-      font-size: 28px;
-      font-weight: bold;
+      margin-top: 5px;
+      color: var(--gold);
+      font-size: 34px;
+      font-weight: 900;
+      text-shadow: 0 0 18px rgba(251, 191, 36, .22);
     }
 
     .progress-track {
-      height: 7px;
-      margin-top: 12px;
-      background: #26344f;
-      border-radius: 20px;
+      height: 8px;
+      margin-top: 14px;
       overflow: hidden;
+      background: #293954;
+      border-radius: 20px;
     }
 
     #progressBar {
-      height: 100%;
       width: 100%;
-      background: #3b82f6;
-      transition: width 0.3s linear;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+      border-radius: 20px;
+      transition: width .3s linear;
     }
 
     #questionNumber {
-      color: #93c5fd;
-      font-size: 13px;
+      margin-top: 22px;
+      color: #78dfff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     #questionText {
+      margin: 10px 0 20px;
+      color: #f4f7ff;
       font-size: 19px;
-      line-height: 1.5;
+      line-height: 1.6;
       overflow-wrap: anywhere;
     }
 
     .answer-option {
       width: 100%;
+      margin-top: 10px;
+      padding: 15px;
       text-align: left;
-      background: #202c47;
-      border: 1px solid #344565;
-      font-weight: normal;
+      color: #e5edff;
+      background: linear-gradient(100deg, #192844, #17233c);
+      border: 1px solid #344b6d;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
       line-height: 1.5;
+      box-shadow: none;
+    }
+
+    .answer-option:hover:not(:disabled) {
+      background: #233b62;
+      border-color: #5aa9ff;
+      box-shadow: none;
     }
 
     .answer-option.selected {
-      background: #1d4ed8;
+      background: linear-gradient(100deg, #174d9c, #3734a1);
       border-color: #60a5fa;
     }
 
     .answer-option.correct {
-      background: #166534;
+      background: linear-gradient(100deg, #14532d, #166534);
       border-color: #4ade80;
     }
 
     .answer-option.wrong {
-      background: #991b1b;
+      background: linear-gradient(100deg, #7f1d1d, #991b1b);
       border-color: #f87171;
     }
 
+    #answerMessage {
+      padding: 10px;
+      border-radius: 9px;
+    }
+
+    /* Countdown */
+
     #countdownNumber {
-      margin: 22px 0;
+      margin: 28px 0;
       text-align: center;
-      font-size: 90px;
-      font-weight: bold;
-      color: #60a5fa;
+      font-size: clamp(75px, 18vw, 110px);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(180deg, #fff, var(--cyan), #4f46e5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 18px rgba(56, 217, 255, .25));
     }
 
     #countdownLabel {
+      color: #c4d3ee;
       text-align: center;
-      color: #cbd5e1;
-    }
-
-    #resultTitle {
-      text-align: center;
-      color: #fbbf24;
-      font-size: 27px;
-    }
-
-    #resultMessage {
-      text-align: center;
+      font-size: 14px;
       line-height: 1.6;
     }
 
-    footer {
-      padding: 20px;
+    /* Results */
+
+    #resultTitle {
+      margin: 20px 0 12px;
+      color: var(--gold);
       text-align: center;
-      color: #94a3b8;
-      font-size: 12px;
+      font-size: 28px;
+      font-weight: 900;
+      text-transform: uppercase;
     }
 
-    /* Hide only elements marked as hidden by JavaScript. */
+    #resultMessage {
+      color: #cbd8ef;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* Feed and leaderboard */
+
+    #feedCard,
+    #leaderboardCard {
+      background: linear-gradient(145deg, rgba(15, 27, 49, .97), rgba(12, 19, 37, .98));
+    }
+
+    #feedCard h2,
+    #leaderboardCard h2 {
+      font-size: 17px;
+    }
+
+    #feed,
+    #leaderboard {
+      padding: 13px;
+      background: rgba(5, 12, 27, .45);
+      border: 1px solid rgba(126, 159, 220, .13);
+      border-radius: 11px;
+    }
+
+    footer {
+      position: relative;
+      padding: 22px 15px;
+      color: #7184a7;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 1px;
+      border-top: 1px solid var(--border);
+    }
+
     [hidden] {
       display: none !important;
+    }
+
+    @media (max-width: 420px) {
+      main {
+        width: min(100% - 20px, 680px);
+        margin: 18px auto;
+      }
+
+      .card {
+        padding: 17px;
+        border-radius: 16px;
+      }
+
+      .players {
+        gap: 9px;
+      }
+
+      .player {
+        padding: 16px 8px;
+      }
+
+      .player-score {
+        font-size: 28px;
+      }
+
+      #questionText {
+        font-size: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
     }
   </style>
 </head>
@@ -240,20 +514,22 @@
 <body>
 
 <header>
-  <h1>⚔️ Quiz Battle</h1>
+  <h1>Quiz Battle</h1>
   <p>UTME & WAEC 2027 Aspirants Hub</p>
 </header>
 
 <main>
 
-  <!-- MATCHMAKING -->
+  <!-- MATCHMAKING LOBBY -->
   <section class="card" id="lobbyScreen">
+
     <span class="status">MULTIPLAYER ARENA</span>
+
     <h2>Ready to challenge someone?</h2>
 
     <p class="notice">
-      Find another aspirant, get ready, and compete to see who
-      earns the highest score.
+      Enter the arena, find another aspirant and compete.
+      Every correct answer brings you closer to victory.
     </p>
 
     <label for="nickname">Your nickname (3–16 characters)</label>
@@ -265,7 +541,6 @@
       maxlength="16"
       placeholder="Enter your nickname"
       autocomplete="nickname"
-      style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #283452;background:#0b1020;color:white;"
     >
 
     <button id="saveNicknameBtn" type="button">
@@ -293,10 +568,12 @@
     <button id="homeBtn" class="secondary" type="button">
       Back to Home
     </button>
+
   </section>
 
-  <!-- COUNTDOWN -->
+  <!-- COUNTDOWN SCREEN -->
   <section class="card" id="countdownScreen" hidden>
+
     <span class="status">BATTLE STARTING</span>
 
     <h2>Get Ready!</h2>
@@ -306,10 +583,12 @@
     <p id="countdownLabel">
       The battle is about to begin...
     </p>
+
   </section>
 
-  <!-- LIVE BATTLE -->
+  <!-- LIVE BATTLE SCREEN -->
   <section class="card" id="battleScreen" hidden>
+
     <span class="status" id="battleStatus">
       LIVE BATTLE
     </span>
@@ -323,9 +602,7 @@
       </div>
 
       <div class="player">
-        <div class="player-name" id="opponentName">
-          Opponent
-        </div>
+        <div class="player-name" id="opponentName">Opponent</div>
         <div class="player-score" id="opponentScore">0</div>
         <div class="notice">Opponent score</div>
       </div>
@@ -356,10 +633,12 @@
     <button id="nextQuestionBtn" type="button" hidden>
       Next Question
     </button>
+
   </section>
 
-  <!-- RESULTS -->
+  <!-- RESULTS SCREEN -->
   <section class="card" id="resultScreen" hidden>
+
     <span class="status">BATTLE COMPLETED</span>
 
     <h2 id="resultTitle">Battle Results</h2>
@@ -369,6 +648,7 @@
     </p>
 
     <div class="players">
+
       <div class="player">
         <div class="player-name" id="resultMyName">You</div>
         <div class="player-score" id="resultMyScore">0</div>
@@ -382,6 +662,7 @@
         <div class="player-score" id="resultOpponentScore">0</div>
         <div class="notice">Opponent's score</div>
       </div>
+
     </div>
 
     <button id="playAgainBtn" type="button">
@@ -391,34 +672,40 @@
     <button id="resultHomeBtn" class="secondary" type="button">
       Back to Home
     </button>
+
   </section>
 
-  <!-- LIVE FEED -->
+  <!-- LIVE BATTLE FEED -->
   <section class="card" id="feedCard">
-    <h2>🔥 Live Battle Feed</h2>
+
+    <h2>Live Battle Feed</h2>
 
     <p class="notice" id="feed">
       Battle announcements will appear here.
     </p>
+
   </section>
 
-  <!-- LEADERBOARD -->
+  <!-- BATTLE LEADERBOARD -->
   <section class="card" id="leaderboardCard">
-    <h2>🏆 Battle Leaderboard</h2>
+
+    <h2>Battle Leaderboard</h2>
 
     <p class="notice" id="leaderboard">
       Completed battle scores will appear here when the
       leaderboard is connected.
     </p>
+
   </section>
 
 </main>
 
 <footer>
-  UTME & WAEC 2027 Aspirants Hub
+  UTME & WAEC 2027 ASPIRANTS HUB
 </footer>
 
 <script type="module" src="battle.js"></script>
 
 </body>
-      </html>
+  </html>
+  
