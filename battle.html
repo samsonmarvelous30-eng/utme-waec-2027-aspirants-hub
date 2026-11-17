@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080d1c">
+  <meta name="theme-color" content="#080b16">
   <title>Quiz Battle | UTME & WAEC 2027</title>
 
   <style>
     :root {
-      --bg: #080d1c;
-      --panel: #111a30;
-      --panel-light: #172541;
-      --border: rgba(126, 159, 220, .19);
-      --blue: #3b82f6;
-      --cyan: #38d9ff;
-      --purple: #8b5cf6;
-      --gold: #fbbf24;
-      --muted: #9aabc8;
-      --white: #f5f8ff;
+      --bg: #080b16;
+      --panel: #111827;
+      --panel2: #172238;
+      --line: rgba(148, 163, 184, .18);
+      --blue: #2585ff;
+      --cyan: #00d9ff;
+      --purple: #a855f7;
+      --pink: #ff3d9a;
+      --gold: #ffc857;
       --green: #22c55e;
       --red: #ef4444;
+      --white: #f8fafc;
+      --muted: #94a3b8;
     }
 
     * {
@@ -29,798 +30,948 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--white);
       background:
-        radial-gradient(ellipse at 15% 5%, rgba(37, 99, 235, .22), transparent 34%),
-        radial-gradient(ellipse at 90% 25%, rgba(124, 58, 237, .17), transparent 35%),
-        linear-gradient(145deg, #080d1c, #0c1428 55%, #080d1c);
-      overflow-x: hidden;
+        radial-gradient(ellipse at 10% 0%, rgba(37,133,255,.16), transparent 35%),
+        radial-gradient(ellipse at 90% 20%, rgba(168,85,247,.12), transparent 35%),
+        var(--bg);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .13;
-      background-image:
-        linear-gradient(rgba(130, 160, 220, .12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(130, 160, 220, .12) 1px, transparent 1px);
-      background-size: 38px 38px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-
-    header {
-      position: relative;
-      padding: 25px 16px 22px;
-      text-align: center;
-      background: linear-gradient(110deg, rgba(17, 30, 57, .96), rgba(25, 22, 58, .94));
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, .2);
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 15%;
-      width: 70%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
-    }
-
-    header h1 {
-      margin: 0 0 8px;
-      font-size: clamp(27px, 6vw, 36px);
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #fff, #7dd3fc, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    header p {
-      margin: 0;
-      color: #b9c8e5;
-      font-size: 13px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-    }
-
-    main {
-      position: relative;
-      width: min(100% - 28px, 680px);
-      margin: 28px auto;
-    }
-
-    .card {
-      position: relative;
-      padding: 22px;
-      margin-bottom: 20px;
-      overflow: hidden;
-      background: linear-gradient(145deg, rgba(19, 31, 56, .97), rgba(13, 22, 42, .98));
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: 0 16px 45px rgba(0, 0, 0, .23);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 20px;
-      width: 90px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--cyan), transparent);
-    }
-
-    h2 {
-      margin: 15px 0 12px;
-      font-size: 21px;
-      line-height: 1.3;
-      letter-spacing: .2px;
-    }
-
-    .notice {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 12px;
-      color: #8be9ff;
-      background: rgba(14, 165, 233, .12);
-      border: 1px solid rgba(56, 217, 255, .25);
-      border-radius: 30px;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.3px;
-    }
-
-    .status::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan);
-    }
-
-    label {
-      display: block;
-      margin-top: 22px;
-      color: #dce7ff;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    input {
-      width: 100%;
-      min-height: 49px;
-      margin-top: 9px;
-      padding: 13px 15px;
-      color: white;
-      background: #080f20;
-      border: 1px solid #344767;
-      border-radius: 11px;
-      outline: none;
-      font-size: 16px;
-      transition: border .2s, box-shadow .2s;
-    }
-
-    input:focus {
-      border-color: var(--cyan);
-      box-shadow: 0 0 0 3px rgba(56, 217, 255, .12);
-    }
-
-    input::placeholder {
-      color: #667795;
+    button, input {
+      font: inherit;
     }
 
     button {
-      display: block;
-      width: 100%;
-      min-height: 49px;
-      margin-top: 12px;
-      padding: 13px 15px;
-      color: white;
-      background: linear-gradient(100deg, #2563eb, #4f46e5);
-      border: 1px solid rgba(147, 197, 253, .25);
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: .3px;
       cursor: pointer;
-      box-shadow: 0 7px 20px rgba(37, 99, 235, .2);
-      transition: transform .18s, filter .18s, box-shadow .18s;
     }
 
-    button:hover:not(:disabled) {
-      filter: brightness(1.15);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(59, 130, 246, .3);
+    .app {
+      width: min(100%, 1050px);
+      margin: auto;
+      padding: 18px;
     }
 
-    button:active:not(:disabled) {
-      transform: scale(.99);
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(17, 24, 39, .88);
+      margin-bottom: 22px;
     }
 
-    button.secondary {
-      color: #d6e2fa;
-      background: linear-gradient(100deg, #202e4b, #263453);
-      border-color: #3a4c6d;
-      box-shadow: none;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
     }
 
-    button:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-      transform: none;
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -1px;
     }
 
-    #randomBtn {
-      min-height: 55px;
-      margin-top: 20px;
-      background: linear-gradient(100deg, #087bdc, #5145d9, #793ee8);
-      border: 1px solid rgba(125, 211, 252, .45);
-      box-shadow: 0 8px 28px rgba(79, 70, 229, .28);
+    .brand h1 {
       font-size: 15px;
+      margin: 0 0 4px;
+      letter-spacing: .5px;
+    }
+
+    .brand p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 11px;
+    }
+
+    .top-status {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .screen {
+      animation: screenIn .35s ease;
+    }
+
+    .screen[hidden] {
+      display: none !important;
+    }
+
+    @keyframes screenIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-heading {
+      text-align: center;
+      margin: 28px 0 22px;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      letter-spacing: .7px;
     }
 
-    #readyBtn {
-      background: linear-gradient(100deg, #059669, #16a34a);
-      border-color: rgba(74, 222, 128, .4);
+    .section-heading h2 {
+      font-size: clamp(27px, 6vw, 43px);
+      margin: 10px 0 8px;
+      text-transform: uppercase;
+      font-weight: 950;
+      letter-spacing: 1px;
     }
 
-    #message,
-    #nicknameMessage {
-      color: #fcd67a;
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .panel {
+      background: linear-gradient(145deg, rgba(23,34,56,.97), rgba(13,20,35,.97));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.2);
+    }
+
+    .lobby-layout {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+    }
+
+    .arena-card {
+      min-height: 270px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      border: 1px solid rgba(0,217,255,.25);
+      border-radius: 20px;
+      background:
+        linear-gradient(0deg, rgba(4,9,20,.98), rgba(4,9,20,.1)),
+        radial-gradient(circle at 25% 35%, rgba(0,217,255,.35), transparent 30%),
+        radial-gradient(circle at 80% 25%, rgba(168,85,247,.3), transparent 35%),
+        linear-gradient(135deg, #152b4c, #111827 55%, #321b48);
+    }
+
+    .arena-card::before,
+    .arena-card::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(0,217,255,.18);
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+
+    .arena-card::before {
+      top: -125px;
+      left: -65px;
+    }
+
+    .arena-card::after {
+      right: -115px;
+      bottom: -150px;
+      border-color: rgba(168,85,247,.25);
+    }
+
+    .arena-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .arena-label {
+      display: inline-block;
+      padding: 7px 10px;
+      color: var(--cyan);
+      background: rgba(0,217,255,.1);
+      border: 1px solid rgba(0,217,255,.25);
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .arena-card h3 {
+      font-size: clamp(25px, 5vw, 38px);
+      text-transform: uppercase;
+      margin: 14px 0 8px;
+      font-weight: 950;
+    }
+
+    .arena-card p {
+      color: #cbd5e1;
       font-size: 13px;
       line-height: 1.6;
-      overflow-wrap: anywhere;
+      max-width: 400px;
+      margin: 0;
     }
 
-    #message {
-      padding: 12px;
-      background: rgba(251, 191, 36, .07);
-      border: 1px solid rgba(251, 191, 36, .15);
+    .profile-panel h3,
+    .side-panel h3 {
+      margin: 0 0 16px;
+      font-size: 15px;
+      letter-spacing: .5px;
+    }
+
+    .field-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 0 0 8px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 14px;
       border-radius: 10px;
+      border: 1px solid var(--line);
+      outline: none;
+      background: #0a1221;
+      color: var(--white);
+      font-size: 14px;
+      margin-bottom: 12px;
     }
 
-    /* Player panels */
+    .text-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0,217,255,.1);
+    }
 
-    .players {
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      transition: transform .2s, filter .2s;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn-primary {
+      color: #03101b;
+      background: linear-gradient(100deg, var(--cyan), #4b9dff);
+      box-shadow: 0 7px 22px rgba(0,217,255,.16);
+    }
+
+    .btn-secondary {
+      color: var(--white);
+      background: #26364f;
+      border: 1px solid var(--line);
+    }
+
+    .btn-purple {
+      color: white;
+      background: linear-gradient(100deg, #7c3aed, #a855f7);
+    }
+
+    .btn-outline {
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--line);
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .small-message {
+      min-height: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    .lobby-bottom {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 20px 0;
+      gap: 16px;
+      margin-top: 16px;
     }
 
-    .player {
-      position: relative;
-      min-width: 0;
-      padding: 19px 12px;
+    .side-panel {
+      padding: 18px;
+      background: rgba(17,24,39,.85);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .side-panel p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* COUNTDOWN */
+
+    .countdown-wrap {
+      min-height: 470px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(59, 130, 246, .15), transparent 65%),
-        linear-gradient(145deg, #111d35, #0a1225);
-      border: 1px solid #314566;
-      border-radius: 15px;
       overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle, rgba(0,217,255,.13), transparent 42%),
+        linear-gradient(145deg, #111c32, #080b16);
     }
 
-    .player:first-child {
-      border-top: 2px solid var(--cyan);
+    .countdown-wrap h2 {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 18px;
     }
 
-    .player:last-child {
-      border-top: 2px solid var(--purple);
+    #countdownNumber {
+      font-size: clamp(100px, 25vw, 180px);
+      line-height: 1;
+      font-weight: 1000;
+      margin: 18px 0;
+      color: var(--cyan);
+      text-shadow: 0 0 35px rgba(0,217,255,.5);
     }
 
-    .player-name {
-      color: #dbeafe;
+    #countdownLabel {
+      color: var(--muted);
+      letter-spacing: 3px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    /* LIVE BATTLE */
+
+    .battle-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .battle-topline span {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    #battleStatus {
+      color: var(--green);
+    }
+
+    .round-label {
+      color: var(--muted);
+    }
+
+    .versus-area {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 0% 50%, rgba(0,217,255,.12), transparent 45%),
+        radial-gradient(circle at 100% 50%, rgba(255,61,154,.12), transparent 45%),
+        #101a2c;
+    }
+
+    .player-card {
+      min-width: 0;
+      text-align: center;
+      padding: 16px 8px;
+      border-radius: 14px;
+    }
+
+    .player-card.me {
+      border: 1px solid rgba(0,217,255,.3);
+      background: rgba(0,217,255,.06);
+    }
+
+    .player-card.opponent {
+      border: 1px solid rgba(255,61,154,.3);
+      background: rgba(255,61,154,.06);
+    }
+
+    .player-avatar {
+      width: 65px;
+      height: 65px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      font-weight: 1000;
+      color: white;
+      background: linear-gradient(135deg, #087fbb, #164e91);
+      border: 2px solid var(--cyan);
+    }
+
+    .opponent .player-avatar {
+      background: linear-gradient(135deg, #9d174d, #581c87);
+      border-color: var(--pink);
+    }
+
+    .player-tag {
+      display: block;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      margin-bottom: 7px;
+      font-weight: 900;
+    }
+
+    .player-card strong {
+      display: block;
       font-size: 13px;
-      font-weight: 800;
       overflow-wrap: anywhere;
     }
 
     .player-score {
-      margin-top: 10px;
-      color: var(--cyan);
-      font-size: 32px;
-      font-weight: 900;
-      text-shadow: 0 0 18px rgba(56, 217, 255, .2);
+      display: block;
+      margin-top: 9px;
+      font-size: 24px;
+      font-weight: 1000;
     }
 
-    .player .notice {
-      margin: 5px 0 0;
+    .vs-mark {
+      color: var(--gold);
+      font-weight: 1000;
+      font-size: 24px;
+      font-style: italic;
+      text-shadow: 0 0 18px rgba(255,200,87,.35);
+    }
+
+    .timer-panel {
+      margin: 16px 0;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px;
+      background: #0b1424;
+      border: 1px solid var(--line);
+    }
+
+    .timer-panel span:first-child {
+      color: var(--muted);
       font-size: 11px;
-    }
-
-    /* Timer */
-
-    .timer-box {
-      margin: 20px 0;
-      padding: 18px;
-      text-align: center;
-      background: linear-gradient(135deg, #101c34, #11172f);
-      border: 1px solid #344565;
-      border-radius: 15px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
 
     #timer {
-      margin-top: 5px;
       color: var(--gold);
-      font-size: 34px;
-      font-weight: 900;
-      text-shadow: 0 0 18px rgba(251, 191, 36, .22);
+      font-size: 25px;
+      font-weight: 1000;
     }
 
     .progress-track {
-      height: 8px;
-      margin-top: 14px;
-      overflow: hidden;
-      background: #293954;
+      height: 7px;
+      width: 100%;
       border-radius: 20px;
+      overflow: hidden;
+      background: #263449;
+      margin: 14px 0 20px;
     }
 
     #progressBar {
-      width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
-      border-radius: 20px;
-      transition: width .3s linear;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: inherit;
+      transition: width .3s ease;
     }
 
-    #questionNumber {
-      margin-top: 22px;
-      color: #78dfff;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
+    .question-panel {
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, #17243a, #101827);
+    }
+
+    .question-meta {
+      color: var(--cyan);
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 900;
       text-transform: uppercase;
     }
 
     #questionText {
-      margin: 10px 0 20px;
-      color: #f4f7ff;
-      font-size: 19px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
+      font-size: clamp(17px, 4vw, 22px);
+      line-height: 1.5;
+      margin: 15px 0 20px;
     }
 
-    .answer-option {
+    #answerOptions {
+      display: grid;
+      gap: 11px;
+    }
+
+    #answerOptions button,
+    #answerOptions .answer-option {
       width: 100%;
-      margin-top: 10px;
       padding: 15px;
       text-align: left;
-      color: #e5edff;
-      background: linear-gradient(100deg, #192844, #17233c);
-      border: 1px solid #344b6d;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.5;
-      box-shadow: none;
+      color: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #0c1627;
+      transition: .2s ease;
     }
 
-    .answer-option:hover:not(:disabled) {
-      background: #233b62;
-      border-color: #5aa9ff;
-      box-shadow: none;
+    #answerOptions button:hover,
+    #answerOptions .answer-option:hover {
+      border-color: var(--cyan);
+      background: rgba(0,217,255,.08);
     }
 
-    .answer-option.selected {
-      background: linear-gradient(100deg, #174d9c, #3734a1);
-      border-color: #60a5fa;
-    }
-
-    .answer-option.correct {
-      background: linear-gradient(100deg, #14532d, #166534);
-      border-color: #4ade80;
-    }
-
-    .answer-option.wrong {
-      background: linear-gradient(100deg, #7f1d1d, #991b1b);
-      border-color: #f87171;
+    #answerOptions button:disabled {
+      cursor: not-allowed;
+      opacity: .75;
     }
 
     #answerMessage {
-      padding: 10px;
-      border-radius: 9px;
+      min-height: 22px;
+      margin: 12px 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
     }
 
-    /* Countdown */
+    #nextQuestionBtn {
+      margin-top: 8px;
+    }
 
-    #countdownNumber {
-      margin: 28px 0;
+    /* RESULTS */
+
+    .result-wrap {
       text-align: center;
-      font-size: clamp(75px, 18vw, 110px);
-      font-weight: 900;
-      line-height: 1;
-      background: linear-gradient(180deg, #fff, var(--cyan), #4f46e5);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      filter: drop-shadow(0 0 18px rgba(56, 217, 255, .25));
+      padding: 28px 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,200,87,.13), transparent 45%),
+        linear-gradient(145deg, #172238, #0b1220);
     }
 
-    #countdownLabel {
-      color: #c4d3ee;
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.6;
+    .result-symbol {
+      width: 82px;
+      height: 82px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-size: 30px;
+      font-weight: 1000;
+      box-shadow: 0 0 30px rgba(255,200,87,.12);
     }
-
-    /* Results */
 
     #resultTitle {
-      margin: 20px 0 12px;
-      color: var(--gold);
-      text-align: center;
-      font-size: 28px;
-      font-weight: 900;
+      font-size: clamp(27px, 6vw, 42px);
       text-transform: uppercase;
+      margin: 8px 0;
     }
 
     #resultMessage {
-      color: #cbd8ef;
-      text-align: center;
-      line-height: 1.7;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    /* Feed and leaderboard */
-
-    #feedCard,
-    #leaderboardCard {
-      background: linear-gradient(145deg, rgba(15, 27, 49, .97), rgba(12, 19, 37, .98));
+    .result-scores {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0;
     }
 
-    #feedCard h2,
-    #leaderboardCard h2 {
-      font-size: 17px;
+    .result-score-card {
+      padding: 18px 10px;
+      border-radius: 14px;
+      background: #0c1627;
+      border: 1px solid var(--line);
+    }
+
+    .result-score-card strong {
+      display: block;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .result-score-card span {
+      display: block;
+      font-size: 30px;
+      font-weight: 1000;
+      margin-top: 10px;
+    }
+
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    /* FEED AND LEADERBOARD */
+
+    .extras {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 22px;
     }
 
     #feed,
     #leaderboard {
-      padding: 13px;
-      background: rgba(5, 12, 27, .45);
-      border: 1px solid rgba(126, 159, 220, .13);
-      border-radius: 11px;
+      display: grid;
+      gap: 10px;
     }
 
-    footer {
-      position: relative;
-      padding: 22px 15px;
-      color: #7184a7;
+    #feed > *,
+    #leaderboard > * {
+      padding: 11px 12px;
+      border-radius: 9px;
+      background: #0c1627;
+      border: 1px solid var(--line);
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    .footer {
       text-align: center;
-      font-size: 11px;
+      color: #64748b;
+      font-size: 10px;
+      padding: 25px 10px 10px;
       letter-spacing: 1px;
-      border-top: 1px solid var(--border);
     }
 
-    [hidden] {
-      display: none !important;
+    @media (max-width: 700px) {
+      .app {
+        padding: 12px;
+      }
+
+      .lobby-layout,
+      .lobby-bottom,
+      .extras {
+        grid-template-columns: 1fr;
+      }
+
+      .arena-card {
+        min-height: 220px;
+      }
+
+      .panel {
+        padding: 15px;
+      }
     }
 
     @media (max-width: 420px) {
-      main {
-        width: min(100% - 20px, 680px);
-        margin: 18px auto;
+      .topbar {
+        padding: 11px;
       }
 
-      .card {
-        padding: 17px;
-        border-radius: 16px;
+      .brand h1 {
+        font-size: 12px;
       }
 
-      .players {
-        gap: 9px;
+      .brand p {
+        font-size: 9px;
       }
 
-      .player {
-        padding: 16px 8px;
+      .top-status {
+        font-size: 9px;
       }
 
-      .player-score {
-        font-size: 28px;
+      .versus-area {
+        gap: 5px;
+        padding: 9px;
       }
 
-      #questionText {
-        font-size: 17px;
+      .player-card {
+        padding: 12px 4px;
+      }
+
+      .player-avatar {
+        width: 52px;
+        height: 52px;
+      }
+
+      .player-card strong {
+        font-size: 11px;
+      }
+
+      .vs-mark {
+        font-size: 19px;
+      }
+
+      .question-panel {
+        padding: 16px;
+      }
+
+      .result-actions {
+        grid-template-columns: 1fr;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
-    }
-    
-/* =====================================
-   QUIZ BATTLE - ESPORTS BACKGROUNDS
-===================================== */
-
-body {
-  background-color: #050817;
-  background-image:
-    radial-gradient(ellipse at 15% 20%, rgba(35, 93, 190, .28), transparent 38%),
-    radial-gradient(ellipse at 85% 75%, rgba(130, 35, 190, .22), transparent 40%),
-    linear-gradient(135deg, #050817, #10152d 50%, #050817);
-  background-attachment: fixed;
-}
-
-/* Gaming atmosphere */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 45%, rgba(70, 130, 255, .035) 50%, transparent 55%),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 49px,
-      rgba(120, 160, 255, .035) 50px
-    );
-}
-
-/* LOBBY BACKGROUND */
-#lobbyScreen {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(46, 107, 225, .25), transparent 55%),
-    linear-gradient(145deg, rgba(13, 24, 49, .98), rgba(8, 13, 30, .98));
-  border: 1px solid rgba(80, 150, 255, .35);
-  box-shadow:
-    0 0 35px rgba(30, 100, 230, .12),
-    inset 0 0 35px rgba(60, 100, 200, .06);
-}
-
-/* COUNTDOWN ARENA */
-#countdownScreen {
-  min-height: 340px;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(0, 190, 255, .22), transparent 34%),
-    radial-gradient(circle at 50% 50%, rgba(120, 40, 255, .14), transparent 65%),
-    linear-gradient(135deg, #080d20, #111b38, #080d20);
-  border: 1px solid rgba(56, 217, 255, .35);
-  box-shadow:
-    0 0 35px rgba(56, 217, 255, .12),
-    inset 0 0 50px rgba(70, 100, 255, .08);
-}
-
-/* LIVE BATTLE ARENA */
-#battleScreen {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(30, 130, 255, .25), transparent 48%),
-    radial-gradient(ellipse at 0% 70%, rgba(0, 220, 255, .12), transparent 40%),
-    radial-gradient(ellipse at 100% 70%, rgba(160, 50, 255, .13), transparent 40%),
-    linear-gradient(145deg, #070c1b, #111a32 50%, #070c1b);
-  border: 1px solid rgba(75, 150, 255, .38);
-  box-shadow:
-    0 0 40px rgba(50, 110, 255, .13),
-    inset 0 0 60px rgba(50, 100, 220, .08);
-}
-
-/* RESULTS ARENA */
-#resultScreen {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(245, 180, 45, .18), transparent 48%),
-    radial-gradient(ellipse at 50% 100%, rgba(110, 55, 220, .15), transparent 50%),
-    linear-gradient(145deg, #090e20, #17182e, #090e20);
-  border: 1px solid rgba(245, 190, 70, .32);
-  box-shadow:
-    0 0 35px rgba(245, 190, 70, .09),
-    inset 0 0 40px rgba(130, 80, 200, .06);
-}
-
-/* PLAYER ARENA PANELS */
-#battleScreen .player:first-child {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(20, 210, 255, .2), transparent 75%),
-    linear-gradient(145deg, #10243b, #080f20);
-  border: 1px solid rgba(56, 217, 255, .5);
-  box-shadow: 0 0 20px rgba(56, 217, 255, .1);
-}
-
-#battleScreen .player:last-child {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(175, 70, 255, .2), transparent 75%),
-    linear-gradient(145deg, #241536, #0e1025);
-  border: 1px solid rgba(168, 85, 247, .5);
-  box-shadow: 0 0 20px rgba(168, 85, 247, .1);
-}
-
-/* NEON TIMER */
-#timer {
-  text-shadow:
-    0 0 8px rgba(255, 190, 60, .5),
-    0 0 25px rgba(255, 160, 30, .25);
-}
-
-/* RESPONSIVE BACKGROUND */
-@media (max-width: 480px) {
-  #battleScreen,
-  #lobbyScreen,
-  #countdownScreen,
-  #resultScreen {
-    background-attachment: scroll;
-  }
-      }
-      
   </style>
 </head>
 
 <body>
+  <main class="app">
 
-<header>
-  <h1>Quiz Battle</h1>
-  <p>UTME & WAEC 2027 Aspirants Hub</p>
-</header>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">QB</div>
+        <div>
+          <h1>QUIZ BATTLE</h1>
+          <p>UTME & WAEC 2027 ASPIRANTS HUB</p>
+        </div>
+      </div>
+      <div class="top-status">ONLINE BATTLE</div>
+    </header>
 
-<main>
+    <!-- LOBBY SCREEN -->
+    <section id="lobbyScreen" class="screen">
 
-  <!-- MATCHMAKING LOBBY -->
-  <section class="card" id="lobbyScreen">
-
-    <span class="status">MULTIPLAYER ARENA</span>
-
-    <h2>Ready to challenge someone?</h2>
-
-    <p class="notice">
-      Enter the arena, find another aspirant and compete.
-      Every correct answer brings you closer to victory.
-    </p>
-
-    <label for="nickname">Your nickname (3–16 characters)</label>
-
-    <input
-      id="nickname"
-      type="text"
-      minlength="3"
-      maxlength="16"
-      placeholder="Enter your nickname"
-      autocomplete="nickname"
-    >
-
-    <button id="saveNicknameBtn" type="button">
-      Save Nickname
-    </button>
-
-    <p id="nicknameMessage" role="status" aria-live="polite"></p>
-
-    <button id="randomBtn" type="button">
-      Find a Random Opponent
-    </button>
-
-    <button id="playersBtn" class="secondary" type="button">
-      View Online Players
-    </button>
-
-    <p id="message" role="status" aria-live="polite">
-      Save your nickname to get started.
-    </p>
-
-    <button id="readyBtn" type="button" hidden>
-      I'm Ready!
-    </button>
-
-    <button id="homeBtn" class="secondary" type="button">
-      Back to Home
-    </button>
-
-  </section>
-
-  <!-- COUNTDOWN SCREEN -->
-  <section class="card" id="countdownScreen" hidden>
-
-    <span class="status">BATTLE STARTING</span>
-
-    <h2>Get Ready!</h2>
-
-    <div id="countdownNumber">3</div>
-
-    <p id="countdownLabel">
-      The battle is about to begin...
-    </p>
-
-  </section>
-
-  <!-- LIVE BATTLE SCREEN -->
-  <section class="card" id="battleScreen" hidden>
-
-    <span class="status" id="battleStatus">
-      LIVE BATTLE
-    </span>
-
-    <div class="players">
-
-      <div class="player">
-        <div class="player-name" id="myName">You</div>
-        <div class="player-score" id="myScore">0</div>
-        <div class="notice">Your score</div>
+      <div class="section-heading">
+        <div class="eyebrow">Competitive Arena</div>
+        <h2>Enter The Arena</h2>
+        <p>Prepare yourself. Find an opponent. Prove your knowledge.</p>
       </div>
 
-      <div class="player">
-        <div class="player-name" id="opponentName">Opponent</div>
-        <div class="player-score" id="opponentScore">0</div>
-        <div class="notice">Opponent score</div>
+      <div class="lobby-layout">
+
+        <div class="arena-card">
+          <div class="arena-content">
+            <span class="arena-label">RANKED BATTLE</span>
+            <h3>Challenge Accepted?</h3>
+            <p>Compete against another aspirant in a live knowledge battle. Every answer counts.</p>
+          </div>
+        </div>
+
+        <div class="panel profile-panel">
+          <h3>PLAYER IDENTITY</h3>
+
+          <label class="field-label" for="nickname">YOUR BATTLE NAME</label>
+          <input
+            id="nickname"
+            class="text-input"
+            type="text"
+            maxlength="20"
+            placeholder="Enter your nickname"
+            autocomplete="nickname"
+          >
+
+          <button id="saveNicknameBtn" class="btn btn-secondary" type="button">
+            Save Nickname
+          </button>
+
+          <p id="nicknameMessage" class="small-message"></p>
+
+          <div class="button-stack">
+            <button id="readyBtn" class="btn btn-primary" type="button">
+              Find Random Opponent
+            </button>
+
+            <button id="randomBtn" class="btn btn-purple" type="button">
+              Random Nickname
+            </button>
+
+            <button id="playersBtn" class="btn btn-secondary" type="button">
+              View Online Players
+            </button>
+
+            <button id="homeBtn" class="btn btn-outline" type="button">
+              Back to Home
+            </button>
+          </div>
+
+          <p id="message" class="small-message"></p>
+        </div>
+
       </div>
 
-    </div>
+      <div class="lobby-bottom">
+        <div class="side-panel">
+          <h3>BATTLE FORMAT</h3>
+          <p>20 questions per match. Answer carefully and compete for the highest score.</p>
+        </div>
 
-    <div class="timer-box">
-      <div class="notice">Time remaining</div>
-      <div id="timer">20</div>
+        <div class="side-panel">
+          <h3>COMPETE FAIRLY</h3>
+          <p>Your battle results and ranked points will help track your competitive progress.</p>
+        </div>
+      </div>
+
+      <div class="extras">
+        <div id="feedCard" class="side-panel">
+          <h3>BATTLE ACTIVITY</h3>
+          <div id="feed"></div>
+        </div>
+
+        <div id="leaderboardCard" class="side-panel">
+          <h3>LEADERBOARD</h3>
+          <div id="leaderboard"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COUNTDOWN SCREEN -->
+    <section id="countdownScreen" class="screen" hidden>
+      <div class="countdown-wrap">
+        <div>
+          <div class="eyebrow">Match Found</div>
+          <h2>Prepare For Battle</h2>
+          <div id="countdownNumber">3</div>
+          <div id="countdownLabel">GET READY</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE BATTLE SCREEN -->
+    <section id="battleScreen" class="screen" hidden>
+
+      <div class="battle-topline">
+        <span id="battleStatus">LIVE BATTLE</span>
+        <span class="round-label">RANKED MATCH</span>
+      </div>
+
+      <div class="versus-area">
+
+        <div class="player-card me">
+          <div class="player-avatar">YOU</div>
+          <span class="player-tag">PLAYER 01</span>
+          <strong id="myName">You</strong>
+          <span id="myScore" class="player-score">0</span>
+        </div>
+
+        <div class="vs-mark">VS</div>
+
+        <div class="player-card opponent">
+          <div class="player-avatar">OP</div>
+          <span class="player-tag">PLAYER 02</span>
+          <strong id="opponentName">Opponent</strong>
+          <span id="opponentScore" class="player-score">0</span>
+        </div>
+
+      </div>
+
+      <div class="timer-panel">
+        <span>TIME REMAINING</span>
+        <span id="timer">20s</span>
+      </div>
 
       <div class="progress-track">
         <div id="progressBar"></div>
       </div>
-    </div>
 
-    <p id="questionNumber">Question 1</p>
+      <div class="question-panel">
+        <div id="questionNumber" class="question-meta">QUESTION 1 OF 20</div>
 
-    <h2 id="questionText">
-      Waiting for the battle questions...
-    </h2>
+        <h2 id="questionText">Your question will appear here.</h2>
+                <div id="answerOptions"></div>
 
-    <div id="answerOptions"></div>
+        <p id="answerMessage"></p>
 
-    <p id="answerMessage" class="notice" aria-live="polite">
-      Choose your answer.
-    </p>
-
-    <button id="nextQuestionBtn" type="button" hidden>
-      Next Question
-    </button>
-
-  </section>
-
-  <!-- RESULTS SCREEN -->
-  <section class="card" id="resultScreen" hidden>
-
-    <span class="status">BATTLE COMPLETED</span>
-
-    <h2 id="resultTitle">Battle Results</h2>
-
-    <p id="resultMessage">
-      Your final results will appear here.
-    </p>
-
-    <div class="players">
-
-      <div class="player">
-        <div class="player-name" id="resultMyName">You</div>
-        <div class="player-score" id="resultMyScore">0</div>
-        <div class="notice">Your final score</div>
+        <button id="nextQuestionBtn" class="btn btn-primary" type="button">
+          Next Question
+        </button>
       </div>
 
-      <div class="player">
-        <div class="player-name" id="resultOpponentName">
-          Opponent
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section id="resultScreen" class="screen" hidden>
+
+      <div class="result-wrap">
+        <div class="result-symbol">QB</div>
+
+        <div class="eyebrow">Battle Completed</div>
+        <h2 id="resultTitle">MATCH RESULT</h2>
+        <p id="resultMessage">Your battle result will appear here.</p>
+
+        <div class="result-scores">
+          <div class="result-score-card">
+            <strong id="resultMyName">You</strong>
+            <span id="resultMyScore">0</span>
+          </div>
+
+          <div class="result-score-card">
+            <strong id="resultOpponentName">Opponent</strong>
+            <span id="resultOpponentScore">0</span>
+          </div>
         </div>
-        <div class="player-score" id="resultOpponentScore">0</div>
-        <div class="notice">Opponent's score</div>
+
+        <div class="result-actions">
+          <button id="playAgainBtn" class="btn btn-primary" type="button">
+            Play Again
+          </button>
+
+          <button id="resultHomeBtn" class="btn btn-secondary" type="button">
+            Back to Lobby
+          </button>
+        </div>
       </div>
 
-    </div>
+    </section>
 
-    <button id="playAgainBtn" type="button">
-      Find Another Opponent
-    </button>
+    <footer class="footer">
+      UTME & WAEC 2027 ASPIRANTS HUB
+    </footer>
 
-    <button id="resultHomeBtn" class="secondary" type="button">
-      Back to Home
-    </button>
+  </main>
 
-  </section>
-
-  <!-- LIVE BATTLE FEED -->
-  <section class="card" id="feedCard">
-
-    <h2>Live Battle Feed</h2>
-
-    <p class="notice" id="feed">
-      Battle announcements will appear here.
-    </p>
-
-  </section>
-
-  <!-- BATTLE LEADERBOARD -->
-  <section class="card" id="leaderboardCard">
-
-    <h2>Battle Leaderboard</h2>
-
-    <p class="notice" id="leaderboard">
-      Completed battle scores will appear here when the
-      leaderboard is connected.
-    </p>
-
-  </section>
-
-</main>
-
-<footer>
-  UTME & WAEC 2027 ASPIRANTS HUB
-</footer>
-
-<script type="module" src="battle.js"></script>
-
+  <script type="module" src="battle.js"></script>
 </body>
-  </html>
+</html>
 
-  
+        
