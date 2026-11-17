@@ -24,8 +24,7 @@ const firebaseConfig = {
   storageBucket: "utme-waec-aspirants-hub.firebasestorage.app",
   messagingSenderId: "483058761546",
   appId: "1:483058761546:web:ec6eaa3109eca1c941cbb3",
-  databaseURL:
-    "https://utme-waec-aspirants-hub-default-rtdb.firebaseio.com/"
+  databaseURL: "https://utme-waec-aspirants-hub-default-rtdb.firebaseio.com/"
 };
 
 const app = getApps().length
@@ -40,8 +39,10 @@ const WORKER_URL =
 
 const $ = id => document.getElementById(id);
 
+// Lobby elements
 const message = $("message");
 const randomBtn = $("randomBtn");
+const randomNicknameBtn = $("randomNicknameBtn");
 const playersBtn = $("playersBtn");
 const homeBtn = $("homeBtn");
 const nicknameInput = $("nickname");
@@ -49,12 +50,14 @@ const saveNicknameBtn = $("saveNicknameBtn");
 const nicknameMessage = $("nicknameMessage");
 const readyBtn = $("readyBtn");
 
+// Screens
 const lobbyScreen = $("lobbyScreen");
 const countdownScreen = $("countdownScreen");
 const countdownNumber = $("countdownNumber");
 const battleScreen = $("battleScreen");
 const resultScreen = $("resultScreen");
 
+// Battle elements
 const myName = $("myName");
 const myScore = $("myScore");
 const opponentName = $("opponentName");
@@ -67,6 +70,7 @@ const answerOptions = $("answerOptions");
 const answerMessage = $("answerMessage");
 const nextQuestionBtn = $("nextQuestionBtn");
 
+// Result elements
 const resultTitle = $("resultTitle");
 const resultMessage = $("resultMessage");
 const resultMyName = $("resultMyName");
@@ -76,6 +80,7 @@ const resultOpponentScore = $("resultOpponentScore");
 const playAgainBtn = $("playAgainBtn");
 const resultHomeBtn = $("resultHomeBtn");
 
+// Battle state
 let currentBattleId = null;
 let currentNickname = "Student";
 let opponentNickname = "Opponent";
@@ -99,6 +104,10 @@ let battleStartPromise = null;
 let startedBattleId = null;
 let finishingBattle = false;
 let resultsScreenShown = false;
+
+// --------------------------------------------------
+// BASIC HELPERS
+// --------------------------------------------------
 
 function cleanNickname(value) {
   return value.trim().replace(/\s+/g, " ");
@@ -185,7 +194,10 @@ function resetBattleState() {
   battleStartPromise = null;
   finishingBattle = false;
   resultsScreenShown = false;
-}
+  }
+// --------------------------------------------------
+// MATCHMAKING
+// --------------------------------------------------
 
 async function checkForMatch() {
   if (!auth.currentUser || currentBattleId) return;
@@ -207,7 +219,6 @@ async function checkForMatch() {
       }
 
       setMessage(`Opponent found: ${opponentNickname}. Tap Ready!`);
-
       startBattleChecking();
     }
   } catch (error) {
@@ -250,7 +261,6 @@ async function checkBattleStatus() {
       if (readyBtn) readyBtn.disabled = true;
 
       setMessage("Both players are ready!");
-
       await startBattle();
       return;
     }
@@ -268,6 +278,40 @@ function startBattleChecking() {
   checkBattleStatus();
   battleTimer = setInterval(checkBattleStatus, 2000);
 }
+
+// --------------------------------------------------
+// COUNTDOWN
+// --------------------------------------------------
+
+function countdown() {
+  return new Promise(resolve => {
+    let count = 3;
+
+    if (countdownNumber) {
+      countdownNumber.textContent = String(count);
+    }
+
+    const interval = setInterval(() => {
+      count--;
+
+      if (count <= 0) {
+        clearInterval(interval);
+
+        if (countdownNumber) {
+          countdownNumber.textContent = "GO!";
+        }
+
+        setTimeout(resolve, 600);
+      } else if (countdownNumber) {
+        countdownNumber.textContent = String(count);
+      }
+    }, 1000);
+  });
+}
+
+// --------------------------------------------------
+// START BATTLE
+// --------------------------------------------------
 
 async function startBattle() {
   if (!currentBattleId || !auth.currentUser) return;
@@ -308,9 +352,7 @@ async function startBattle() {
       const loadedQuestions = response.questions || [];
 
       if (loadedQuestions.length !== 20) {
-        throw new Error(
-          "This battle needs exactly 20 questions."
-        );
+        throw new Error("This battle needs exactly 20 questions.");
       }
 
       if (currentBattleId !== battleId) return;
@@ -325,6 +367,7 @@ async function startBattle() {
       resultsScreenShown = false;
 
       if (myName) myName.textContent = currentNickname;
+
       if (opponentName) {
         opponentName.textContent = opponentNickname;
       }
@@ -342,13 +385,14 @@ async function startBattle() {
       showScreen(battleScreen);
       renderQuestion();
       startResultsPolling();
+
     } catch (error) {
       console.error("Start battle error:", error);
-
       setMessage(error.message || "Could not start the battle.");
 
       startedBattleId = null;
       showScreen(lobbyScreen);
+
     } finally {
       battleStartPromise = null;
     }
@@ -357,31 +401,9 @@ async function startBattle() {
   return battleStartPromise;
 }
 
-function countdown() {
-  return new Promise(resolve => {
-    let count = 3;
-
-    if (countdownNumber) {
-      countdownNumber.textContent = String(count);
-    }
-
-    const interval = setInterval(() => {
-      count--;
-
-      if (count <= 0) {
-        clearInterval(interval);
-
-        if (countdownNumber) {
-          countdownNumber.textContent = "GO!";
-        }
-
-        setTimeout(resolve, 600);
-      } else if (countdownNumber) {
-        countdownNumber.textContent = String(count);
-      }
-    }, 1000);
-  });
-}
+// --------------------------------------------------
+// DISPLAY QUESTIONS
+// --------------------------------------------------
 
 function renderQuestion() {
   stopTimer("question");
@@ -406,7 +428,9 @@ function renderQuestion() {
     questionText.textContent = question.question;
   }
 
-  if (timer) timer.textContent = `${questionSeconds}s`;
+  if (timer) {
+    timer.textContent = `${questionSeconds}s`;
+  }
 
   if (progressBar) {
     progressBar.style.width =
@@ -449,7 +473,10 @@ function renderQuestion() {
       }
     }
   }, 1000);
-}
+    }
+// --------------------------------------------------
+// SUBMIT ANSWER
+// --------------------------------------------------
 
 async function submitAnswer(answer, selectedButton) {
   if (answered || answerPending || finishingBattle) return;
@@ -508,6 +535,7 @@ async function submitAnswer(answer, selectedButton) {
       progressBar.style.width =
         `${((questionIndex + 1) / questions.length) * 100}%`;
     }
+
   } catch (error) {
     console.error("Answer submission error:", error);
 
@@ -518,8 +546,6 @@ async function submitAnswer(answer, selectedButton) {
         error.message || "Could not submit answer. Try again.";
     }
 
-    // A duplicate-answer response means the server already
-    // recorded this question. Do not permit another submission.
     if (
       error.message &&
       error.message.toLowerCase().includes("already answered")
@@ -539,11 +565,12 @@ async function submitAnswer(answer, selectedButton) {
       });
     }
 
-    // Allow another attempt after a temporary network failure.
     questionTimer = setInterval(() => {
       questionSeconds--;
 
-      if (timer) timer.textContent = `${questionSeconds}s`;
+      if (timer) {
+        timer.textContent = `${questionSeconds}s`;
+      }
 
       if (questionSeconds <= 0) {
         stopTimer("question");
@@ -563,9 +590,12 @@ function nextQuestion() {
   renderQuestion();
 }
 
+// --------------------------------------------------
+// UPDATE SCORES
+// --------------------------------------------------
+
 function startResultsPolling() {
   stopTimer("results");
-
   updateScores();
 
   resultPollTimer = setInterval(updateScores, 2500);
@@ -606,7 +636,6 @@ async function updateScores() {
       }
     }
 
-    // If both players finished, update the final result screen.
     if (
       result.sessionStatus === "completed" &&
       result.bothFinished &&
@@ -614,10 +643,15 @@ async function updateScores() {
     ) {
       displayFinalResult();
     }
+
   } catch (error) {
     console.error("Score refresh error:", error);
   }
 }
+
+// --------------------------------------------------
+// FINISH BATTLE
+// --------------------------------------------------
 
 async function finishBattle() {
   if (finishingBattle || resultsScreenShown) return;
@@ -670,25 +704,15 @@ async function finishBattle() {
         "Your score has been saved. Waiting for your opponent to finish.";
     }
 
-    if (resultMyName) {
-      resultMyName.textContent = currentNickname;
-    }
-
-    if (resultMyScore) {
-      resultMyScore.textContent = String(myScoreValue);
-    }
-
-    if (resultOpponentName) {
-      resultOpponentName.textContent = opponentNickname;
-    }
-
+    if (resultMyName) resultMyName.textContent = currentNickname;
+    if (resultMyScore) resultMyScore.textContent = String(myScoreValue);
+    if (resultOpponentName) resultOpponentName.textContent = opponentNickname;
     if (resultOpponentScore) {
       resultOpponentScore.textContent = String(opponentScoreValue);
     }
 
     resultsScreenShown = true;
 
-    // Continue checking until the server confirms completion.
     resultPollTimer = setInterval(async () => {
       try {
         const status = await workerRequest({
@@ -720,10 +744,12 @@ async function finishBattle() {
           resultMessage.textContent =
             "Your score is saved. Waiting for your opponent to finish.";
         }
+
       } catch (error) {
         console.error("Final result polling error:", error);
       }
     }, 2500);
+
   } catch (error) {
     console.error("Finish battle error:", error);
 
@@ -738,23 +764,19 @@ async function finishBattle() {
   }
 }
 
+// --------------------------------------------------
+// FINAL RESULT
+// --------------------------------------------------
+
 function displayFinalResult() {
   stopTimer("results");
   stopTimer("question");
 
   showScreen(resultScreen);
 
-  if (resultMyName) {
-    resultMyName.textContent = currentNickname;
-  }
-
-  if (resultMyScore) {
-    resultMyScore.textContent = String(myScoreValue);
-  }
-
-  if (resultOpponentName) {
-    resultOpponentName.textContent = opponentNickname;
-  }
+  if (resultMyName) resultMyName.textContent = currentNickname;
+  if (resultMyScore) resultMyScore.textContent = String(myScoreValue);
+  if (resultOpponentName) resultOpponentName.textContent = opponentNickname;
 
   if (resultOpponentScore) {
     resultOpponentScore.textContent = String(opponentScoreValue);
@@ -766,6 +788,7 @@ function displayFinalResult() {
     if (resultMessage) {
       resultMessage.textContent = "Great job! You won this battle.";
     }
+
   } else if (myScoreValue < opponentScoreValue) {
     if (resultTitle) resultTitle.textContent = "Battle complete";
 
@@ -773,6 +796,7 @@ function displayFinalResult() {
       resultMessage.textContent =
         "Good effort! Try again to improve your score.";
     }
+
   } else {
     if (resultTitle) resultTitle.textContent = "It's a draw!";
 
@@ -782,9 +806,11 @@ function displayFinalResult() {
     }
   }
 }
+
 // --------------------------------------------------
 // AUTHENTICATION AND ONLINE PRESENCE
 // --------------------------------------------------
+
 onAuthStateChanged(auth, async user => {
   stopTimer("match");
   stopTimer("battle");
@@ -802,6 +828,7 @@ onAuthStateChanged(auth, async user => {
     setMessage("Please sign in before entering Quiz Battle.");
 
     if (randomBtn) randomBtn.disabled = true;
+    if (randomNicknameBtn) randomNicknameBtn.disabled = true;
     if (playersBtn) playersBtn.disabled = true;
     if (saveNicknameBtn) saveNicknameBtn.disabled = true;
     if (nicknameInput) nicknameInput.disabled = true;
@@ -810,6 +837,7 @@ onAuthStateChanged(auth, async user => {
   }
 
   if (randomBtn) randomBtn.disabled = false;
+  if (randomNicknameBtn) randomNicknameBtn.disabled = false;
   if (playersBtn) playersBtn.disabled = false;
   if (saveNicknameBtn) saveNicknameBtn.disabled = false;
   if (nicknameInput) nicknameInput.disabled = false;
@@ -838,6 +866,7 @@ onAuthStateChanged(auth, async user => {
     });
 
     setMessage("You're online and ready for Quiz Battle!");
+
   } catch (error) {
     console.error("Presence error:", error);
     setMessage("Connection error. Please try again.");
@@ -847,6 +876,7 @@ onAuthStateChanged(auth, async user => {
 // --------------------------------------------------
 // SAVE NICKNAME
 // --------------------------------------------------
+
 if (saveNicknameBtn) {
   saveNicknameBtn.addEventListener("click", async () => {
     const user = auth.currentUser;
@@ -859,7 +889,6 @@ if (saveNicknameBtn) {
         nicknameMessage.textContent =
           "Nickname must be 3–16 characters long.";
       }
-
       return;
     }
 
@@ -877,11 +906,13 @@ if (saveNicknameBtn) {
       if (nicknameMessage) {
         nicknameMessage.textContent = "Nickname saved!";
       }
+
     } catch (error) {
       if (nicknameMessage) {
         nicknameMessage.textContent =
           error.message || "Could not save nickname.";
       }
+
     } finally {
       saveNicknameBtn.disabled = false;
     }
@@ -889,8 +920,37 @@ if (saveNicknameBtn) {
 }
 
 // --------------------------------------------------
+// RANDOM NICKNAME — PURPLE BUTTON
+// --------------------------------------------------
+
+if (randomNicknameBtn) {
+  randomNicknameBtn.addEventListener("click", () => {
+    const names = [
+      "Blaze", "Shadow", "Phoenix", "Storm",
+      "Ace", "Legend", "Raven", "Hunter",
+      "Nova", "Titan", "Viper", "Ghost",
+      "Falcon", "Frost", "Warrior", "Spark"
+    ];
+
+    const name = names[Math.floor(Math.random() * names.length)];
+    const number = Math.floor(100 + Math.random() * 900);
+    const nickname = name + number;
+
+    if (nicknameInput) {
+      nicknameInput.value = nickname;
+    }
+
+    if (nicknameMessage) {
+      nicknameMessage.textContent =
+        "Random nickname generated! Save it to use it.";
+    }
+  });
+}
+
+// --------------------------------------------------
 // VIEW ONLINE PLAYERS
 // --------------------------------------------------
+
 if (playersBtn) {
   playersBtn.addEventListener("click", async () => {
     if (!auth.currentUser) return;
@@ -913,8 +973,10 @@ if (playersBtn) {
           ? "Online players: " + onlinePlayers.join(", ")
           : "No other players are online yet."
       );
+
     } catch (error) {
       setMessage(error.message || "Could not load players.");
+
     } finally {
       playersBtn.disabled = false;
     }
@@ -922,8 +984,9 @@ if (playersBtn) {
 }
 
 // --------------------------------------------------
-// FIND OPPONENT
+// FIND OPPONENT — BLUE BUTTON
 // --------------------------------------------------
+
 if (randomBtn) {
   randomBtn.addEventListener("click", async () => {
     if (!auth.currentUser) {
@@ -967,14 +1030,18 @@ if (randomBtn) {
 
         setMessage(`Opponent found: ${opponentNickname}. Tap Ready!`);
         startBattleChecking();
+
       } else if (result.status === "waiting") {
         setMessage("You're in the queue! Looking for your match...");
         startMatchChecking();
+
       } else {
         setMessage(result.message || "Could not find a match.");
       }
+
     } catch (error) {
       setMessage(error.message || "Matchmaking failed.");
+
     } finally {
       randomBtn.disabled = false;
     }
@@ -984,6 +1051,7 @@ if (randomBtn) {
 // --------------------------------------------------
 // READY
 // --------------------------------------------------
+
 if (readyBtn) {
   readyBtn.addEventListener("click", async () => {
     if (!currentBattleId) {
@@ -1006,10 +1074,12 @@ if (readyBtn) {
         (result.playerOneReady && result.playerTwoReady)
       ) {
         await startBattle();
+
       } else {
         setMessage("You're Ready! Waiting for your opponent...");
         startBattleChecking();
       }
+
     } catch (error) {
       readyBtn.disabled = false;
       setMessage(error.message || "Could not mark Ready.");
@@ -1020,6 +1090,7 @@ if (readyBtn) {
 // --------------------------------------------------
 // QUESTION NAVIGATION
 // --------------------------------------------------
+
 if (nextQuestionBtn) {
   nextQuestionBtn.addEventListener("click", nextQuestion);
 }
@@ -1027,6 +1098,7 @@ if (nextQuestionBtn) {
 // --------------------------------------------------
 // HOME AND REPLAY
 // --------------------------------------------------
+
 if (homeBtn) {
   homeBtn.addEventListener("click", () => {
     window.location.href = "index.html";
