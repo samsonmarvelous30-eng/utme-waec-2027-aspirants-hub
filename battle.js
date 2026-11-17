@@ -39,7 +39,10 @@ const WORKER_URL =
 
 const $ = id => document.getElementById(id);
 
-// Lobby elements
+// --------------------------------------------------
+// LOBBY ELEMENTS
+// --------------------------------------------------
+
 const message = $("message");
 const randomBtn = $("randomBtn");
 const randomNicknameBtn = $("randomNicknameBtn");
@@ -50,14 +53,35 @@ const saveNicknameBtn = $("saveNicknameBtn");
 const nicknameMessage = $("nicknameMessage");
 const readyBtn = $("readyBtn");
 
-// Screens
+// --------------------------------------------------
+// RANK ELEMENTS
+// --------------------------------------------------
+
+const rankEmblem = $("rankEmblem");
+const playerRank = $("playerRank");
+const rankPoints = $("rankPoints");
+const rankProgressBar = $("rankProgressBar");
+const rankProgressLabel = $("rankProgressLabel");
+const nextRankLabel = $("nextRankLabel");
+
+const rankWins = $("rankWins");
+const rankLosses = $("rankLosses");
+const rankDraws = $("rankDraws");
+
+// --------------------------------------------------
+// SCREENS
+// --------------------------------------------------
+
 const lobbyScreen = $("lobbyScreen");
 const countdownScreen = $("countdownScreen");
 const countdownNumber = $("countdownNumber");
 const battleScreen = $("battleScreen");
 const resultScreen = $("resultScreen");
 
-// Battle elements
+// --------------------------------------------------
+// BATTLE ELEMENTS
+// --------------------------------------------------
+
 const myName = $("myName");
 const myScore = $("myScore");
 const opponentName = $("opponentName");
@@ -70,7 +94,10 @@ const answerOptions = $("answerOptions");
 const answerMessage = $("answerMessage");
 const nextQuestionBtn = $("nextQuestionBtn");
 
-// Result elements
+// --------------------------------------------------
+// RESULT ELEMENTS
+// --------------------------------------------------
+
 const resultTitle = $("resultTitle");
 const resultMessage = $("resultMessage");
 const resultMyName = $("resultMyName");
@@ -80,7 +107,10 @@ const resultOpponentScore = $("resultOpponentScore");
 const playAgainBtn = $("playAgainBtn");
 const resultHomeBtn = $("resultHomeBtn");
 
-// Battle state
+// --------------------------------------------------
+// BATTLE STATE
+// --------------------------------------------------
+
 let currentBattleId = null;
 let currentNickname = "Student";
 let opponentNickname = "Opponent";
@@ -105,6 +135,58 @@ let startedBattleId = null;
 let finishingBattle = false;
 let resultsScreenShown = false;
 
+// Rank state
+let playerRankData = null;
+let rankLoading = false;
+
+// --------------------------------------------------
+// RANK CONFIGURATION
+// --------------------------------------------------
+
+const RANKS = [
+  {
+    name: "Bronze",
+    min: 0,
+    max: 99,
+    next: 100
+  },
+  {
+    name: "Silver",
+    min: 100,
+    max: 249,
+    next: 250
+  },
+  {
+    name: "Gold",
+    min: 250,
+    max: 499,
+    next: 500
+  },
+  {
+    name: "Platinum",
+    min: 500,
+    max: 999,
+    next: 1000
+  },
+  {
+    name: "Diamond",
+    min: 1000,
+    max: 1999,
+    next: 2000
+  },
+  {
+    name: "Heroic",
+    min: 2000,
+    max: 3999,
+    next: 4000
+  },
+  {
+    name: "Grandmaster",
+    min: 4000,
+    max: null,
+    next: null
+  }
+];
 // --------------------------------------------------
 // BASIC HELPERS
 // --------------------------------------------------
@@ -150,6 +232,10 @@ function showScreen(screen) {
   });
 }
 
+// --------------------------------------------------
+// WORKER REQUEST
+// --------------------------------------------------
+
 async function workerRequest(data) {
   const user = auth.currentUser;
 
@@ -177,6 +263,127 @@ async function workerRequest(data) {
   return result;
 }
 
+// --------------------------------------------------
+// RANK DISPLAY
+// --------------------------------------------------
+
+function getRankDetails(points) {
+  const rank = RANKS.find(item =>
+    points >= item.min &&
+    (item.max === null || points <= item.max)
+  );
+
+  if (!rank) return RANKS[0];
+
+  return rank;
+}
+
+function renderRankProfile(stats) {
+  const points = Math.max(0, Number(stats.rank_points || 0));
+  const rank = getRankDetails(points);
+
+  playerRankData = stats;
+
+  if (rankEmblem) {
+    rankEmblem.textContent = rank.name;
+    rankEmblem.dataset.rank = rank.name.toLowerCase();
+  }
+
+  if (playerRank) {
+    playerRank.textContent = rank.name;
+  }
+
+  if (rankPoints) {
+    rankPoints.textContent = points.toLocaleString();
+  }
+
+  if (rankWins) {
+    rankWins.textContent = String(stats.wins || 0);
+  }
+
+  if (rankLosses) {
+    rankLosses.textContent = String(stats.losses || 0);
+  }
+
+  if (rankDraws) {
+    rankDraws.textContent = String(stats.draws || 0);
+  }
+
+  if (rankProgressBar) {
+    let progress = 100;
+
+    if (rank.next !== null) {
+      progress = (
+        (points - rank.min) /
+        (rank.next - rank.min)
+      ) * 100;
+    }
+
+    progress = Math.max(0, Math.min(100, progress));
+    rankProgressBar.style.width = `${progress}%`;
+  }
+
+  if (rankProgressLabel) {
+    if (rank.next === null) {
+      rankProgressLabel.textContent = "Maximum rank reached";
+    } else {
+      rankProgressLabel.textContent =
+        `${points.toLocaleString()} / ${rank.next.toLocaleString()} points`;
+    }
+  }
+
+  if (nextRankLabel) {
+    if (rank.next === null) {
+      nextRankLabel.textContent = "Grandmaster — Maximum rank";
+    } else {
+      const nextRank = RANKS.find(item => item.min === rank.next);
+      const remaining = Math.max(0, rank.next - points);
+
+      nextRankLabel.textContent =
+        `${remaining.toLocaleString()} points to ${nextRank.name}`;
+    }
+  }
+}
+
+// --------------------------------------------------
+// LOAD PLAYER RANK FROM SUPABASE
+// --------------------------------------------------
+
+async function loadPlayerRank() {
+  if (!auth.currentUser || rankLoading) return;
+
+  rankLoading = true;
+
+  try {
+    const result = await workerRequest({
+      action: "get_player_stats"
+    });
+
+    const stats = result.stats || result.player || result;
+
+    renderRankProfile(stats);
+
+  } catch (error) {
+    console.error("Rank loading error:", error);
+
+    if (!playerRankData) {
+      renderRankProfile({
+        rank_points: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0
+      });
+    }
+
+  } finally {
+    rankLoading = false;
+  }
+}
+
+// --------------------------------------------------
+// RESET BATTLE STATE
+// --------------------------------------------------
+
 function resetBattleState() {
   stopTimer("question");
   stopTimer("results");
@@ -194,7 +401,8 @@ function resetBattleState() {
   battleStartPromise = null;
   finishingBattle = false;
   resultsScreenShown = false;
-  }
+}
+
 // --------------------------------------------------
 // MATCHMAKING
 // --------------------------------------------------
@@ -221,6 +429,7 @@ async function checkForMatch() {
       setMessage(`Opponent found: ${opponentNickname}. Tap Ready!`);
       startBattleChecking();
     }
+
   } catch (error) {
     console.error("Match check error:", error);
   }
@@ -268,6 +477,7 @@ async function checkBattleStatus() {
     if (myReadyStatus) {
       setMessage("Ready! Waiting for your opponent...");
     }
+
   } catch (error) {
     console.error("Battle status error:", error);
   }
@@ -277,8 +487,7 @@ function startBattleChecking() {
   stopTimer("battle");
   checkBattleStatus();
   battleTimer = setInterval(checkBattleStatus, 2000);
-}
-
+                  }
 // --------------------------------------------------
 // COUNTDOWN
 // --------------------------------------------------
@@ -302,9 +511,11 @@ function countdown() {
         }
 
         setTimeout(resolve, 600);
+
       } else if (countdownNumber) {
         countdownNumber.textContent = String(count);
       }
+
     }, 1000);
   });
 }
@@ -396,6 +607,7 @@ async function startBattle() {
     } finally {
       battleStartPromise = null;
     }
+
   })();
 
   return battleStartPromise;
@@ -472,8 +684,10 @@ function renderQuestion() {
         submitAnswer("TIMEOUT", null);
       }
     }
+
   }, 1000);
-    }
+}
+
 // --------------------------------------------------
 // SUBMIT ANSWER
 // --------------------------------------------------
@@ -579,6 +793,7 @@ async function submitAnswer(answer, selectedButton) {
           submitAnswer("TIMEOUT", null);
         }
       }
+
     }, 1000);
   }
 }
@@ -588,8 +803,7 @@ function nextQuestion() {
 
   questionIndex++;
   renderQuestion();
-}
-
+  }
 // --------------------------------------------------
 // UPDATE SCORES
 // --------------------------------------------------
@@ -690,6 +904,10 @@ async function finishBattle() {
     if (result.status === "completed") {
       resultsScreenShown = true;
       displayFinalResult();
+
+      // Refresh rank after battle settlement.
+      loadPlayerRank();
+
       return;
     }
 
@@ -707,6 +925,7 @@ async function finishBattle() {
     if (resultMyName) resultMyName.textContent = currentNickname;
     if (resultMyScore) resultMyScore.textContent = String(myScoreValue);
     if (resultOpponentName) resultOpponentName.textContent = opponentNickname;
+
     if (resultOpponentScore) {
       resultOpponentScore.textContent = String(opponentScoreValue);
     }
@@ -737,9 +956,16 @@ async function finishBattle() {
           opponentNickname = opponentNow.nickname || opponentNickname;
         }
 
-        if (status.sessionStatus === "completed" && status.bothFinished) {
+        if (
+          status.sessionStatus === "completed" &&
+          status.bothFinished
+        ) {
           stopTimer("results");
           displayFinalResult();
+
+          // Refresh after both players finish.
+          loadPlayerRank();
+
         } else if (resultMessage) {
           resultMessage.textContent =
             "Your score is saved. Waiting for your opponent to finish.";
@@ -748,6 +974,7 @@ async function finishBattle() {
       } catch (error) {
         console.error("Final result polling error:", error);
       }
+
     }, 2500);
 
   } catch (error) {
@@ -805,8 +1032,7 @@ function displayFinalResult() {
         "You both finished with the same score.";
     }
   }
-}
-
+        }
 // --------------------------------------------------
 // AUTHENTICATION AND ONLINE PRESENCE
 // --------------------------------------------------
@@ -818,6 +1044,7 @@ onAuthStateChanged(auth, async user => {
   resetBattleState();
 
   myUid = user?.uid || null;
+  playerRankData = null;
 
   if (readyBtn) {
     readyBtn.hidden = true;
@@ -832,6 +1059,13 @@ onAuthStateChanged(auth, async user => {
     if (playersBtn) playersBtn.disabled = true;
     if (saveNicknameBtn) saveNicknameBtn.disabled = true;
     if (nicknameInput) nicknameInput.disabled = true;
+
+    renderRankProfile({
+      rank_points: 0,
+      wins: 0,
+      losses: 0,
+      draws: 0
+    });
 
     return;
   }
@@ -866,6 +1100,9 @@ onAuthStateChanged(auth, async user => {
     });
 
     setMessage("You're online and ready for Quiz Battle!");
+
+    // Load the player's saved rank.
+    await loadPlayerRank();
 
   } catch (error) {
     console.error("Presence error:", error);
@@ -920,7 +1157,7 @@ if (saveNicknameBtn) {
 }
 
 // --------------------------------------------------
-// RANDOM NICKNAME — PURPLE BUTTON
+// RANDOM NICKNAME
 // --------------------------------------------------
 
 if (randomNicknameBtn) {
@@ -984,7 +1221,7 @@ if (playersBtn) {
 }
 
 // --------------------------------------------------
-// FIND OPPONENT — BLUE BUTTON
+// FIND OPPONENT
 // --------------------------------------------------
 
 if (randomBtn) {
@@ -1116,5 +1353,9 @@ if (playAgainBtn) {
     window.location.reload();
   });
 }
+
+// --------------------------------------------------
+// INITIAL SCREEN
+// --------------------------------------------------
 
 showScreen(lobbyScreen);
